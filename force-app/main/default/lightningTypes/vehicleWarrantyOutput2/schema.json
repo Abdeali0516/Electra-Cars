@@ -1,0 +1,5 @@
+{
+  "description" : "Displays vehicle warranty eligibility and active warranty types for Agentforce",
+  "lightning:type" : "@apexClassType/c__VehicleWarrantyAction$VehicleWarrantyProfile",
+  "title" : "Vehicle Warranty Profile"
+}

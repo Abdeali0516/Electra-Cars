@@ -1,0 +1,5 @@
+{
+  "title" : "Toyota Warranty Claim Output",
+  "description" : "Output schema for Toyota True Warranty claim result rendered in Agentforce chat",
+  "lightning:type" : "@apexClassType/c__WarrantyClaimResponse"
+}

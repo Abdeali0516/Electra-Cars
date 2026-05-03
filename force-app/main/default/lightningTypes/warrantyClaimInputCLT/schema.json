@@ -1,0 +1,5 @@
+{
+  "description" : "Input schema for Toyota True Warranty claim form rendered in Agentforce chat",
+  "lightning:type" : "@apexClassType/c__WarrantyClaimRequest",
+  "title" : "Toyota Warranty Claim Input"
+}

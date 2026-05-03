@@ -1,0 +1,5 @@
+{
+  "title" : "How Are They Today",
+  "description" : "Captures mood and notes about how the account contact is doing today",
+  "lightning:type" : "@apexClassType/c__SaveAccountFeedback$FeedbackInput"
+}
