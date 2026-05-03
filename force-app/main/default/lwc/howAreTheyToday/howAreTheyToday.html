@@ -1,0 +1,67 @@
+<template>
+    <div class="hatt-container">
+
+        <div class="hatt-header">
+            <lightning-icon icon-name="utility:sentiment_positive" size="small"></lightning-icon>
+            <span class="hatt-title">How Are They Today?</span>
+        </div>
+
+        <div class="hatt-body">
+            <p class="hatt-hint">Share a brief note on how the contact or account is doing today.</p>
+
+            <!-- Mood selector -->
+            <div class="mood-row">
+                <span class="field-label">Overall Mood</span>
+                <div class="mood-options">
+                    <template for:each={moodOptions} for:item="m">
+                        <button
+                            key={m.value}
+                            class={m.cssClass}
+                            data-value={m.value}
+                            onclick={handleMoodSelect}
+                            disabled={readOnly}>
+                            {m.emoji} {m.label}
+                        </button>
+                    </template>
+                </div>
+            </div>
+
+            <!-- Free text -->
+            <div class="text-row">
+                <span class="field-label">Details</span>
+                <textarea
+                    class="hatt-textarea"
+                    placeholder="e.g. Client seemed positive about the renewal, mentioned budget concerns..."
+                    value={feedbackText}
+                    onchange={handleTextChange}
+                    readonly={readOnly}
+                    rows="5">
+                </textarea>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <template lwc:if={isEditable}>
+            <div class="hatt-footer">
+                <lightning-button
+                    variant="brand"
+                    label="Submit"
+                    icon-name="utility:check"
+                    onclick={handleSubmit}
+                    disabled={isSubmitDisabled}>
+                </lightning-button>
+                <template lwc:if={submitError}>
+                    <span class="error-msg">{submitError}</span>
+                </template>
+            </div>
+        </template>
+
+        <template lwc:if={submitted}>
+            <div class="success-bar">
+                <lightning-icon icon-name="utility:success" size="small"></lightning-icon>
+                <span>Feedback submitted!</span>
+            </div>
+        </template>
+
+    </div>
+</template>

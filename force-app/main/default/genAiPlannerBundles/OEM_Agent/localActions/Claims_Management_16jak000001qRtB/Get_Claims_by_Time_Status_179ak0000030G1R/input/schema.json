@@ -1,0 +1,29 @@
+{
+  "required" : [ "statusFilter", "timeFilter" ],
+  "unevaluatedProperties" : false,
+  "properties" : {
+    "limitSize" : {
+      "title" : "limitSize",
+      "description" : "Maximum number of claims to return. If not provided, the default value of 10 will be used. The maximum allowed value is 50.",
+      "lightning:type" : "lightning__integerType",
+      "lightning:isPII" : false,
+      "copilotAction:isUserInput" : false
+    },
+    "statusFilter" : {
+      "title" : "statusFilter",
+      "description" : "Filter claims by status. Supported values are:\n- pending (includes Draft and Under Review)\n- approved\n- rejected\n\nIf not provided, default to pending.",
+      "lightning:type" : "lightning__textType",
+      "lightning:isPII" : false,
+      "copilotAction:isUserInput" : true
+    },
+    "timeFilter" : {
+      "title" : "timeFilter",
+      "description" : "Specify the time range for claims. Supported values are:\n- today\n- yesterday\n- thisMonth\n- lastMonth\n\nThis field is required to determine which claims to retrieve.",
+      "lightning:type" : "lightning__textType",
+      "lightning:isPII" : false,
+      "copilotAction:isUserInput" : false
+    }
+  },
+  "lightning:type" : "lightning__objectType",
+  "lightning:textIndexed" : true
+}

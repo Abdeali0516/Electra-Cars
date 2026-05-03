@@ -1,0 +1,16 @@
+{
+  "unevaluatedProperties" : false,
+  "properties" : {
+    "searchResults" : {
+      "title" : "Slack Search Results",
+      "description" : "The Slack search results, formatted as a JSON string.",
+      "lightning:type" : "lightning__textType",
+      "einstein:description" : "Slack search results as JSON string",
+      "lightning:isPII" : false,
+      "copilotAction:isDisplayable" : false,
+      "copilotAction:isUsedByPlanner" : true
+    }
+  },
+  "lightning:type" : "lightning__objectType",
+  "lightning:textIndexed" : true
+}

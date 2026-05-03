@@ -1,0 +1,26 @@
+{
+  "required" : [ "expenseCategoriesIDs", "namedCredential" ],
+  "unevaluatedProperties" : false,
+  "properties" : {
+    "expenseCategoryIds" : {
+      "title" : "expenseCategoryIds",
+      "description" : "A list of expense category IDs, provided by the admin during the initial flow configuration.",
+      "maxItems" : 2000,
+      "items" : {
+        "lightning:type" : "lightning__textType"
+      },
+      "lightning:type" : "lightning__listType",
+      "lightning:isPII" : false,
+      "copilotAction:isUserInput" : false
+    },
+    "namedCredential" : {
+      "title" : "namedCredential",
+      "description" : "The named credentials of the MuleSoft application that's used to get expense item ids.",
+      "lightning:type" : "lightning__textType",
+      "lightning:isPII" : false,
+      "copilotAction:isUserInput" : false
+    }
+  },
+  "lightning:type" : "lightning__objectType",
+  "lightning:textIndexed" : true
+}

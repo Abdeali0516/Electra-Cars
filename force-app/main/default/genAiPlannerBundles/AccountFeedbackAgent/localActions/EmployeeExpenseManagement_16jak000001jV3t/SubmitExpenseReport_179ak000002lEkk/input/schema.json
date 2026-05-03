@@ -1,0 +1,47 @@
+{
+  "required" : [ "CostCentre", "ExpenseDetailsList", "ReportDate", "ReportName", "serviceDefinitionId" ],
+  "unevaluatedProperties" : false,
+  "properties" : {
+    "CostCentre" : {
+      "title" : "CostCentre",
+      "description" : "Cost Centre for the expense report.\n",
+      "lightning:type" : "lightning__textType",
+      "lightning:isPII" : false,
+      "copilotAction:isUserInput" : true
+    },
+    "ExpenseDetailsList" : {
+      "title" : "ExpenseDetailsList",
+      "description" : "List of expenses where each expense is represented by a sfdc_employee_service__GenerateExpenseDetails apex object and expense properties like PerUnitAmount, ItemId, etc are set as the attributes of the apex object.\n",
+      "maxItems" : 2000,
+      "items" : {
+        "lightning:type" : "@apexClassType/sfdc_employee_service__GenerateExpenseDetails?isAuraEnabled=true"
+      },
+      "lightning:type" : "lightning__listType",
+      "lightning:isPII" : false,
+      "copilotAction:isUserInput" : true
+    },
+    "ReportDate" : {
+      "title" : "ReportDate",
+      "description" : "The date of the expense report.\n",
+      "lightning:type" : "lightning__textType",
+      "lightning:isPII" : false,
+      "copilotAction:isUserInput" : true
+    },
+    "ReportName" : {
+      "title" : "ReportName",
+      "description" : "Name for the expense report.\n",
+      "lightning:type" : "lightning__textType",
+      "lightning:isPII" : false,
+      "copilotAction:isUserInput" : true
+    },
+    "serviceDefinitionId" : {
+      "title" : "serviceDefinitionId",
+      "description" : "Service Id of for the request.",
+      "lightning:type" : "lightning__textType",
+      "lightning:isPII" : false,
+      "copilotAction:isUserInput" : false
+    }
+  },
+  "lightning:type" : "lightning__objectType",
+  "lightning:textIndexed" : true
+}

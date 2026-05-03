@@ -1,0 +1,25 @@
+{
+  "unevaluatedProperties" : false,
+  "properties" : {
+    "GetExpenseItemsAPIResponse" : {
+      "title" : "GetExpenseItemsAPIResponse",
+      "description" : "It stores response of the get expense items action.",
+      "lightning:type" : "@apexClassType/sfdc_employee_service__GetExpenseItems",
+      "lightning:isPII" : false,
+      "copilotAction:isDisplayable" : false,
+      "copilotAction:isUsedByPlanner" : true,
+      "copilotAction:useHydratedPrompt" : false
+    },
+    "Status" : {
+      "title" : "Status",
+      "description" : "Stores the status for the Mulesoft Api Call",
+      "lightning:type" : "lightning__textType",
+      "lightning:isPII" : false,
+      "copilotAction:isDisplayable" : false,
+      "copilotAction:isUsedByPlanner" : true,
+      "copilotAction:useHydratedPrompt" : false
+    }
+  },
+  "lightning:type" : "lightning__objectType",
+  "lightning:textIndexed" : true
+}

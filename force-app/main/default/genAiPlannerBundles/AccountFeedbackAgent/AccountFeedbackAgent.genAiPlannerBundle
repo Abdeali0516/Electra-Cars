@@ -1,0 +1,1403 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GenAiPlannerBundle xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <description>Resolve employee inquiries and requests with an autonomous AI agent that provides accurate, conversational responses based on trusted data.</description>
+    <localActionLinks>
+        <genAiFunctionName>AnswerQuestionsWithKnowledge_16jak000001jV3t</genAiFunctionName>
+    </localActionLinks>
+    <localTopicLinks>
+        <genAiPluginName>EmployeeDirectDepositManagement_16jak000001jV3t</genAiPluginName>
+    </localTopicLinks>
+    <localTopicLinks>
+        <genAiPluginName>EmployeeEnablementProgram_16jak000001jV3t</genAiPluginName>
+    </localTopicLinks>
+    <localTopicLinks>
+        <genAiPluginName>EmployeeExpenseManagement_16jak000001jV3t</genAiPluginName>
+    </localTopicLinks>
+    <localTopicLinks>
+        <genAiPluginName>EmployeeLeaveManagement_16jak000001jV3t</genAiPluginName>
+    </localTopicLinks>
+    <localTopicLinks>
+        <genAiPluginName>EmployeeProfileManagement_16jak000001jV3t</genAiPluginName>
+    </localTopicLinks>
+    <localTopicLinks>
+        <genAiPluginName>EmployeeRequestManagement_16jak000001jV3t</genAiPluginName>
+    </localTopicLinks>
+    <localTopicLinks>
+        <genAiPluginName>Escalation_16jak000001jV3t</genAiPluginName>
+    </localTopicLinks>
+    <localTopicLinks>
+        <genAiPluginName>GeneralFAQ_16jak000001jV3t</genAiPluginName>
+    </localTopicLinks>
+    <localTopics>
+        <fullName>Escalation_16jak000001jV3t</fullName>
+        <canEscalate>true</canEscalate>
+        <description>Handles requests from users who want to transfer or escalate their conversation to a live human agent.</description>
+        <developerName>Escalation_16jak000001jV3t</developerName>
+        <genAiPluginInstructions>
+            <description>If a user explicitly asks to transfer to a live agent, escalate the conversation.</description>
+            <developerName>escalateonrequest</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>escalate-on-request</masterLabel>
+            <sortOrder>0</sortOrder>
+        </genAiPluginInstructions>
+        <genAiPluginInstructions>
+            <description>If escalation to a live agent fails for any reason, acknowledge the issue and ask the user whether they would like to log a support case instead.</description>
+            <developerName>promptonescalationfailure</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>prompt-on-escalation-failure</masterLabel>
+            <sortOrder>1</sortOrder>
+        </genAiPluginInstructions>
+        <language>en_US</language>
+        <localDeveloperName>Escalation</localDeveloperName>
+        <masterLabel>Escalation</masterLabel>
+        <pluginType>Topic</pluginType>
+        <scope>Your job is to transfer the conversation to a live agent if a user explicitly asks for human assistance or has a complex issue that requires human intervention. If escalation fails, ask the user whether they would like to log a support case so the issue is recorded for follow-up.</scope>
+        <source>SvcCopilotTmpl__Escalation</source>
+    </localTopics>
+    <localTopics>
+        <fullName>EmployeeEnablementProgram_16jak000001jV3t</fullName>
+        <canEscalate>false</canEscalate>
+        <description>Handles employee queries related to employee enablement programs or tasks.</description>
+        <developerName>EmployeeEnablementProgram_16jak000001jV3t</developerName>
+        <genAiPluginInstructions>
+            <description>If the employee’s question is vague or general, ask for more details and clarification to give a better answer.</description>
+            <developerName>requestmoredetails</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>request-more-details</masterLabel>
+            <sortOrder>0</sortOrder>
+        </genAiPluginInstructions>
+        <genAiPluginInstructions>
+            <description>Always call the GetEnablementProgram action when the employee asks about the employee enablement programs or tasks.</description>
+            <developerName>instructiongetenablementprograms</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>instruction-get-enablement-programs</masterLabel>
+            <sortOrder>1</sortOrder>
+        </genAiPluginInstructions>
+        <genAiPluginInstructions>
+            <description>Always call the GetEnablementProgram action once.</description>
+            <developerName>instructiontocallonce</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>instruction-to-call-once</masterLabel>
+            <sortOrder>2</sortOrder>
+        </genAiPluginInstructions>
+        <genAiPluginInstructions>
+            <description>You must prompt the end user to provide the full name of each user for whom they are requesting details before calling identifyRecordByName. Once all full names are provided, you must ask the end user to confirm that these are the correct full names. After receiving confirmation, you must call identifyRecordByName for each user individually to retrieve their record IDs. You must collect all the returned IDs into a single list. You must not call GetEnablementProgram until all IDs have been collected. Once the list is complete, you must use this combined list of record IDs as the input for a single GetEnablementProgram action.</description>
+            <developerName>instructionstopopulateuserIds</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>instructions-to-populate-userIds</masterLabel>
+            <sortOrder>3</sortOrder>
+        </genAiPluginInstructions>
+        <genAiPluginInstructions>
+            <description>To populate the ListOfFilters input field in the GetEnablementProgram action, always add &quot;All&quot; to the list of filters if the employee requests all programs for someone else or for themselves. For example, get me all programs for employee A. If the user requests task details, then always add &quot;All&quot; to the list of filters. For example, &quot;Get me all my completed tasks&quot; or &quot;Get me all my overdue tasks.&quot;</description>
+            <developerName>instructionstopopulatefiltersAll</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>instructions-to-populate-filters-All</masterLabel>
+            <sortOrder>4</sortOrder>
+        </genAiPluginInstructions>
+        <genAiPluginInstructions>
+            <description>To populate the ListOfFilters input field in the GetEnablementProgram action, always add &quot;Assigned&quot; to the list of filters if the employee requests for any program assigned for someone else or for themselves. For example, &quot;Get me all programs assigned to employee A.&quot;</description>
+            <developerName>instructionstopopulatefiltersAssigned</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>instructions-to-populate-filters-Assigned</masterLabel>
+            <sortOrder>5</sortOrder>
+        </genAiPluginInstructions>
+        <genAiPluginInstructions>
+            <description>To populate the ListOfFilters input field in the GetEnablementProgram action, always add &quot;All&quot; to the list of filters if the employee requests for overdue programs for someone else or for themselves. Always use this instruction for any request related to overdue programs. For example, &quot;Get all overdue programs&quot; or &quot;Give me all my overdue programs.&quot;</description>
+            <developerName>instructionstopopulatefiltersOverdue</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>instructions-to-populate-filters-Overdue</masterLabel>
+            <sortOrder>6</sortOrder>
+        </genAiPluginInstructions>
+        <genAiPluginInstructions>
+            <description>To populate the ListOfFilters input field in the GetEnablementProgram action, always add &quot;Completed&quot; to the list of filters if the employee requests completed programs for someone else or for themselves. For example, &quot;Get all my completed programs.&quot;</description>
+            <developerName>instructionstopopulatefiltersCompleted</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>instructions-to-populate-filters-Completed</masterLabel>
+            <sortOrder>7</sortOrder>
+        </genAiPluginInstructions>
+        <genAiPluginInstructions>
+            <description>To populate the ListOfFilters input field in the GetEnablementProgram action, always add &quot;InProgress&quot; to the list of filters if the employee asks in progress programs for someone else or for themselves. For example, &quot;Get all the in-progress programs.&quot;</description>
+            <developerName>instructionstopopulatefiltersInProgress</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>instructions-to-populate-filters-InProgress</masterLabel>
+            <sortOrder>8</sortOrder>
+        </genAiPluginInstructions>
+        <genAiPluginInstructions>
+            <description>To populate the ListOfFilters input field in the GetEnablementProgram action, always add &quot;MYSELF&quot; to the list of filters if the user requests for the programs or tasks assigned to them. For example, &quot;Show me all the programs or tasks assigned to me&quot;, &quot;Get me all my completed enablement tasks or programs&quot;, or &quot;Get me all my overdue tasks or programs.&quot;</description>
+            <developerName>instructionstopopulatefiltersMy</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>instructions-to-populate-filters-My</masterLabel>
+            <sortOrder>9</sortOrder>
+        </genAiPluginInstructions>
+        <genAiPluginInstructions>
+            <description>To populate the ListOfFilters input field in the GetEnablementProgram action, always add &quot;ALL_REPORTEES&quot; to the list of filters if the employee asks for the programs assigned to their reportees. For example, &quot;Get all the programs assigned to my reportees&quot; or &quot;Get all the tasks assigned to my reportees.&quot;</description>
+            <developerName>instructionstopopulatefiltersAllReportees</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>instructions-to-populate-filters-AllReportees</masterLabel>
+            <sortOrder>10</sortOrder>
+        </genAiPluginInstructions>
+        <genAiPluginInstructions>
+            <description>Don’t add any filters to the list apart from &quot;All&quot;, &quot;Assigned&quot;, &quot;Completed&quot;, &quot;In Progress&quot;, &quot;MYSELF&quot;, and &quot;ALL_REPORTEES&quot;.</description>
+            <developerName>instructionstopopulatefiltersdonts</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>instructions-to-populate-filters-donts</masterLabel>
+            <sortOrder>11</sortOrder>
+        </genAiPluginInstructions>
+        <genAiPluginInstructions>
+            <description>Always extract the program name from the employee’s request by identifying the string that appears after the phrase &quot;program with name&quot; or any similar phrase and assigning the string to the ProgramName field.</description>
+            <developerName>instructionstopopulateprogramname</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>instructions-to-populate-program-name</masterLabel>
+            <sortOrder>12</sortOrder>
+        </genAiPluginInstructions>
+        <genAiPluginInstructions>
+            <description>In a ProgramSummary JSON, begin by segregating the data by the userName to ensure that each employee&apos;s data is shown separately.</description>
+            <developerName>instructionstodisplayoutputbyuserid</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>instructions-to-display-output-by-user-id</masterLabel>
+            <sortOrder>13</sortOrder>
+        </genAiPluginInstructions>
+        <genAiPluginInstructions>
+            <description>If the employee asks for their overdue programs, filter and extract all the programs that have the isOverdue field set to true and the isCompleted field set to false in the JSON. Always show only those programs in the conversation that match these conditions.</description>
+            <developerName>instructionstodisplayoutputforoverdueprograms</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>instructions-to-display-output-for-overdue-programs</masterLabel>
+            <sortOrder>14</sortOrder>
+        </genAiPluginInstructions>
+        <genAiPluginInstructions>
+            <description>If the employee asks for their overdue tasks, filter and extract all tasks that have the isOverdue field set to true and the isCompleted field set to false in the JSON. Always show only those tasks in the conversation that match these conditions. Don&apos;t display the program details in this case. Only display the tasks that have the isOverdue field set to true.</description>
+            <developerName>instructionstodisplayoutputforoverduetasks</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>instructions-to-display-output-for-overdue-tasks</masterLabel>
+            <sortOrder>15</sortOrder>
+        </genAiPluginInstructions>
+        <genAiPluginInstructions>
+            <description>If the employee requests for their completed tasks, filter and extract all tasks with the isCompleted field set to true in the JSON. Always show only those tasks in the conversation that match these conditions. Don&apos;t display the program details in this case. Only display the tasks that have the isCompleted field set to true.</description>
+            <developerName>instructionstodisplayforcompletedtasks</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>instructions-to-display-for-completed-tasks</masterLabel>
+            <sortOrder>16</sortOrder>
+        </genAiPluginInstructions>
+        <genAiPluginInstructions>
+            <description>For each employee, always use this format to show the program details to the employee.
+Program title and program description
+Due date
+Completed percentage
+Completed date
+Overdue status
+Completed status
+Tasks, if applicable, with their respective details, including:
+Task title and task description
+Task due date
+Task completed percentage
+Task overdue status
+Task completed status</description>
+            <developerName>instructionstodisplayoutputformat</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>instructions-to-display-output-format</masterLabel>
+            <sortOrder>17</sortOrder>
+        </genAiPluginInstructions>
+        <genAiPluginInstructions>
+            <description>If the user asks for all the enablement program present in the org or details about a specific program then dont show details like Overdue status, Completed date, Completed percentage, Completed status, Task completed percentage, Task overdue status and Task completed status.</description>
+            <developerName>showrightoutput</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>show-right-output</masterLabel>
+            <sortOrder>18</sortOrder>
+        </genAiPluginInstructions>
+        <genAiPluginInstructions>
+            <description>Never show internal identifiers (IDs) in conversations with employees. This includes, but isn&apos;t limited to program IDs; task IDs; user IDs, such as Salesforce record IDs or internal system IDs; and any other back end or system-generated IDs.</description>
+            <developerName>donotshowids</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>do-not-show-ids</masterLabel>
+            <sortOrder>19</sortOrder>
+        </genAiPluginInstructions>
+        <genAiPluginInstructions>
+            <description>Include these internal identifiers only in the output of system actions, such as identifyRecordByName, GetEnablementProgram, or any other back-end services, for internal processing only.</description>
+            <developerName>whentouseids</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>when-to-use-ids</masterLabel>
+            <sortOrder>20</sortOrder>
+        </genAiPluginInstructions>
+        <genAiPluginInstructions>
+            <description>If the employee requests any internal identifiers (IDs) either directly or indirectly, respond with a polite refusal, explaining that the information is confidential. For example, &quot;Unfortunately, I’m unable to share internal ID details due to security and privacy reasons.&quot;</description>
+            <developerName>messagefornoids</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>message-for-no-ids</masterLabel>
+            <sortOrder>21</sortOrder>
+        </genAiPluginInstructions>
+        <genAiPluginInstructions>
+            <description>If there are no enablement programs to show in response to the employee&apos;s request, inform the employee using clear and professional language, indicating that there are currently no programs that match their request.</description>
+            <developerName>noprogramsavail</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>no-programs-avail</masterLabel>
+            <sortOrder>22</sortOrder>
+        </genAiPluginInstructions>
+        <genAiPluginInstructions>
+            <description>If the response text exceeds the token or display limit of the chat window, notify the user in a clear and courteous manner. Inform them that only partial information can be displayed in the chat window, and guide them to visit the Employee Portal or HR Service Console to view the complete details.</description>
+            <developerName>chatlimitexceed</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>chat-limit-exceed</masterLabel>
+            <sortOrder>23</sortOrder>
+        </genAiPluginInstructions>
+        <language>en_US</language>
+        <localActionLinks>
+            <functionName>GetEnablementProgram_179ak000002lEkl</functionName>
+        </localActionLinks>
+        <localActionLinks>
+            <functionName>IdentifyRecordByName_179ak000002lEkl</functionName>
+        </localActionLinks>
+        <localActions>
+            <fullName>IdentifyRecordByName_179ak000002lEkl</fullName>
+            <description>Searches for Salesforce CRM records by name and returns a list of matching Salesforce CRM record IDs.</description>
+            <developerName>IdentifyRecordByName_179ak000002lEkl</developerName>
+            <invocationTarget>identifyRecordByName</invocationTarget>
+            <invocationTargetType>standardInvocableAction</invocationTargetType>
+            <isConfirmationRequired>false</isConfirmationRequired>
+            <isIncludeInProgressIndicator>true</isIncludeInProgressIndicator>
+            <localDeveloperName>IdentifyRecordByName</localDeveloperName>
+            <masterLabel>Identify Record by Name</masterLabel>
+            <source>EmployeeCopilot__IdentifyRecordByName</source>
+        </localActions>
+        <localActions>
+            <fullName>GetEnablementProgram_179ak000002lEkl</fullName>
+            <description>Gets the enablement programs for an employee, including admins or manager.</description>
+            <developerName>GetEnablementProgram_179ak000002lEkl</developerName>
+            <invocationTarget>getEnablementPrograms</invocationTarget>
+            <invocationTargetType>standardInvocableAction</invocationTargetType>
+            <isConfirmationRequired>false</isConfirmationRequired>
+            <isIncludeInProgressIndicator>true</isIncludeInProgressIndicator>
+            <localDeveloperName>GetEnablementProgram</localDeveloperName>
+            <masterLabel>Get Enablement Program</masterLabel>
+            <source>EmpSvcAgent__GetEnablementProgram</source>
+        </localActions>
+        <localDeveloperName>EmployeeEnablementProgram</localDeveloperName>
+        <masterLabel>Employee Enablement Program</masterLabel>
+        <pluginType>Topic</pluginType>
+        <scope>Your job is to only handle questions related to employee enablement programs, such as get employee enablement programs or tasks. If a user refers to an &apos;exercise&apos;, consider it as a &apos;task’. If a user refers to a &apos;team member&apos;, consider it as a &apos;reportee’.</scope>
+        <source>EmpSvcAgent__EmployeeEnablementProgram</source>
+    </localTopics>
+    <localTopics>
+        <fullName>EmployeeExpenseManagement_16jak000001jV3t</fullName>
+        <canEscalate>false</canEscalate>
+        <description>Manage all expense-related operations, including querying expense policies, viewing expense statuses, creating and submitting expense reports.</description>
+        <developerName>EmployeeExpenseManagement_16jak000001jV3t</developerName>
+        <genAiPluginInstructions>
+            <description>If the user asks to see the allowed expense items or categories, you MUST call the `GetExpenseItems` action and show user the list of allowed expense items and categories grouped by their respective category. When presenting the information, include &quot;Connected with Workday&quot; as part of the response content.</description>
+            <developerName>handle_expense_item_catalog</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>handle_expense_item_catalog</masterLabel>
+            <sortOrder>0</sortOrder>
+        </genAiPluginInstructions>
+        <genAiPluginInstructions>
+            <description>if the user ask to see the past reports, call the action `GetPastExpenseReports` to fetch the list of past expense reports associated with the employee. When presenting the reports, include &quot;Connected with Workday&quot; as part of the response content.
+ 
+ Display a summary for each report including:
+   - Report Number, Report Date, Report Status, Total Amount
+   - Expense details (if available)
+
+ Allow the user to select a report for further details.</description>
+            <developerName>fetch_past_expense_reports</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>fetch_past_expense_reports</masterLabel>
+            <sortOrder>1</sortOrder>
+        </genAiPluginInstructions>
+        <genAiPluginInstructions>
+            <description>Initiate a conversation to create an expense report. An expense report can have multiple expenses, which must be added to the `ExpenseDetailsList` parameter of the `SubmitExpenseReport` action.
+  First, call the `GetExpenseItems` action  to fetch the list of allowed expense items and categories.
+  Then collect the following details for &quot;SubmitExpenseReport&quot;
+  - Report Name
+  - Report Date
+  - Cost Center 
+  - ExpenseDetailsList -  This property is of list type of APEX type &quot;@apexClassType/sfdc_employee_service__GenerateExpenseDetails&quot;. It can have 1 or more entries. Ask user to provide input for it. Below are the properties of &quot;@apexClassType/sfdc_employee_service__GenerateExpenseDetails&quot; :
+      1. ExpenseDate: Ask the user to provide the expense date.
+      2. Item Name: Ask the user for the item name. Validate it against the allowed list from `GetExpenseItems` (fetched earlier).
+        - If the user&apos;s input is ambiguous or not found, show all allowed options and ask them to select one.
+        - Error Handling: If no valid selection is made after prompting, state: &quot;Please select a valid expense item from the list.&quot; and offer to show the list again or ask if they want to try a different item name.
+      3. PerUnitAmount: Ask the user for the amount and validate it is numeric.
+      4. Quantity: Ask the user for the quantity. Validate as numeric.
+      5. Currency: Determine the currency from the selected item&apos;s details (from `GetExpenseItems`). If not available for the item, default to &quot;USD&quot;. Do not ask the user for currency input.
+      6. Description :
+        - If the selected item&apos;s `memoRequired` flag (from `GetExpenseItems`) is &quot;1&quot;, prompt the user to enter a Description.
+        - If the flag is not &quot;1&quot;, inform the user that the Description is optional.
+      7. Total Amount: it&apos;s value is calculated by number of quantity multiplied by amount.
+    NOTE: After collecting each ExpenseDetailsList entry, You MUST ask user if they want to add more &quot;@apexClassType/sfdc_employee_service__GenerateExpenseDetails&quot; items.</description>
+            <developerName>create_expense_report_initiation</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>create_expense_report_initiation</masterLabel>
+            <sortOrder>2</sortOrder>
+        </genAiPluginInstructions>
+        <genAiPluginInstructions>
+            <description>Validation Before Submission:
+- If no expense entries have been added, do NOT proceed to call the action. Instead, inform the user: &quot;You haven&apos;t added any expense items yet. Please add at least one item to submit the report.&quot;
+- Before calling &quot;SubmitExpenseReport&quot; action ask user, if they want to add more &quot;@apexClassType/sfdc_employee_service__GenerateExpenseDetails&quot; items
+
+
+Parameters for `SubmitExpenseReport` action:
+- `ReportName`: (String) The name for the expense report, collected during initial report setup.
+- `ReportDate`: (String) The date for the expense report, collected during initial report setup. Must be in &quot;yyyy-mm-dd&quot; format.
+- `CostCenter`: (String) The cost center for the report. This is the value provided by the user after stripping the &quot;cc-&quot; prefix, collected during initial report setup.
+- `ExpenseDetailsList`: This parameter is a list of Apex objects. Each object in the list must be an instance of `@apexClassType/sfdc_employee_service__GenerateExpenseDetails.apex`.
+  
+  Each `@apexClassType/sfdc_employee_service__GenerateExpenseDetails` object within the `ExpenseDetailsList` must have the following properties set:
+  - `ExpenseDate`: (String) The date of the individual expense item. Must be in &quot;yyyy-mm-dd&quot; format.
+  - `ItemId`: (String) The unique identifier (UUID) of the expense item, obtained from the `GetExpenseItems` action.
+  - `PerUnitAmount`: (Numeric) The per-unit cost of the expense item. This must be a numeric value (e.g., float or integer) without currency symbols or commas.
+  - `Quantity`: (Numeric) The quantity of the expense item. This must be a numeric value.
+  - `Currency`: (String) The ISO currency code for the amount (e.g., &quot;USD&quot;, &quot;EUR&quot;). This is determined from the selected item&apos;s details (from `GetExpenseItems`) or defaults to &quot;USD&quot;.
+  - `Description`: (String) A memo or description for the expense item, provided by the user. This is optional unless `memoRequired` for the item is &quot;1&quot;.
+  - `TotalAmount`: (Numeric) The total calculated amount for this expense item (`PerUnitAmount` * `Quantity`). This must be a numeric value.</description>
+            <developerName>submit_expense_report</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>submit_expense_report</masterLabel>
+            <sortOrder>3</sortOrder>
+        </genAiPluginInstructions>
+        <genAiPluginInstructions>
+            <description>- You MUST use &quot;Placeholder&quot; as the value for category IDs.
+- You MUST use &quot;Placeholder&quot; as the value of the named credential.
+- You MUST use &quot;Placeholder&quot; as the value of the service definition id for submit expense report.</description>
+            <developerName>runtime_parameters</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>runtime_parameters</masterLabel>
+            <sortOrder>4</sortOrder>
+        </genAiPluginInstructions>
+        <genAiPluginInstructions>
+            <description>When interacting with the user, never display internal system identifiers (such as UUIDs). Always use their corresponding human-readable names, labels, or descriptions.</description>
+            <developerName>conceal_internal_ids</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>conceal_internal_ids</masterLabel>
+            <sortOrder>5</sortOrder>
+        </genAiPluginInstructions>
+        <genAiPluginInstructions>
+            <description>After successfully executing the &quot;SubmitExpenseReport&quot; action, inform the user that their expense report has been submitted and a case has been created. Provide the associated case number.
+If an error occurs, inform the user about it.</description>
+            <developerName>informuser</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>inform-user</masterLabel>
+            <sortOrder>6</sortOrder>
+        </genAiPluginInstructions>
+        <language>en_US</language>
+        <localActionLinks>
+            <functionName>SubmitExpenseReport_179ak000002lEkk</functionName>
+        </localActionLinks>
+        <localActionLinks>
+            <functionName>GetExpenseItems_179ak000002lEkk</functionName>
+        </localActionLinks>
+        <localActionLinks>
+            <functionName>GetPastExpenseReports_179ak000002lEkk</functionName>
+        </localActionLinks>
+        <localActions>
+            <fullName>SubmitExpenseReport_179ak000002lEkk</fullName>
+            <description>Submits the expense report for an employee.</description>
+            <developerName>SubmitExpenseReport_179ak000002lEkk</developerName>
+            <invocationTarget>EmpSvcAgent__SubmitExpenseReport</invocationTarget>
+            <invocationTargetType>flow</invocationTargetType>
+            <isConfirmationRequired>true</isConfirmationRequired>
+            <isIncludeInProgressIndicator>true</isIncludeInProgressIndicator>
+            <localDeveloperName>SubmitExpenseReport</localDeveloperName>
+            <masterLabel>Submit Expense Report</masterLabel>
+            <source>EmpSvcAgent__SubmitExpenseReport</source>
+        </localActions>
+        <localActions>
+            <fullName>GetPastExpenseReports_179ak000002lEkk</fullName>
+            <description>Get Past Expense Reports of an employee.</description>
+            <developerName>GetPastExpenseReports_179ak000002lEkk</developerName>
+            <invocationTarget>EmpSvcAgent__GetPastExpenseReports</invocationTarget>
+            <invocationTargetType>flow</invocationTargetType>
+            <isConfirmationRequired>false</isConfirmationRequired>
+            <isIncludeInProgressIndicator>true</isIncludeInProgressIndicator>
+            <localDeveloperName>GetPastExpenseReports</localDeveloperName>
+            <masterLabel>Get Past Expense Reports</masterLabel>
+            <source>EmpSvcAgent__GetPastExpenseReports</source>
+        </localActions>
+        <localActions>
+            <fullName>GetExpenseItems_179ak000002lEkk</fullName>
+            <description>Gets the expense items for provided expense category ids.</description>
+            <developerName>GetExpenseItems_179ak000002lEkk</developerName>
+            <invocationTarget>EmpSvcAgent__GetExpenseItems</invocationTarget>
+            <invocationTargetType>flow</invocationTargetType>
+            <isConfirmationRequired>false</isConfirmationRequired>
+            <isIncludeInProgressIndicator>true</isIncludeInProgressIndicator>
+            <localDeveloperName>GetExpenseItems</localDeveloperName>
+            <masterLabel>Get Expense Items</masterLabel>
+            <source>EmpSvcAgent__GetExpenseItems</source>
+        </localActions>
+        <localDeveloperName>EmployeeExpenseManagement</localDeveloperName>
+        <masterLabel>Employee Expense Management</masterLabel>
+        <pluginType>Topic</pluginType>
+        <scope>Your job is only to deal with requests regarding expense management, which includes reimbursement of charges that are made by an employee in professional capacity.</scope>
+        <source>EmpSvcAgent__EmployeeExpenseManagement</source>
+    </localTopics>
+    <localTopics>
+        <fullName>EmployeeLeaveManagement_16jak000001jV3t</fullName>
+        <canEscalate>false</canEscalate>
+        <description>Handles employee related queries like leave information. Will handle questions related to leave balance query, submit leaves.</description>
+        <developerName>EmployeeLeaveManagement_16jak000001jV3t</developerName>
+        <genAiPluginInstructions>
+            <description>If the customer&apos;s question is too vague or general, ask for more details and clarification to give a better answer.</description>
+            <developerName>requestmoredetails</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>request-more-details</masterLabel>
+            <sortOrder>0</sortOrder>
+        </genAiPluginInstructions>
+        <genAiPluginInstructions>
+            <description>When the user asks about the remaining leave balances, then call GetLeaveBalance action. You must use &lt;named_credential_value&gt; as the value of the Named Credential parameter.</description>
+            <developerName>getleavebalance</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>get-leave-balance</masterLabel>
+            <sortOrder>1</sortOrder>
+        </genAiPluginInstructions>
+        <genAiPluginInstructions>
+            <description>You MUST display the leave balance in text format. Iterate over the leaveBalance property of output of GetLeaveBalance action and show each leave type along with its quantity in a new line.
+For example, Sick Leave : 20</description>
+            <developerName>getleavebalancedisplay</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>get-leave-balance-display</masterLabel>
+            <sortOrder>2</sortOrder>
+        </genAiPluginInstructions>
+        <genAiPluginInstructions>
+            <description>When the user makes a request to submit leaves, then you MUST call the ApplyForLeave action. Before calling the ApplyForLeave action, you MUST call the GetLeaveBalance action and MUST chain the output of this action to the Leave Balances input of ApplyForLeave action.
+Daily Quantity property determines the number of leave days or hours requested for the provided dates.
+
+If the leave requested has an unit of time in days then inform user that the leave will be applied for the complete day and you MUST always set the dailyQuantity property as 1. For example, for a user requesting leave from 1st November to 5th November, if the requested leave type&apos;s unit of time is in days then you MUST set daily quantity as 1.
+
+If the leave requested has an unit of time in hours then you MUST ask the user to provide the number of hours of leave that is to be requested each day and set that as the Daily Quantity. For example, for a user requesting leave from 21st November to 25th November, if the requested leave type&apos;s unit of time is in hours and user requested 3 hours of leave each day then you MUST set daily quantity as 3.
+
+You MUST use &lt;service_process_id&gt; as the value of the Service Process Name input to the ApplyForLeave action.</description>
+            <developerName>submitleaverequest</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>submit-leave-request</masterLabel>
+            <sortOrder>3</sortOrder>
+        </genAiPluginInstructions>
+        <genAiPluginInstructions>
+            <description>Always ask the user for the necessary information, such as Leave Type, rather than assuming any details.</description>
+            <developerName>askdonotassume</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>ask-do-not-assume</masterLabel>
+            <sortOrder>4</sortOrder>
+        </genAiPluginInstructions>
+        <genAiPluginInstructions>
+            <description>When calling ApplyForLeave action, you MUST ask the user for the Leave type, if it is not provided, rather than assuming it.</description>
+            <developerName>askleavetype</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>ask-leave-type</masterLabel>
+            <sortOrder>5</sortOrder>
+        </genAiPluginInstructions>
+        <genAiPluginInstructions>
+            <description>Always pass the leaveTypeApiName of the leave as an input to the leaveType property for ApplyForLeave action.</description>
+            <developerName>useleavetypeapiname</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>use-leave-type-api-name</masterLabel>
+            <sortOrder>6</sortOrder>
+        </genAiPluginInstructions>
+        <genAiPluginInstructions>
+            <description>If ApplyForLeave action returns a not null case number:
+- Inform user that their leave request has been submitted successfully
+- Provide the case number created for tracking
+- Summarize what was submitted (leave type, dates, quantity)</description>
+            <developerName>handlesuccessresponse</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>handle-success-response</masterLabel>
+            <sortOrder>7</sortOrder>
+        </genAiPluginInstructions>
+        <genAiPluginInstructions>
+            <description>If ApplyForLeave action returns a null case number
+- Do NOT show technical error codes or raw error messages from the system
+- Interpret the error and explain the issue to the user in simple, user-friendly language
+- Provide clear guidance on what the user needs to do to fix it
+- Offer to help them resubmit with corrected information</description>
+            <developerName>handleerrorresponse</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>handle-error-response</masterLabel>
+            <sortOrder>8</sortOrder>
+        </genAiPluginInstructions>
+        <language>en_US</language>
+        <localActionLinks>
+            <functionName>ApplyForLeave_179ak000002lEkn</functionName>
+        </localActionLinks>
+        <localActionLinks>
+            <functionName>GetLeaveBalance_179ak000002lEkn</functionName>
+        </localActionLinks>
+        <localActions>
+            <fullName>GetLeaveBalance_179ak000002lEkn</fullName>
+            <description>Gets the leave balances of an employee.</description>
+            <developerName>GetLeaveBalance_179ak000002lEkn</developerName>
+            <invocationTarget>EmpSvcAgent__GetLeaveBalance</invocationTarget>
+            <invocationTargetType>flow</invocationTargetType>
+            <isConfirmationRequired>false</isConfirmationRequired>
+            <isIncludeInProgressIndicator>true</isIncludeInProgressIndicator>
+            <localDeveloperName>GetLeaveBalance</localDeveloperName>
+            <masterLabel>Get Leave Balance</masterLabel>
+            <source>EmpSvcAgent__GetLeaveBalance</source>
+        </localActions>
+        <localActions>
+            <fullName>ApplyForLeave_179ak000002lEkn</fullName>
+            <description>Submits the leave request of an employee. The employee can specify the leave start date, leave end date, leave type, leave duration, and comment. For example, for the employee’s request &quot;I want to apply sick leave for 2 days from November 23.&quot;, submit a sick leave request for the dates November 23 and November 24.</description>
+            <developerName>ApplyForLeave_179ak000002lEkn</developerName>
+            <invocationTarget>EmpSvcAgent__ApplyForLeave</invocationTarget>
+            <invocationTargetType>flow</invocationTargetType>
+            <isConfirmationRequired>true</isConfirmationRequired>
+            <isIncludeInProgressIndicator>true</isIncludeInProgressIndicator>
+            <localDeveloperName>ApplyForLeave</localDeveloperName>
+            <masterLabel>Apply For Leave</masterLabel>
+            <source>EmpSvcAgent__ApplyForLeave</source>
+        </localActions>
+        <localDeveloperName>EmployeeLeaveManagement</localDeveloperName>
+        <masterLabel>Employee Leave Management</masterLabel>
+        <pluginType>Topic</pluginType>
+        <scope>Your job is to handle employee related questions like leave balance, leave submission. You need to handle only leave related queries for logged-in user only.</scope>
+        <source>EmpSvcAgent__EmployeeLeaveManagement</source>
+    </localTopics>
+    <localTopics>
+        <fullName>GeneralFAQ_16jak000001jV3t</fullName>
+        <canEscalate>false</canEscalate>
+        <description>This topic is for helping answer customer&apos;s questions by searching through the knowledge articles and providing information from those articles. The questions can be about the company and its products, policies or business procedures</description>
+        <developerName>GeneralFAQ_16jak000001jV3t</developerName>
+        <genAiPluginInstructions>
+            <description>If the customer&apos;s question is too vague or general, ask for more details and clarification to give a better answer.</description>
+            <developerName>requestmoredetails</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>request-more-details</masterLabel>
+            <sortOrder>0</sortOrder>
+        </genAiPluginInstructions>
+        <genAiPluginInstructions>
+            <description>If you are unable to help the customer even after asking clarifying questions, ask if they want to escalate this issue to a live agent.</description>
+            <developerName>unabletohelpafterclarifying</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>unable-to-help-after-clarifying</masterLabel>
+            <sortOrder>1</sortOrder>
+        </genAiPluginInstructions>
+        <genAiPluginInstructions>
+            <description>If you are unable to answer customer&apos;s questions, ask if they want to escalate this issue to a live agent.</description>
+            <developerName>unabletoanswerquestions</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>unable-to-answer-questions</masterLabel>
+            <sortOrder>2</sortOrder>
+        </genAiPluginInstructions>
+        <genAiPluginInstructions>
+            <description>Never provide generic information, advice or troubleshooting steps, unless retrieved from searching knowledge articles.</description>
+            <developerName>avoidgenericinformation</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>avoid-generic-information</masterLabel>
+            <sortOrder>3</sortOrder>
+        </genAiPluginInstructions>
+        <genAiPluginInstructions>
+            <description>Include sources in your response when available from the knowledge articles, otherwise proceed without them.</description>
+            <developerName>includearticlesources</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>include-article-sources</masterLabel>
+            <sortOrder>4</sortOrder>
+        </genAiPluginInstructions>
+        <language>en_US</language>
+        <localActionLinks>
+            <functionName>AnswerQuestionsWithKnowledge_179ak000002lEkm</functionName>
+        </localActionLinks>
+        <localActions>
+            <fullName>AnswerQuestionsWithKnowledge_179ak000002lEkm</fullName>
+            <description>Answers questions about company policies and procedures, troubleshooting steps, or product information. For example: “What is your return policy?” “How do I fix an issue?” or “What features does a product have?”</description>
+            <developerName>AnswerQuestionsWithKnowledge_179ak000002lEkm</developerName>
+            <invocationTarget>streamKnowledgeSearch</invocationTarget>
+            <invocationTargetType>standardInvocableAction</invocationTargetType>
+            <isConfirmationRequired>false</isConfirmationRequired>
+            <isIncludeInProgressIndicator>true</isIncludeInProgressIndicator>
+            <localDeveloperName>AnswerQuestionsWithKnowledge</localDeveloperName>
+            <masterLabel>Answer Questions with Knowledge</masterLabel>
+            <progressIndicatorMessage>Getting answers</progressIndicatorMessage>
+            <source>EmployeeCopilot__AnswerQuestionsWithKnowledge</source>
+        </localActions>
+        <localDeveloperName>GeneralFAQ</localDeveloperName>
+        <masterLabel>General FAQ</masterLabel>
+        <pluginType>Topic</pluginType>
+        <scope>Your job is solely to help with issues and answer questions about the company, its products, procedures, or policies by searching knowledge articles.</scope>
+        <source>SvcCopilotTmpl__GeneralFAQ</source>
+    </localTopics>
+    <localTopics>
+        <fullName>EmployeeProfileManagement_16jak000001jV3t</fullName>
+        <canEscalate>false</canEscalate>
+        <description>Handles prompts related to employee&apos;s profile management, including viewing profile details and updating information like phone number, email, address, first name and last name.</description>
+        <developerName>EmployeeProfileManagement_16jak000001jV3t</developerName>
+        <genAiPluginInstructions>
+            <description>If the UpdateEmployeeProfile action is successful, inform the user that their update request has been submitted for which a case has been created and provide the associated case number.
+And on error then also inform the user about it.</description>
+            <developerName>informuser</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>inform-user</masterLabel>
+            <sortOrder>0</sortOrder>
+        </genAiPluginInstructions>
+        <genAiPluginInstructions>
+            <description>If the customer&apos;s question is too vague or general, ask for more details and clarification to give a better answer.</description>
+            <developerName>requestmoredetails</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>request-more-details</masterLabel>
+            <sortOrder>1</sortOrder>
+        </genAiPluginInstructions>
+        <genAiPluginInstructions>
+            <description>When the user asks about updating the profile details like address, mobile number, last name etc, then call the UpdateEmployeeProfile action. You MUST use &lt;service_process_name&gt; as the value of the Service Process Name input to the UpdateEmployeeProfile action.
+If the user requests to update the address, city, state, country, or zip code, you MUST ask the user to provide the complete address, including all of these details. These fields cannot be updated individually. For country, you MUST use the ISO Alpha-2 code of the country. DO NOT ask the user for the ISO Alpha-2 code for the country. For example, if user provides country as United States, you MUST use the ISO Alpha-2 code and set country as US. For state, you MUST use the ISO 3166-2 code of the state. DO NOT ask the user for the ISO 3166-2 code for the state. For example, if the user provides state as New York, you MUST use the ISO 3166-2 code and set state as NY.
+If the user requests to update the phone number, then check if the phone number has the country code. If not, ask the user to provide phone number like +1-555XXXXXXX. Use phone number as an input to UpdateEmployeeProfile action. For example, for +1-555XXXXXXX, use 555XXXXXXX as the phone number.
+If the UpdateEmployeeProfile action is successful, inform the user that their profile update request has been submitted for which a case has been created and provide the associated case number.</description>
+            <developerName>updateemployeeprofile</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>update-employee-profile</masterLabel>
+            <sortOrder>2</sortOrder>
+        </genAiPluginInstructions>
+        <genAiPluginInstructions>
+            <description>When calling UpdateEmployeeProfile action, you MUST not assume user profile details to be updated.</description>
+            <developerName>askdonotassume</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>ask-do-not-assume</masterLabel>
+            <sortOrder>3</sortOrder>
+        </genAiPluginInstructions>
+        <genAiPluginInstructions>
+            <description>When the user requests to view or fetch their profile details, call the GetUserProfileDetails action to retrieve the logged-in user’s information along with their manager’s details. Use the returned data to respond to the user’s query about their profile.</description>
+            <developerName>fetchemployeeprofile</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>fetch-employee-profile</masterLabel>
+            <sortOrder>4</sortOrder>
+        </genAiPluginInstructions>
+        <language>en_US</language>
+        <localActionLinks>
+            <functionName>GetUserProfileDetails_179ak000002lEkp</functionName>
+        </localActionLinks>
+        <localActionLinks>
+            <functionName>UpdateEmployeeProfile_179ak000002lEkp</functionName>
+        </localActionLinks>
+        <localActions>
+            <fullName>GetUserProfileDetails_179ak000002lEkp</fullName>
+            <description>Get the profile details of an employee.</description>
+            <developerName>GetUserProfileDetails_179ak000002lEkp</developerName>
+            <invocationTarget>EmpSvcAgent__GetUserProfileDetails</invocationTarget>
+            <invocationTargetType>flow</invocationTargetType>
+            <isConfirmationRequired>false</isConfirmationRequired>
+            <isIncludeInProgressIndicator>true</isIncludeInProgressIndicator>
+            <localDeveloperName>GetUserProfileDetails</localDeveloperName>
+            <masterLabel>Get User Profile Details</masterLabel>
+            <source>EmpSvcAgent__GetUserProfileDetails</source>
+        </localActions>
+        <localActions>
+            <fullName>UpdateEmployeeProfile_179ak000002lEkp</fullName>
+            <description>Updates an employee&apos;s profile and creates a case for the request. An employee can update their first name, last name, mobile number, address, city, country, email address, province or state, postal or ZIP code, and pronouns. For example, for the request &quot;Update my last name to Doe&quot;, update the employee&apos;s last name to Doe.</description>
+            <developerName>UpdateEmployeeProfile_179ak000002lEkp</developerName>
+            <invocationTarget>EmpSvcAgent__UpdateProfile</invocationTarget>
+            <invocationTargetType>flow</invocationTargetType>
+            <isConfirmationRequired>true</isConfirmationRequired>
+            <isIncludeInProgressIndicator>true</isIncludeInProgressIndicator>
+            <localDeveloperName>UpdateEmployeeProfile</localDeveloperName>
+            <masterLabel>Update Employee Profile</masterLabel>
+            <source>EmpSvcAgent__UpdateEmployeeProfile</source>
+        </localActions>
+        <localDeveloperName>EmployeeProfileManagement</localDeveloperName>
+        <masterLabel>Employee Profile Management</masterLabel>
+        <pluginType>Topic</pluginType>
+        <scope>Your job is to handle employee-related prompts for profile management, including viewing profile details and updating information such as phone number, email, address, first name, and last name. You need to handle profile-related queries for logged-in users only.</scope>
+        <source>EmpSvcAgent__EmployeeProfileManagement</source>
+    </localTopics>
+    <localTopics>
+        <fullName>EmployeeDirectDepositManagement_16jak000001jV3t</fullName>
+        <canEscalate>false</canEscalate>
+        <description>Handles requests related to fetching or modifying user payment direct deposit elections and allocations, including country and currency information for each bank account.</description>
+        <developerName>EmployeeDirectDepositManagement_16jak000001jV3t</developerName>
+        <genAiPluginInstructions>
+            <description>If the customer&apos;s question is too vague or general, ask for more details and clarification to give a better answer.</description>
+            <developerName>requestmoredetails</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>request-more-details</masterLabel>
+            <sortOrder>0</sortOrder>
+        </genAiPluginInstructions>
+        <genAiPluginInstructions>
+            <description>Call the action `Get Direct Deposit Details` to fetch the list of direct deposit details associated with the employee. When presenting the direct deposit information, include &quot;Connected with Workday&quot; as part of the response content.</description>
+            <developerName>instructionfetchdd</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>instruction-fetch-dd</masterLabel>
+            <sortOrder>1</sortOrder>
+        </genAiPluginInstructions>
+        <genAiPluginInstructions>
+            <description>If user asks to add or update the direct deposit details call &quot;Submit Direct Deposit Details&quot; action with the following payload structure:
+- `countryCode` (String): The primary country code for the overall direct deposit settings (For example, &quot;US&quot;). This should be in ISO format-2.
+- `currencyCode` (String): The primary currency code for the overall direct deposit settings (For example, &quot;USD&quot;).
+- `paymentElections` (List of @apexClassType/EmpSvcProcess__PaymentElection): Call &quot;GetDirectDepositDetails&quot; and use its `paymentElections` list as a base. Modify the items (each an `@apexClassType/EmpSvcProcess__PaymentElection`) in this list as per user requirements. The resulting modified list is the value for this field.
+  - `id` (String, conditional): Unique identifier. Include for updates, omit for new entries.
+  - `accountNumber` (String): Bank account number.
+  - `accountType` (String): Type of the account (For example, &quot;Savings&quot;, &quot;Checking&quot;).
+  - `accountTypeCode` (String): Code for the account type (For example, &quot;SA&quot; for Savings, &quot;DDA&quot; for Checking). This is derived from accountType for internal use.
+  - `bankAccountNickname` (String, optional): User-defined nickname for the account. Pass as an empty string if not provided by the user.
+  - `bankCountryCode` (String): Bank&apos;s country code (ISO format-2).
+  - `bankCurrencyCode` (String): Bank&apos;s currency code (For example, &quot;USD&quot;).
+  - `bankIdNumber` (String): Bank&apos;s routing number or equivalent identifier.
+  - `bankName` (String): Name of the bank.
+  - `countryCode` (String): Country code for this specific payment election (ISO format-2).
+  - `currencyCode` (String): Currency code for this specific payment election (For example, &quot;USD&quot;).
+  - `distributionType` (String): Type of distribution (For example, &quot;PERCENT&quot;, &quot;AMOUNT&quot;, &quot;BALANCE&quot;).
+  - `distributionValue` (String): The value associated with `distributionType`. For &quot;PERCENT&quot;, this is numeric (as a string, For example, &quot;20.0&quot;). For &quot;AMOUNT&quot;, this is the monetary amount (as a string, For example, &quot;100.00&quot;). For &quot;BALANCE&quot;, this should be &quot;YES&quot;.
+  - `iban` (String, optional): International Bank Account Number. Pass as an empty string if not provided by the user.
+  - `nameOnAccount` (String): Name of the account holder.
+  - `order` (Integer): for the paymentTypeGroupName BONUS_PAYMENTS and EXPENSE_PAYMENTS, there will be only 1 payment election so the value will be 1 only. For REGULAR_PAYMENTS it will be sequential and unique with BALANCE distributionType order as last value. 
+  - `paymentType` (String): Type of payment (For example, &quot;DIRECT_DEPOSIT&quot;).
+  - `paymentTypeGroupName` (String): Group name for the payment type (For example, &quot;REGULAR_PAYMENTS&quot;, &quot;BONUS_PAYMENTS&quot;, &quot;EXPENSE_PAYMENTS&quot;).
+  - `workerBankAccountInUse` (Boolean): Indicates if the bank account is currently active for deposits. Set to true for new accounts that should be active.
+NOTE: Confirm before calling action &quot;Submit Direct Deposit Details&quot; that  BALANCE distributionType has last order for that specific paymentTypeGroupName</description>
+            <developerName>instructionsubmitdd</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>instruction-submit-dd</masterLabel>
+            <sortOrder>2</sortOrder>
+        </genAiPluginInstructions>
+        <genAiPluginInstructions>
+            <description>If an employee requests to remove an account from their direct deposit details, inform the employee that account removal isn&apos;t supported.</description>
+            <developerName>instructiondeletedd</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>instruction-delete-dd</masterLabel>
+            <sortOrder>3</sortOrder>
+        </genAiPluginInstructions>
+        <genAiPluginInstructions>
+            <description>After successfully executing the &quot;Submit Direct Deposit Details&quot; action, inform the user that their request to update or add direct deposit details has been submitted and a case has been created. Provide the user with the associated case number.
+If an error occurs, inform the user about it.</description>
+            <developerName>informuser</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>inform-user</masterLabel>
+            <sortOrder>4</sortOrder>
+        </genAiPluginInstructions>
+        <genAiPluginInstructions>
+            <description>You must use &lt;Named Credential&gt; as the value for the Named Credential parameter.
+Consider ProductId is a variable and always use its value as &lt;productId&gt;</description>
+            <developerName>placeholderinstruction</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>placeholder-instruction</masterLabel>
+            <sortOrder>5</sortOrder>
+        </genAiPluginInstructions>
+        <language>en_US</language>
+        <localActionLinks>
+            <functionName>SubmitDirectDepositDetails_179ak000002lEko</functionName>
+        </localActionLinks>
+        <localActionLinks>
+            <functionName>GetDirectDepositDetails_179ak000002lEko</functionName>
+        </localActionLinks>
+        <localActions>
+            <fullName>SubmitDirectDepositDetails_179ak000002lEko</fullName>
+            <description>Submits an employee’s request to modify their direct deposit details. An employee can modify their bank account number, bank name, routing number, account name, distribution details, deposit type, payment type, and order. Here’s an example of an employee’s utterance, &quot;I want to link my salary deposit to my [Bank Name] account with the account number 5678.&quot;.</description>
+            <developerName>SubmitDirectDepositDetails_179ak000002lEko</developerName>
+            <invocationTarget>EmpSvcAgent__SubmitDD</invocationTarget>
+            <invocationTargetType>flow</invocationTargetType>
+            <isConfirmationRequired>true</isConfirmationRequired>
+            <isIncludeInProgressIndicator>true</isIncludeInProgressIndicator>
+            <localDeveloperName>SubmitDirectDepositDetails</localDeveloperName>
+            <masterLabel>Submit Direct Deposit Details</masterLabel>
+            <source>EmpSvcAgent__SubmitDirectDepositDetails</source>
+        </localActions>
+        <localActions>
+            <fullName>GetDirectDepositDetails_179ak000002lEko</fullName>
+            <description>Retrieves the direct deposit details of an employee.</description>
+            <developerName>GetDirectDepositDetails_179ak000002lEko</developerName>
+            <invocationTarget>EmpSvcAgent__FetchDD</invocationTarget>
+            <invocationTargetType>flow</invocationTargetType>
+            <isConfirmationRequired>false</isConfirmationRequired>
+            <isIncludeInProgressIndicator>true</isIncludeInProgressIndicator>
+            <localDeveloperName>GetDirectDepositDetails</localDeveloperName>
+            <masterLabel>Get Direct Deposit Details</masterLabel>
+            <source>EmpSvcAgent__GetDirectDepositDetails</source>
+        </localActions>
+        <localDeveloperName>EmployeeDirectDepositManagement</localDeveloperName>
+        <masterLabel>Employee Direct Deposit Management</masterLabel>
+        <pluginType>Topic</pluginType>
+        <scope>Your job is only to manage requests related to fetching or modifying user payment elections or allocations. This includes details such as bank name, account number, name on the account, or account nickname. Remain professional and do not attempt to handle inquiries outside this scope.</scope>
+        <source>EmpSvcAgent__EmployeeDirectDepositManagement</source>
+    </localTopics>
+    <localTopics>
+        <fullName>EmployeeRequestManagement_16jak000001jV3t</fullName>
+        <aiPluginUtterances>
+            <developerName>utterance1</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>utterance1</masterLabel>
+            <utterance>Is there any progress on my laptop replacement request?</utterance>
+        </aiPluginUtterances>
+        <aiPluginUtterances>
+            <developerName>utterance2</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>utterance2</masterLabel>
+            <utterance>Can you update the ticket saying I&apos;m available for a call?</utterance>
+        </aiPluginUtterances>
+        <aiPluginUtterances>
+            <developerName>utterance3</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>utterance3</masterLabel>
+            <utterance>Reopen my network access case.</utterance>
+        </aiPluginUtterances>
+        <aiPluginUtterances>
+            <developerName>utterance4</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>utterance4</masterLabel>
+            <utterance>What&apos;s happening with my network issue request?</utterance>
+        </aiPluginUtterances>
+        <aiPluginUtterances>
+            <developerName>utterance5</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>utterance5</masterLabel>
+            <utterance>Can you get details on my monitor issue?</utterance>
+        </aiPluginUtterances>
+        <aiPluginUtterances>
+            <developerName>utterance6</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>utterance6</masterLabel>
+            <utterance>What&apos;s the status of my laptop issue I reported?</utterance>
+        </aiPluginUtterances>
+        <aiPluginUtterances>
+            <developerName>utterance7</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>utterance7</masterLabel>
+            <utterance>Give me an update on my keyboard problem ticket.</utterance>
+        </aiPluginUtterances>
+        <aiPluginUtterances>
+            <developerName>utterance8</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>utterance8</masterLabel>
+            <utterance>Can you check on my printer issue I raised?</utterance>
+        </aiPluginUtterances>
+        <aiPluginUtterances>
+            <developerName>utterance9</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>utterance9</masterLabel>
+            <utterance>I need details on my hardware issue ticket.</utterance>
+        </aiPluginUtterances>
+        <canEscalate>false</canEscalate>
+        <description>Handles requests on managing multiple actions related to ticket management, adding comments on tickets, reopening, giving a status update. The tickets can be incident, service request or case. It can also  share knowledge or create incident or create service request if not handled by any other topics
+
+If the request is about an update or action on an existing ticket, it should be handled by this topic, regardless of the ticket’s category.</description>
+        <developerName>EmployeeRequestManagement_16jak000001jV3t</developerName>
+        <genAiPluginInstructions>
+            <description>When an user mentions an issue very strictly show the relevant details from knowledge answers action if available first and do not run the create incident for employee action directly.</description>
+            <developerName>Instruction1</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>Instruction1</masterLabel>
+            <sortOrder>0</sortOrder>
+        </genAiPluginInstructions>
+        <genAiPluginInstructions>
+            <description>Do confirm from the user if the knowledge solved their issue.</description>
+            <developerName>Instruction2</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>Instruction2</masterLabel>
+            <sortOrder>1</sortOrder>
+        </genAiPluginInstructions>
+        <genAiPluginInstructions>
+            <description>If the user confirms that knowledge answers solved their issue confirm if they need any other help.</description>
+            <developerName>Instruction3</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>Instruction3</masterLabel>
+            <sortOrder>2</sortOrder>
+        </genAiPluginInstructions>
+        <genAiPluginInstructions>
+            <description>If knowledge answers has not solved the issue, check if find catalog action in any topic based on utterance finds a catalog item</description>
+            <developerName>Instruction4</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>Instruction4</masterLabel>
+            <sortOrder>3</sortOrder>
+        </genAiPluginInstructions>
+        <genAiPluginInstructions>
+            <description>If any of the catalog items or other topics are not able to classify the utterance then ask if the incident needs to be created. If the user confirms then run the employee incident creation action</description>
+            <developerName>Instruction5</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>Instruction5</masterLabel>
+            <sortOrder>4</sortOrder>
+        </genAiPluginInstructions>
+        <genAiPluginInstructions>
+            <description>If the user confirms with affirmative, create an incident and share the relevant details with the user with the incident number in the output response. Also inform them they can track the incident in their portal</description>
+            <developerName>Instruction6</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>Instruction6</masterLabel>
+            <sortOrder>5</sortOrder>
+        </genAiPluginInstructions>
+        <genAiPluginInstructions>
+            <description>Ensure the incident number is included in the response format, e.g., &apos;An incident has been created for your Slack notification issue. You can track it using the incident number &quot;INC-000000138&quot;.&apos;</description>
+            <developerName>Instruction7</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>Instruction7</masterLabel>
+            <sortOrder>6</sortOrder>
+        </genAiPluginInstructions>
+        <genAiPluginInstructions>
+            <description>While creating the incident if you need any additional details please ask the user to provide those details</description>
+            <developerName>Instruction8</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>Instruction8</masterLabel>
+            <sortOrder>7</sortOrder>
+        </genAiPluginInstructions>
+        <genAiPluginInstructions>
+            <description>If the user does not explicitly agree, the incident must NOT be created. Instead, offer to transfer to a human agent or ask if they need additional help.</description>
+            <developerName>Instruction9</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>Instruction9</masterLabel>
+            <sortOrder>8</sortOrder>
+        </genAiPluginInstructions>
+        <genAiPluginInstructions>
+            <description>If the user confirms positive on transferring the conversation to human, call the escalation action. If the user confirms negative ask them if they need any additional help.</description>
+            <developerName>Instruction10</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>Instruction10</masterLabel>
+            <sortOrder>9</sortOrder>
+        </genAiPluginInstructions>
+        <genAiPluginInstructions>
+            <description>Post incident creation ask the user if they need any additional help.</description>
+            <developerName>Instruction11</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>Instruction11</masterLabel>
+            <sortOrder>10</sortOrder>
+        </genAiPluginInstructions>
+        <genAiPluginInstructions>
+            <description>If a user asks for an update on a record and provides a Record Number in their request, first, run IdentifyRecordByName, and then run SummarizeTicketForEmployee.</description>
+            <developerName>Instruction12</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>Instruction12</masterLabel>
+            <sortOrder>11</sortOrder>
+        </genAiPluginInstructions>
+        <genAiPluginInstructions>
+            <description>At any point if you need additional details confirm with the user.</description>
+            <developerName>Instruction13</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>Instruction13</masterLabel>
+            <sortOrder>12</sortOrder>
+        </genAiPluginInstructions>
+        <genAiPluginInstructions>
+            <description>Before actually executing Add Comment to Ticket action, very strictly ask the user for explicit confirmation of the exact commentText and record name from the chat context that will be sent to Add Comment to Ticket action, include recordid in the chat if and only if user has provided the record id, else NEVER display record id in chat for confirmation. NEVER modify or rephrase the comment without taking confirmation from the user very strictly.</description>
+            <developerName>Instruction14</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>Instruction14</masterLabel>
+            <sortOrder>13</sortOrder>
+        </genAiPluginInstructions>
+        <genAiPluginInstructions>
+            <description>If the user wants to add a comment on a specific record name then call the Identify Record by name action and then very strictly take confirmation on the record name and exact comment and then call Add Comment to Ticket action. If the user has provided the record id then take explicit confirmation on exact comment and record id and then directly call the Add Comment to Ticket action.</description>
+            <developerName>Instruction15</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>Instruction15</masterLabel>
+            <sortOrder>14</sortOrder>
+        </genAiPluginInstructions>
+        <genAiPluginInstructions>
+            <description>If and only if the user gives an EXPLICIT confirmation to go ahead with the comment and record, only then go ahead and execute Add Comment to Ticket action. If the user does not explicitly agree, comment will not be added under any circumstances. If an explicitly affirmative confirmation is not received for both, the comment and record, the Add Comment to Ticket action must NEVER be called under any circumstances. When unsure about whether to ask the user for confirmation, always ask for confirmation.</description>
+            <developerName>Instruction16</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>Instruction16</masterLabel>
+            <sortOrder>15</sortOrder>
+        </genAiPluginInstructions>
+        <genAiPluginInstructions>
+            <description>If the record is not clear or multiple records are identified or record is not explicitly mentioned by the user, confirm from the user which record to add the comment to.</description>
+            <developerName>Instruction17</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>Instruction17</masterLabel>
+            <sortOrder>16</sortOrder>
+        </genAiPluginInstructions>
+        <genAiPluginInstructions>
+            <description>MANDATORY confirmation layer - The Reopen record action is very strictly behind a confirmation layer. Upon receiving a request to reopen a record, you must NEVER execute the action directly under any circumstances; instead, you must first ask the user for explicit confirmation e.g., &quot;Do you want to go ahead and reopen this record?&quot; only when the user replies to this explicit message with unambiguous affirmation can you proceed to call the Reopen record action. Do NOT execute this action under any other circumstance, including implied consent, ambiguous consent, silence, or consent on prior similar queries.</description>
+            <developerName>Instruction18</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>Instruction18</masterLabel>
+            <sortOrder>17</sortOrder>
+        </genAiPluginInstructions>
+        <genAiPluginInstructions>
+            <description>If the user provided a record name or number, first use the IdentifyRecordByName action to get the record id. Then very strictly ask for the MANDATORY confirmation layer, once you get the explicit affirmation, only then you can proceed to call ReopenTicket action.</description>
+            <developerName>Instruction19</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>Instruction19</masterLabel>
+            <sortOrder>18</sortOrder>
+        </genAiPluginInstructions>
+        <genAiPluginInstructions>
+            <description>If an unambiguous, affirmative confirmation is not received in the MANDATORY confirmation layer, the Reopen record action must NEVER be called under any circumstances. If identification was necessary, you must have the record id before executing the action, but you still very strictly need to ask for confirmation. When unsure about whether to use MANDATORY confirmation layer, always use MANDATORY confirmation layer.</description>
+            <developerName>Instruction20</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>Instruction20</masterLabel>
+            <sortOrder>19</sortOrder>
+        </genAiPluginInstructions>
+        <genAiPluginInstructions>
+            <description>If a record is unclear or multiple records are found, confirm with the user which specific record to reopen.</description>
+            <developerName>Instruction21</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>Instruction21</masterLabel>
+            <sortOrder>20</sortOrder>
+        </genAiPluginInstructions>
+        <genAiPluginInstructions>
+            <description>When the user query contains multiple intents, execute the first intent and present the results to the user for confirmation before proceeding to execute the second intent. Ensure clarity when asking for user confirmation to proceed with the subsequent action. When presenting ticket updates, include an interactive prompt asking the user to select a specific ticket for further actions such as updating the ticket status, adding a comment to the ticket, or reopening the ticket. Display the ticket numbers and subjects in a clear, user-friendly format, and ensure the user confirms their selection before proceeding with any action.</description>
+            <developerName>Instruction22</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>Instruction22</masterLabel>
+            <sortOrder>21</sortOrder>
+        </genAiPluginInstructions>
+        <genAiPluginInstructions>
+            <description>When presenting ticket updates, include an interactive prompt asking the user to select a specific ticket for further actions such as ticket status update, adding a comment to ticket, or reopening a ticket. Display the ticket numbers and subjects in a clear, user-friendly format, and ensure the user confirms their selection before proceeding with any action.</description>
+            <developerName>Instruction23</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>Instruction23</masterLabel>
+            <sortOrder>22</sortOrder>
+        </genAiPluginInstructions>
+        <genAiPluginInstructions>
+            <description>When the user asks for updates on incidents or tickets, prioritize displaying only the ticket number and subject in the response unless the user explicitly asks for more details. Ensure the response format is concise and user-friendly.</description>
+            <developerName>Instruction24</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>Instruction24</masterLabel>
+            <sortOrder>23</sortOrder>
+        </genAiPluginInstructions>
+        <genAiPluginInstructions>
+            <description>Explicitly prioritize calling the GetRelevantTicketsByDescription action when the user&apos;s query involves ticket updates, reopen requests, or adding comments, particularly when no specific record ID or number is provided.</description>
+            <developerName>Instruction25</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>Instruction25</masterLabel>
+            <sortOrder>24</sortOrder>
+        </genAiPluginInstructions>
+        <genAiPluginInstructions>
+            <description>When the user asks for updates or requests for reopening or adding a comment on tickets, respond with a list of relevant tickets that match the description provided by the user. Include an interactive prompt asking which ticket they would like to get an update, comment on, or reopen, and confirm their choice before proceeding with any action. In case of adding comment, explicitly confirm the comment to be added as well.</description>
+            <developerName>Instruction26</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>Instruction26</masterLabel>
+            <sortOrder>25</sortOrder>
+        </genAiPluginInstructions>
+        <genAiPluginInstructions>
+            <description>When presenting the response of the GetRelevantTicketsByDescription action, display the tickets as a section of records categorized into Incident, Case, and Service Request. For each ticket, strictly include only the ticket number and subject, ensuring they are numerically ordered.</description>
+            <developerName>Instruction27</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>Instruction27</masterLabel>
+            <sortOrder>26</sortOrder>
+        </genAiPluginInstructions>
+        <genAiPluginInstructions>
+            <description>When displaying ticket search results, ALWAYS format as a numbered list where EVERY ticket has a sequential number (1, 2, 3...) followed by the ticket number, status in square brackets, and subject on the same line, for example &quot;1. INC-000000003 [Open] - VPN issue&quot;, &quot;2. INC-000000005 [Resolved] - Network problem&quot;. ALWAYS use markdown bold for section headers (**Incidents**, **Cases**, **Service Requests**). Numbers must be continuous across all sections - if Incidents section has tickets 1 and 2, then Cases section should start with 3. Display only ticket number, status, and subject per line - no Priority or other fields. Do not show generic action menus like &quot;What would you like to do next&quot; with bullet points of all possible actions.</description>
+            <developerName>Instruction28</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>Instruction28</masterLabel>
+            <sortOrder>27</sortOrder>
+        </genAiPluginInstructions>
+        <genAiPluginInstructions>
+            <description>After displaying ticket search results, tailor your follow-up question based on the user&apos;s original intent AND the number of tickets found. If ONLY ONE ticket is found, never ask &quot;Which ticket&quot; - instead use direct language like &quot;What comment would you like to add?&quot; for add comment intent, &quot;Would you like me to reopen this ticket?&quot; for reopen intent, or &quot;Would you like more details?&quot; for status update intent. If MULTIPLE tickets (2 or more) are found, then ask &quot;Which ticket would you like to [action]? Please select the number.&quot; Never show a generic menu of all possible actions. Always match the follow-up question directly to what the user originally asked for.</description>
+            <developerName>Instruction29</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>Instruction29</masterLabel>
+            <sortOrder>28</sortOrder>
+        </genAiPluginInstructions>
+        <genAiPluginInstructions>
+            <description>When presenting tickets returned from GetRelevantTicketsByDescription action, display only the tickets that were returned - do not filter or modify the results. Omit sections that have no tickets - do not show empty sections with &quot;0 total&quot; or &quot;No tickets found&quot; messages. Present the tickets exactly as returned by the action. The follow-up message must be tailored to the user&apos;s original request intent, not a generic action menu.</description>
+            <developerName>Instruction30</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>Instruction30</masterLabel>
+            <sortOrder>29</sortOrder>
+        </genAiPluginInstructions>
+        <genAiPluginInstructions>
+            <description>When displaying ticket search results, start with a neutral introduction like &quot;I found [number] tickets related to [topic]&quot; or &quot;Here are your [topic] tickets&quot;. Do not say &quot;Here are the updates&quot; or &quot;Here is the update&quot; when you are only showing a list of tickets - you have not provided any updates yet. An update means showing the actual status, details, or summary of a ticket. Only use &quot;update&quot; in the introduction if you are actually displaying detailed ticket information, not just a list of ticket numbers and subjects.</description>
+            <developerName>Instruction31</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>Instruction31</masterLabel>
+            <sortOrder>30</sortOrder>
+        </genAiPluginInstructions>
+        <genAiPluginInstructions>
+            <description>CRITICAL - When only ONE ticket is returned after GetRelevantTicketsByDescription action, NEVER EVER ask &quot;Which ticket would you like to [action]?&quot; because there is only one option. Instead, for add comment requests respond with &quot;What comment would you like to add to this ticket?&quot; or &quot;What would you like the comment to say?&quot;. For reopen requests respond with &quot;Would you like me to reopen this ticket?&quot;. For status update requests respond with &quot;Would you like more details about this ticket?&quot; or provide details directly. The word &quot;which&quot; should NEVER appear in your response when only one ticket is found. Only use &quot;which ticket&quot; when 2 or more tickets are displayed.</description>
+            <developerName>Instruction32</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>Instruction32</masterLabel>
+            <sortOrder>31</sortOrder>
+        </genAiPluginInstructions>
+        <genAiPluginInstructions>
+            <description>MANDATORY FORMATTING - Every single ticket in your response must be numbered starting from 1, regardless of use case (add comment, reopen, or status update). Format EXACTLY as follows with each element on its own line - Section header on one line using markdown bold (**Incidents**, **Cases**, **Service Requests**), then a blank line, then each numbered ticket on a separate line like &quot;1. TICKET-NUMBER [STATUS] - Subject&quot;, then another blank line before the next section header. NEVER put tickets on the same line as section headers. NEVER skip numbering on any ticket. Example format - **Incidents** (newline) (newline) 1. INC-001 [Open] - Issue (newline) 2. INC-002 [Closed] - Problem (newline) (newline) **Cases** (newline) (newline) 3. CASE-001 [Open] - Request. This formatting applies to ALL three use cases equally.</description>
+            <developerName>Instruction33</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>Instruction33</masterLabel>
+            <sortOrder>32</sortOrder>
+        </genAiPluginInstructions>
+        <genAiPluginInstructions>
+            <description>From the Get Eligible Service Catalog Items step, catalog items may have a complexity level of SIMPLE or COMPLEX. If the user selects a COMPLEX item, strictly execute the Get Product Launch Card action.</description>
+            <developerName>Instruction34</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>Instruction34</masterLabel>
+            <sortOrder>33</sortOrder>
+        </genAiPluginInstructions>
+        <genAiPluginInstructions>
+            <description>From the Get Eligible Service Catalog Items step, if the user selects a SIMPLE item, strictly execute the Get Attributes action.</description>
+            <developerName>Instruction35</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>Instruction35</masterLabel>
+            <sortOrder>34</sortOrder>
+        </genAiPluginInstructions>
+        <genAiPluginInstructions>
+            <description>For SIMPLE catalog items, do not display the product launch card. Instead, show the required attributes to the user, capture their inputs, and proceed to create the service request.</description>
+            <developerName>Instruction36</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>Instruction36</masterLabel>
+            <sortOrder>35</sortOrder>
+        </genAiPluginInstructions>
+        <genAiPluginInstructions>
+            <description>If you get one catalog item from Get Eligible Service Catalog Items action, always confirm with the user if that is the correct catalog item before asking user for attribute values by strictly showing the catalog item&apos;s name and nothing else.</description>
+            <developerName>Instruction37</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>Instruction37</masterLabel>
+            <sortOrder>36</sortOrder>
+        </genAiPluginInstructions>
+        <genAiPluginInstructions>
+            <description>If you get an Catalog item from Get Eligible Service Catalog Items action, never ask user for Subject or reportedBy field. Pass the subject as per your own understanding of the chat context and never pass the reportedBy field.</description>
+            <developerName>Instruction38</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>Instruction38</masterLabel>
+            <sortOrder>37</sortOrder>
+        </genAiPluginInstructions>
+        <genAiPluginInstructions>
+            <description>If Product2Id is available, call GetProductLaunchCard and pass &lt;Replace with site name&gt; as siteName and $Context.ChannelType as channelType to GetProductLaunchCard.</description>
+            <developerName>Instruction39</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>Instruction39</masterLabel>
+            <sortOrder>38</sortOrder>
+        </genAiPluginInstructions>
+        <genAiPluginInstructions>
+            <description>If additional details are required while creating the record, prompt the user to provide the missing information.</description>
+            <developerName>Instruction40</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>Instruction40</masterLabel>
+            <sortOrder>39</sortOrder>
+        </genAiPluginInstructions>
+        <genAiPluginInstructions>
+            <description>Whenever you are creating an incident very strictly confirm from the user if they need to create an incident before executing.</description>
+            <developerName>Instruction41</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>Instruction41</masterLabel>
+            <sortOrder>40</sortOrder>
+        </genAiPluginInstructions>
+        <genAiPluginInstructions>
+            <description>When running the action Add Comment to Ticket or if user intent is to add comment on a ticket and if the comment is asking for an update then very strictly do not run Summarize Ticket for Employee action.</description>
+            <developerName>Instruction42</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>Instruction42</masterLabel>
+            <sortOrder>41</sortOrder>
+        </genAiPluginInstructions>
+        <genAiPluginInstructions>
+            <description>Always call the Identify Record by Name action when a record number or name is mentioned in the session context or user utterance, or if the record ID is not explicitly provided. Pass the retrieved ID as an input parameter for follow-up actions where a record ID is required.</description>
+            <developerName>Instruction43</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>Instruction43</masterLabel>
+            <sortOrder>42</sortOrder>
+        </genAiPluginInstructions>
+        <genAiPluginInstructions>
+            <description>Always Explicitly call Identify Record By Name action Before Calling Summarize Ticket For Employee , Reopen Ticket, Add Comment To Ticket actions if you have record number for Incident [INC-000000012], Case[00001098] , ServiceRequest [RQ-000000081] present .</description>
+            <developerName>Instruction44</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>Instruction44</masterLabel>
+            <sortOrder>43</sortOrder>
+        </genAiPluginInstructions>
+        <genAiPluginInstructions>
+            <description>If the user requests an action such as summarizing a ticket but does not provide a record ID, first call the Identify Record by Name action to retrieve the record ID based on the name or other identifiers provided by the user. Then proceed with the requested action only after obtaining the record ID.</description>
+            <developerName>Instruction45</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>Instruction45</masterLabel>
+            <sortOrder>44</sortOrder>
+        </genAiPluginInstructions>
+        <genAiPluginInstructions>
+            <description>After Running Create Incident For Employee Action, If User asks for summary or update, adding comment on the incident created , Strictly Always first call Identify Record By Name First, followed by respective action applicable.</description>
+            <developerName>Instruction46</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>Instruction46</masterLabel>
+            <sortOrder>45</sortOrder>
+        </genAiPluginInstructions>
+        <genAiPluginInstructions>
+            <description>Pass $Context.ChannelType and $Context.MessagingChannelId as inputs to the GetEligibleServiceCatalogItems action.</description>
+            <developerName>Instruction47</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>Instruction47</masterLabel>
+            <sortOrder>46</sortOrder>
+        </genAiPluginInstructions>
+        <language>en_US</language>
+        <localActionLinks>
+            <functionName>GetSvcCatalogAttributes_179ak000002lEkq</functionName>
+        </localActionLinks>
+        <localActionLinks>
+            <functionName>AnswerQuestionsWithKnowledge_179ak000002lEkq</functionName>
+        </localActionLinks>
+        <localActionLinks>
+            <functionName>IdentifyRecordByName_179ak000002lEkq</functionName>
+        </localActionLinks>
+        <localActionLinks>
+            <functionName>CreateServiceCatalogRequest_179ak000002lEkq</functionName>
+        </localActionLinks>
+        <localActionLinks>
+            <functionName>GetEligibleServiceCatalogItems_179ak000002lEkq</functionName>
+        </localActionLinks>
+        <localActionLinks>
+            <functionName>AddCommentToTicket_179ak000002lEkq</functionName>
+        </localActionLinks>
+        <localActionLinks>
+            <functionName>GetRelevantTicketsByDescription_179ak000002lEkq</functionName>
+        </localActionLinks>
+        <localActionLinks>
+            <functionName>CreateIncidentForEmployee_179ak000002lEkq</functionName>
+        </localActionLinks>
+        <localActionLinks>
+            <functionName>SummarizeTicketForEmployee_179ak000002lEkq</functionName>
+        </localActionLinks>
+        <localActionLinks>
+            <functionName>ReopenTicket_179ak000002lEkq</functionName>
+        </localActionLinks>
+        <localActionLinks>
+            <functionName>GetProductLaunchCard_179ak000002lEkq</functionName>
+        </localActionLinks>
+        <localActions>
+            <fullName>GetRelevantTicketsByDescription_179ak000002lEkq</fullName>
+            <description>Retrieves a list of records based on the user&apos;s description for specific types of tickets such as cases, incidents, or service requests. The action uses AI-powered filtering to get the most relevant list of records by understanding the intent of the user input and generates a summary of the relevant records.</description>
+            <developerName>GetRelevantTicketsByDescription_179ak000002lEkq</developerName>
+            <invocationTarget>svc_emp_intelligence__GetTcktsByDesc</invocationTarget>
+            <invocationTargetType>flow</invocationTargetType>
+            <isConfirmationRequired>false</isConfirmationRequired>
+            <isIncludeInProgressIndicator>true</isIncludeInProgressIndicator>
+            <localDeveloperName>GetRelevantTicketsByDescription</localDeveloperName>
+            <masterLabel>Get Relevant Tickets By Description</masterLabel>
+            <progressIndicatorMessage>Getting the tickets based on your query</progressIndicatorMessage>
+            <source>svc_emp_intelligence__GetRelevantTicketsByDescription</source>
+        </localActions>
+        <localActions>
+            <fullName>AddCommentToTicket_179ak000002lEkq</fullName>
+            <description>Adds a comment as specified by the user to a record such as a case, service request or an incident.</description>
+            <developerName>AddCommentToTicket_179ak000002lEkq</developerName>
+            <invocationTarget>svc_emp_intelligence__AddCmntToTkt</invocationTarget>
+            <invocationTargetType>flow</invocationTargetType>
+            <isConfirmationRequired>false</isConfirmationRequired>
+            <isIncludeInProgressIndicator>true</isIncludeInProgressIndicator>
+            <localDeveloperName>AddCommentToTicket</localDeveloperName>
+            <masterLabel>Add Comment to Ticket</masterLabel>
+            <progressIndicatorMessage>Adding comment</progressIndicatorMessage>
+            <source>svc_emp_intelligence__AddCommentToTicket</source>
+        </localActions>
+        <localActions>
+            <fullName>SummarizeTicketForEmployee_179ak000002lEkq</fullName>
+            <description>Generates a summary for a record such as a case, service request, or an incident for an employee to track the status and get updates on their ticket.</description>
+            <developerName>SummarizeTicketForEmployee_179ak000002lEkq</developerName>
+            <invocationTarget>svc_emp_intelligence__SummarizeRecord</invocationTarget>
+            <invocationTargetType>generatePromptResponse</invocationTargetType>
+            <isConfirmationRequired>false</isConfirmationRequired>
+            <isIncludeInProgressIndicator>true</isIncludeInProgressIndicator>
+            <localDeveloperName>SummarizeTicketForEmployee</localDeveloperName>
+            <masterLabel>Summarize Ticket For Employee</masterLabel>
+            <source>svc_emp_intelligence__SummarizeTicketForEmployee</source>
+        </localActions>
+        <localActions>
+            <fullName>CreateIncidentForEmployee_179ak000002lEkq</fullName>
+            <description>Creates an incident for an employee issue if the user can&apos;t resolve it with knowledge articles or if no articles exist.</description>
+            <developerName>CreateIncidentForEmployee_179ak000002lEkq</developerName>
+            <invocationTarget>createIncidentForRequestor</invocationTarget>
+            <invocationTargetType>standardInvocableAction</invocationTargetType>
+            <isConfirmationRequired>false</isConfirmationRequired>
+            <isIncludeInProgressIndicator>true</isIncludeInProgressIndicator>
+            <localDeveloperName>CreateIncidentForEmployee</localDeveloperName>
+            <masterLabel>Create Incident For Employee</masterLabel>
+            <source>svc_emp_intelligence__CreateIncidentForEmployee</source>
+        </localActions>
+        <localActions>
+            <fullName>GetProductLaunchCard_179ak000002lEkq</fullName>
+            <description>Retrieves the product or service process launch details that include a cover image and a link to the specific intake form.</description>
+            <developerName>GetProductLaunchCard_179ak000002lEkq</developerName>
+            <invocationTarget>getDynamicEnhancedLink</invocationTarget>
+            <invocationTargetType>standardInvocableAction</invocationTargetType>
+            <isConfirmationRequired>false</isConfirmationRequired>
+            <isIncludeInProgressIndicator>true</isIncludeInProgressIndicator>
+            <localDeveloperName>GetProductLaunchCard</localDeveloperName>
+            <masterLabel>Get Product Launch Card</masterLabel>
+            <source>sc_enterprise_catalog__GetProductLaunchCard</source>
+        </localActions>
+        <localActions>
+            <fullName>ReopenTicket_179ak000002lEkq</fullName>
+            <description>Reopens records such as incidents or service requests that are in Resolved status.</description>
+            <developerName>ReopenTicket_179ak000002lEkq</developerName>
+            <invocationTarget>svc_emp_intelligence__ReopenTicket</invocationTarget>
+            <invocationTargetType>flow</invocationTargetType>
+            <isConfirmationRequired>false</isConfirmationRequired>
+            <isIncludeInProgressIndicator>true</isIncludeInProgressIndicator>
+            <localDeveloperName>ReopenTicket</localDeveloperName>
+            <masterLabel>Reopen Ticket</masterLabel>
+            <progressIndicatorMessage>Checking whether record can be reopened…</progressIndicatorMessage>
+            <source>svc_emp_intelligence__ReopenTicket</source>
+        </localActions>
+        <localActions>
+            <fullName>GetSvcCatalogAttributes_179ak000002lEkq</fullName>
+            <description>Retrieves the list of attributes and their details for a service catalog item based on the ID of the item provided by the user.</description>
+            <developerName>GetSvcCatalogAttributes_179ak000002lEkq</developerName>
+            <invocationTarget>getSvcCtlgAttributes</invocationTarget>
+            <invocationTargetType>standardInvocableAction</invocationTargetType>
+            <isConfirmationRequired>false</isConfirmationRequired>
+            <isIncludeInProgressIndicator>true</isIncludeInProgressIndicator>
+            <localDeveloperName>GetSvcCatalogAttributes</localDeveloperName>
+            <masterLabel>Get Service Catalog Item Attributes</masterLabel>
+            <progressIndicatorMessage>Getting attributes for the item...</progressIndicatorMessage>
+            <source>svc_emp_intelligence__GetSvcCatalogAttributes</source>
+        </localActions>
+        <localActions>
+            <fullName>IdentifyRecordByName_179ak000002lEkq</fullName>
+            <description>Searches for Salesforce CRM records by name and returns a list of matching Salesforce CRM record IDs.</description>
+            <developerName>IdentifyRecordByName_179ak000002lEkq</developerName>
+            <invocationTarget>identifyRecordByName</invocationTarget>
+            <invocationTargetType>standardInvocableAction</invocationTargetType>
+            <isConfirmationRequired>false</isConfirmationRequired>
+            <isIncludeInProgressIndicator>true</isIncludeInProgressIndicator>
+            <localDeveloperName>IdentifyRecordByName</localDeveloperName>
+            <masterLabel>Identify Record by Name</masterLabel>
+            <source>EmployeeCopilot__IdentifyRecordByName</source>
+        </localActions>
+        <localActions>
+            <fullName>AnswerQuestionsWithKnowledge_179ak000002lEkq</fullName>
+            <description>Answers questions about company policies and procedures, troubleshooting steps, or product information. For example: “What is your return policy?” “How do I fix an issue?” or “What features does a product have?”</description>
+            <developerName>AnswerQuestionsWithKnowledge_179ak000002lEkq</developerName>
+            <invocationTarget>streamKnowledgeSearch</invocationTarget>
+            <invocationTargetType>standardInvocableAction</invocationTargetType>
+            <isConfirmationRequired>false</isConfirmationRequired>
+            <isIncludeInProgressIndicator>true</isIncludeInProgressIndicator>
+            <localDeveloperName>AnswerQuestionsWithKnowledge</localDeveloperName>
+            <masterLabel>Answer Questions with Knowledge</masterLabel>
+            <progressIndicatorMessage>Getting answers</progressIndicatorMessage>
+            <source>EmployeeCopilot__AnswerQuestionsWithKnowledge</source>
+        </localActions>
+        <localActions>
+            <fullName>GetEligibleServiceCatalogItems_179ak000002lEkq</fullName>
+            <description>Retrieves a list of the eligible service catalog items based on the user&apos;s description.</description>
+            <developerName>GetEligibleServiceCatalogItems_179ak000002lEkq</developerName>
+            <invocationTarget>getEligSvcCtlgItems</invocationTarget>
+            <invocationTargetType>standardInvocableAction</invocationTargetType>
+            <isConfirmationRequired>false</isConfirmationRequired>
+            <isIncludeInProgressIndicator>true</isIncludeInProgressIndicator>
+            <localDeveloperName>GetEligibleServiceCatalogItems</localDeveloperName>
+            <masterLabel>Get Eligible Service Catalog Items</masterLabel>
+            <progressIndicatorMessage>Getting the service catalog items based on your query...</progressIndicatorMessage>
+            <source>svc_emp_intelligence__GetEligibleServiceCatalogItems</source>
+        </localActions>
+        <localActions>
+            <fullName>CreateServiceCatalogRequest_179ak000002lEkq</fullName>
+            <description>Creates a new service catalog request based on the specified service catalog item and its attributes.</description>
+            <developerName>CreateServiceCatalogRequest_179ak000002lEkq</developerName>
+            <invocationTarget>createSvcCatalogReq</invocationTarget>
+            <invocationTargetType>standardInvocableAction</invocationTargetType>
+            <isConfirmationRequired>false</isConfirmationRequired>
+            <isIncludeInProgressIndicator>true</isIncludeInProgressIndicator>
+            <localDeveloperName>CreateServiceCatalogRequest</localDeveloperName>
+            <masterLabel>Create Service Catalog Request</masterLabel>
+            <progressIndicatorMessage>Creating a service catalog request...</progressIndicatorMessage>
+            <source>svc_emp_intelligence__CreateServiceCatalogRequest</source>
+        </localActions>
+        <localDeveloperName>EmployeeRequestManagement</localDeveloperName>
+        <masterLabel>Employee Request Management</masterLabel>
+        <pluginType>Topic</pluginType>
+        <scope>This topic is the central, universal &apos;catch-all&apos; for all employee questions, requests, and issues that do not clearly fit into the specific topics of Hardware, Software, Network, or Facilities.
+
+It is designed to be the single &apos;front door&apos; for any general inquiry and covers all corporate functions, including general IT, Human Resources, Finance, and Legal.
+
+This topic includes, but is not limited to:
+
+General IT: &apos;How do I change my email signature?&apos;, &apos;What&apos;s our policy on saving files?&apos;, &apos;I have a random IT question.&apos;
+
+Finance &amp; Procurement: &apos;What&apos;s the status of my expense report?&apos;, &apos;How do I create a purchase order?&apos;
+
+Vague Inquiries: &apos;I have a question and don&apos;t know who to ask,&apos; &apos;My computer is acting weird.&apos;</scope>
+        <source>svc_emp_intelligence__EmployeeRequestManagement</source>
+    </localTopics>
+    <masterLabel>Account Feedback Agent</masterLabel>
+    <plannerActions>
+        <fullName>AnswerQuestionsWithKnowledge_16jak000001jV3t</fullName>
+        <description>Answers questions about company policies and procedures, troubleshooting steps, or product information. For example: “What is your return policy?” “How do I fix an issue?” or “What features does a product have?”</description>
+        <developerName>AnswerQuestionsWithKnowledge_16jak000001jV3t</developerName>
+        <invocationTarget>streamKnowledgeSearch</invocationTarget>
+        <invocationTargetType>standardInvocableAction</invocationTargetType>
+        <isConfirmationRequired>false</isConfirmationRequired>
+        <isIncludeInProgressIndicator>true</isIncludeInProgressIndicator>
+        <localDeveloperName>AnswerQuestionsWithKnowledge</localDeveloperName>
+        <masterLabel>Answer Questions with Knowledge</masterLabel>
+        <progressIndicatorMessage>Getting answers</progressIndicatorMessage>
+        <source>EmployeeCopilot__AnswerQuestionsWithKnowledge</source>
+    </plannerActions>
+    <plannerSurfaces>
+        <adaptiveResponseAllowed>true</adaptiveResponseAllowed>
+        <callRecordingAllowed>false</callRecordingAllowed>
+        <surface>SurfaceAction__Messaging</surface>
+        <surfaceType>Messaging</surfaceType>
+    </plannerSurfaces>
+    <plannerType>AiCopilot__ReAct</plannerType>
+</GenAiPlannerBundle>

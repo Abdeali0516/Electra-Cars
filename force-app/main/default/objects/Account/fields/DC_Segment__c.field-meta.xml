@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DC_Segment__c</fullName>
+    <description>Dealer segment classification synced from Data Cloud calculated insights.</description>
+    <label>Data Cloud Segment</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Premium</fullName>
+                <default>false</default>
+                <label>Premium</label>
+            </value>
+            <value>
+                <fullName>Standard</fullName>
+                <default>false</default>
+                <label>Standard</label>
+            </value>
+            <value>
+                <fullName>Flagged</fullName>
+                <default>false</default>
+                <label>Flagged</label>
+            </value>
+            <value>
+                <fullName>Watchlist</fullName>
+                <default>false</default>
+                <label>Watchlist</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

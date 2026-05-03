@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GenAiPlannerBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Resolve employee inquiries and requests with an autonomous AI agent that provides accurate, conversational responses based on trusted data.</description>
+    <localActionLinks>
+        <genAiFunctionName>AnswerQuestionsWithKnowledge_16jak000001jV77</genAiFunctionName>
+    </localActionLinks>
+    <localTopicLinks>
+        <genAiPluginName>Generic_Bot_16jak000001jV77</genAiPluginName>
+    </localTopicLinks>
+    <localTopics>
+        <fullName>Generic_Bot_16jak000001jV77</fullName>
+        <canEscalate>false</canEscalate>
+        <description>When user provides claim data trigger the Submit Toyota True Warranty Claim action</description>
+        <developerName>Generic_Bot_16jak000001jV77</developerName>
+        <genAiPluginInstructions>
+            <description>When user provides claim data trigger the Submit Toyota True Warranty Claim action</description>
+            <developerName>instructions_0_1776187123482</developerName>
+            <language>en_US</language>
+            <masterLabel>instructions_0_1776187123482</masterLabel>
+            <sortOrder>0</sortOrder>
+        </genAiPluginInstructions>
+        <language>en_US</language>
+        <localActionLinks>
+            <functionName>Submit_Toyota_True_Warranty_Claim_179ak000002lC0f</functionName>
+        </localActionLinks>
+        <localActions>
+            <fullName>Submit_Toyota_True_Warranty_Claim_179ak000002lC0f</fullName>
+            <description>Validates eligibility and creates Claim, ClaimItem, ClaimCoverage, and WorkOrder records.</description>
+            <developerName>Submit_Toyota_True_Warranty_Claim_179ak000002lC0f</developerName>
+            <invocationTarget>Warrantyclaimaction</invocationTarget>
+            <invocationTargetType>apex</invocationTargetType>
+            <isConfirmationRequired>false</isConfirmationRequired>
+            <isIncludeInProgressIndicator>true</isIncludeInProgressIndicator>
+            <localDeveloperName>Submit_Toyota_True_Warranty_Claim</localDeveloperName>
+            <masterLabel>Submit Toyota True Warranty Claim</masterLabel>
+            <progressIndicatorMessage>loading..</progressIndicatorMessage>
+        </localActions>
+        <localDeveloperName>Generic_Bot</localDeveloperName>
+        <masterLabel>Account Feedback</masterLabel>
+        <pluginType>Topic</pluginType>
+        <scope>When user provides claim data trigger the Submit Toyota True Warranty Claim action</scope>
+    </localTopics>
+    <masterLabel>UniqueAGENTBond</masterLabel>
+    <plannerActions>
+        <fullName>AnswerQuestionsWithKnowledge_16jak000001jV77</fullName>
+        <description>Answers questions about company policies and procedures, troubleshooting steps, or product information. For example: “What is your return policy?” “How do I fix an issue?” or “What features does a product have?”</description>
+        <developerName>AnswerQuestionsWithKnowledge_16jak000001jV77</developerName>
+        <invocationTarget>streamKnowledgeSearch</invocationTarget>
+        <invocationTargetType>standardInvocableAction</invocationTargetType>
+        <isConfirmationRequired>false</isConfirmationRequired>
+        <isIncludeInProgressIndicator>true</isIncludeInProgressIndicator>
+        <localDeveloperName>AnswerQuestionsWithKnowledge</localDeveloperName>
+        <masterLabel>Answer Questions with Knowledge</masterLabel>
+        <progressIndicatorMessage>Getting answers</progressIndicatorMessage>
+        <source>EmployeeCopilot__AnswerQuestionsWithKnowledge</source>
+    </plannerActions>
+    <plannerSurfaces>
+        <adaptiveResponseAllowed>true</adaptiveResponseAllowed>
+        <callRecordingAllowed>false</callRecordingAllowed>
+        <surface>SurfaceAction__Messaging</surface>
+        <surfaceType>Messaging</surfaceType>
+    </plannerSurfaces>
+    <plannerType>AiCopilot__ReAct</plannerType>
+</GenAiPlannerBundle>

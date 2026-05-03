@@ -1,0 +1,31 @@
+{
+  "unevaluatedProperties" : false,
+  "properties" : {
+    "directDepositDetails" : {
+      "title" : "Direct Deposit Details",
+      "description" : "Response from the getDirectDepositDetails invocable action, containing the direct deposit details.",
+      "lightning:type" : "@apexClassType/EmpSvcProcess__DirectDepositDetail",
+      "lightning:isPII" : true,
+      "copilotAction:isDisplayable" : false,
+      "copilotAction:isUsedByPlanner" : true
+    },
+    "statusMessage" : {
+      "title" : "Status Message",
+      "description" : "The status message indicating whether the MuleSoft application successfully retrieved the employee’s direct deposit details.",
+      "lightning:type" : "lightning__textType",
+      "lightning:isPII" : false,
+      "copilotAction:isDisplayable" : false,
+      "copilotAction:isUsedByPlanner" : false
+    },
+    "responseCode" : {
+      "title" : "Response Code",
+      "description" : "The response code indicating whether the MuleSoft application successfully retrieved the employee’s direct deposit details.",
+      "lightning:type" : "lightning__textType",
+      "lightning:isPII" : false,
+      "copilotAction:isDisplayable" : false,
+      "copilotAction:isUsedByPlanner" : true
+    }
+  },
+  "lightning:type" : "lightning__objectType",
+  "lightning:textIndexed" : true
+}

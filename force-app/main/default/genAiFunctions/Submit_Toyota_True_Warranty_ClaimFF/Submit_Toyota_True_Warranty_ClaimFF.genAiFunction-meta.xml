@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GenAiFunction xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Creates Claim, ClaimItems, ClaimCoverage, WorkOrder, and Notes in Automotive Cloud.</description>
+    <developerName>Submit_Toyota_True_Warranty_ClaimFF</developerName>
+    <invocationTarget>Warrantyclaimaction</invocationTarget>
+    <invocationTargetType>apex</invocationTargetType>
+    <isConfirmationRequired>false</isConfirmationRequired>
+    <isIncludeInProgressIndicator>true</isIncludeInProgressIndicator>
+    <localDeveloperName>Submit_Toyota_True_Warranty_ClaimFF</localDeveloperName>
+    <masterLabel>Submit Toyota True Warranty ClaimFF</masterLabel>
+    <progressIndicatorMessage>Creating Claim</progressIndicatorMessage>
+</GenAiFunction>

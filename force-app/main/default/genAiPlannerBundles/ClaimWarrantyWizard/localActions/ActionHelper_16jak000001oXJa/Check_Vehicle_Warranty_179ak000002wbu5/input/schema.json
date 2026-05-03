@@ -1,0 +1,21 @@
+{
+  "required" : [ "vinNumber" ],
+  "unevaluatedProperties" : false,
+  "properties" : {
+    "currentMileage" : {
+      "title" : "Current Mileage in KM",
+      "description" : "Collected from conversation",
+      "lightning:type" : "lightning__numberType",
+      "lightning:isPII" : false,
+      "copilotAction:isUserInput" : true
+    },
+    "vinNumber" : {
+      "title" : "VIN Number",
+      "description" : "Collected from conversation",
+      "lightning:type" : "lightning__textType",
+      "lightning:isPII" : false,
+      "copilotAction:isUserInput" : true
+    }
+  },
+  "lightning:type" : "lightning__objectType"
+}

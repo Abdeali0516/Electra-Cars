@@ -1,0 +1,132 @@
+<template>
+    <div class="claim-result-container">
+
+        <!-- Status Header -->
+        <div class={statusHeaderClass}>
+            <div class="status-icon-wrap">
+                <span class="status-icon">{statusIcon}</span>
+            </div>
+            <div class="status-content">
+                <p class="status-label">Warranty Claim</p>
+                <!-- value.claimNumber → Apex: claimNumber (Claim.Name auto-number) -->
+                <h2 class="claim-ref">{value.claimNumber}</h2>
+                <!-- value.coverageDecision → Apex: coverageDecision -->
+                <span class={coverageBadgeClass}>{value.coverageDecision}</span>
+            </div>
+        </div>
+
+        <!-- Coverage Notes -->
+        <div class="coverage-note" if:true={value.coverageNotes}>
+            <span class="note-icon">📋</span>
+            <!-- value.coverageNotes → Apex: coverageNotes -->
+            <p class="note-text">{value.coverageNotes}</p>
+        </div>
+
+        <!-- Assigned Dealer -->
+        <div class="result-card dealer-card">
+            <div class="result-card-header">
+                <span>🏢</span>
+                <span>Assigned Authorised Dealer</span>
+            </div>
+            <!-- value.assignedDealerName → Apex: assignedDealerName -->
+            <p class="dealer-name">{value.assignedDealerName}</p>
+            <!-- value.assignedDealerAddress → Apex: assignedDealerAddress -->
+            <p class="dealer-detail">{value.assignedDealerAddress}</p>
+            <div class="dealer-phone">
+                <span>📞</span>
+                <!-- value.assignedDealerPhone → Apex: assignedDealerPhone -->
+                <span>{value.assignedDealerPhone}</span>
+            </div>
+        </div>
+
+        <!-- Claim Details -->
+        <div class="result-card">
+            <div class="result-card-header">
+                <span>📄</span>
+                <span>Claim Details</span>
+            </div>
+            <!-- value.claimStatus → Apex: claimStatus (Claim.Status) -->
+            <div class="detail-row">
+                <span class="detail-label">Claim Status</span>
+                <span class="detail-value">{value.claimStatus}</span>
+            </div>
+            <!-- value.claimItemStatus → Apex: claimItemStatus (ClaimItem.Status) -->
+            <div class="detail-row">
+                <span class="detail-label">Item Status</span>
+                <span class="detail-value">{value.claimItemStatus}</span>
+            </div>
+            <!-- value.coverageType → Apex: coverageType (ClaimCoverage.CoverageType) -->
+            <div class="detail-row">
+                <span class="detail-label">Coverage Type</span>
+                <span class="detail-value">{value.coverageType}</span>
+            </div>
+            <!-- value.workOrderNumber → Apex: workOrderNumber -->
+            <div class="detail-row">
+                <span class="detail-label">Work Order No.</span>
+                <span class="detail-value">{value.workOrderNumber}</span>
+            </div>
+        </div>
+
+        <!-- Timeline -->
+        <div class="result-card">
+            <div class="result-card-header">
+                <span>📅</span>
+                <span>Timeline</span>
+            </div>
+            <div class="timeline-row">
+                <div class="timeline-item">
+                    <span class="tl-label">Submitted</span>
+                    <!-- value.submissionTimestamp → Apex: submissionTimestamp -->
+                    <span class="tl-value">{value.submissionTimestamp}</span>
+                </div>
+                <div class="timeline-arrow">→</div>
+                <div class="timeline-item">
+                    <span class="tl-label">Est. Completion</span>
+                    <!-- value.estimatedCompletionDate → Apex: estimatedCompletionDate -->
+                    <span class="tl-value est">{value.estimatedCompletionDate}</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- RSA Card — only shown when isRSAEligible is true -->
+        <!-- value.isRSAEligible → Apex: isRSAEligible -->
+        <div class="result-card rsa-card" if:true={value.isRSAEligible}>
+            <div class="result-card-header rsa-header">
+                <span>🚨</span>
+                <span>Roadside Assistance (RSA)</span>
+                <span class="rsa-eligible-badge">Eligible</span>
+            </div>
+            <p class="rsa-desc">
+                Free towing up to {value.rsaMaxTowDistanceKm} km from your breakdown location.
+            </p>
+            <div class="rsa-number">
+                <span class="rsa-num-label">24x7 Toll-Free</span>
+                <!-- value.rsaContactNumber → Apex: rsaContactNumber -->
+                <span class="rsa-num-val">{value.rsaContactNumber}</span>
+            </div>
+        </div>
+
+        <!-- Next Steps -->
+        <div class="result-card" if:true={value.nextSteps}>
+            <div class="result-card-header">
+                <span>✅</span>
+                <span>Next Steps</span>
+            </div>
+            <!-- value.nextSteps → Apex: nextSteps -->
+            <p class="next-steps-text">{value.nextSteps}</p>
+        </div>
+
+        <!-- Parts Warranty note -->
+        <div class="parts-warranty-note" if:true={value.replacedPartsWarrantyMonths}>
+            Replaced parts carry an additional warranty of
+            <strong>{value.replacedPartsWarrantyMonths} months</strong> or
+            <strong>{value.replacedPartsWarrantyKm} km</strong>, whichever comes first.
+            Ref: T&amp;C Section IX(viii).
+        </div>
+
+        <p class="result-footer">
+            Claim governed by Toyota True Warranty Terms &amp; Conditions.
+            Contact your Authorised Dealer quoting the claim reference for any disputes.
+        </p>
+    </div>
+</template>

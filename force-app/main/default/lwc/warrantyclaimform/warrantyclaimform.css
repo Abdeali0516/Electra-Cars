@@ -1,0 +1,327 @@
+/* warrantyClaimForm.css — Toyota True Warranty multi-step form */
+
+/* ── Container ───────────────────────────────────────────────────────────── */
+.warranty-form-container {
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 0 0 2rem;
+    font-family: var(--lwc-fontFamily, 'Toyota Display', 'Nunito Sans', sans-serif);
+    color: #1a1a1a;
+}
+
+/* ── Header ──────────────────────────────────────────────────────────────── */
+.form-header {
+    background: linear-gradient(135deg, #eb0a1e 0%, #c0001a 100%);
+    border-radius: 12px 12px 0 0;
+    padding: 1.25rem 1.5rem 1rem;
+    color: #fff;
+    margin-bottom: 0;
+}
+.toyota-badge {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+}
+.badge-icon    { font-size: 2rem; }
+.form-title    { margin: 0; font-size: 1.35rem; font-weight: 700; }
+.form-subtitle { margin: 0; font-size: 0.82rem; opacity: 0.85; }
+
+/* ── Step indicator ──────────────────────────────────────────────────────── */
+.step-indicator {
+    display: flex;
+    border-radius: 8px;
+    overflow: hidden;
+    background: rgba(255,255,255,0.15);
+}
+.step-item {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0.5rem 0.25rem;
+    font-size: 0.7rem;
+    font-weight: 600;
+    border-right: 1px solid rgba(255,255,255,0.2);
+    cursor: default;
+}
+.step-item:last-child { border-right: none; }
+.step-dot {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    font-size: 0.75rem;
+    font-weight: 700;
+    margin-bottom: 3px;
+}
+.step-label { line-height: 1.2; text-align: center; }
+.step-completed            { background: rgba(255,255,255,0.25); color: #fff; }
+.step-completed .step-dot  { background: #fff; color: #eb0a1e; }
+.step-active               { background: rgba(255,255,255,0.4); color: #fff; }
+.step-active .step-dot     { background: #fff; color: #eb0a1e; font-weight: 900; }
+.step-pending              { color: rgba(255,255,255,0.55); }
+.step-pending .step-dot    { background: rgba(255,255,255,0.2); color: #fff; }
+
+/* ── Cards ───────────────────────────────────────────────────────────────── */
+.info-card {
+    background: #fff;
+    border: 1px solid #e5e7eb;
+    border-radius: 0 0 10px 10px;
+    padding: 1.25rem 1.5rem;
+    margin-bottom: 0.75rem;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+.info-card + .info-card { border-radius: 10px; }
+.user-card    { border-radius: 10px; }
+.confirm-card { border-radius: 10px; }
+.context-card {
+    border-radius: 10px;
+    background: #fafbfc;
+    border-color: #e9ecef;
+}
+
+.card-header {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+    padding-bottom: 0.65rem;
+    border-bottom: 2px solid #f3f4f6;
+}
+.card-icon  { font-size: 1.15rem; }
+.card-title { font-size: 0.95rem; font-weight: 700; color: #111; flex: 1; }
+
+/* ── Badge pill ──────────────────────────────────────────────────────────── */
+.badge-pill {
+    font-size: 0.7rem;
+    font-weight: 700;
+    padding: 0.2rem 0.55rem;
+    border-radius: 20px;
+    background: #e5e7eb;
+    color: #374151;
+    white-space: nowrap;
+}
+.badge-active  { background: #d1fae5; color: #065f46; }
+.badge-expired { background: #fee2e2; color: #991b1b; }
+
+/* ── Context grid (read-only display) ────────────────────────────────────── */
+.context-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 0.65rem 1.25rem;
+}
+.context-grid.two-col {
+    grid-template-columns: 1fr 1fr;
+    gap: 0.5rem 1.5rem;
+}
+.ctx-item        { display: flex; flex-direction: column; gap: 1px; }
+.ctx-label       { font-size: 0.7rem; font-weight: 600; color: #9ca3af; text-transform: uppercase; letter-spacing: 0.04em; }
+.ctx-value       { font-size: 0.88rem; color: #111; font-weight: 500; }
+.ctx-mono        { font-family: monospace; font-size: 0.82rem; }
+.ctx-section-title { font-size: 0.7rem; font-weight: 700; color: #9ca3af; text-transform: uppercase; letter-spacing: 0.04em; margin: 0 0 3px; }
+.ctx-value-lg    { font-size: 0.95rem; font-weight: 700; color: #111; margin: 0 0 2px; }
+.ctx-meta        { font-size: 0.82rem; color: #6b7280; margin: 0; }
+
+/* ── Form elements ───────────────────────────────────────────────────────── */
+.form-group      { margin-bottom: 1rem; }
+.form-row        { display: flex; gap: 1rem; }
+.form-group-half { flex: 1; }
+
+.field-label {
+    display: block;
+    font-size: 0.81rem;
+    font-weight: 600;
+    color: #374151;
+    margin-bottom: 5px;
+    letter-spacing: 0.015em;
+}
+.required-star { color: #eb0a1e; margin-left: 2px; }
+
+.form-input {
+    width: 100%;
+    padding: 0.52rem 0.75rem;
+    border: 1.5px solid #d1d5db;
+    border-radius: 7px;
+    font-size: 0.88rem;
+    color: #1a1a1a;
+    background: #fafafa;
+    transition: border-color 0.15s, box-shadow 0.15s;
+    box-sizing: border-box;
+}
+.form-input:focus {
+    outline: none;
+    border-color: #eb0a1e;
+    box-shadow: 0 0 0 3px rgba(235,10,30,0.1);
+    background: #fff;
+}
+.form-select   { cursor: pointer; }
+.form-textarea { resize: vertical; min-height: 84px; }
+
+.char-count  { font-size: 0.7rem; color: #9ca3af; float: right; margin-top: 3px; }
+
+/* ── Inline field warnings / alerts ──────────────────────────────────────── */
+.field-warning {
+    font-size: 0.78rem;
+    color: #b45309;
+    background: #fffbeb;
+    border: 1px solid #fde68a;
+    border-radius: 5px;
+    padding: 0.35rem 0.6rem;
+    margin-top: 5px;
+}
+.field-alert {
+    font-size: 0.78rem;
+    color: #b91c1c;
+    background: #fff1f2;
+    border: 1px solid #fca5a5;
+    border-radius: 5px;
+    padding: 0.35rem 0.6rem;
+    margin-top: 5px;
+}
+
+/* ── Radio group ─────────────────────────────────────────────────────────── */
+.radio-group  { display: flex; gap: 1.5rem; }
+.radio-option { display: flex; align-items: center; gap: 0.4rem; cursor: pointer; }
+.radio-label  { font-size: 0.88rem; font-weight: 500; color: #374151; }
+
+/* ── Confirm card ────────────────────────────────────────────────────────── */
+.confirm-question { font-size: 1.02rem; font-weight: 600; color: #1a1a1a; margin: 0 0 0.35rem; }
+.confirm-hint     { font-size: 0.82rem; color: #6b7280; margin: 0 0 1.1rem; }
+.confirm-actions  { display: flex; gap: 0.75rem; }
+
+.btn-yes, .btn-no {
+    flex: 1;
+    padding: 0.7rem 1rem;
+    border: none;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.15s, transform 0.1s;
+}
+.btn-yes          { background: #16a34a; color: #fff; }
+.btn-yes:hover    { background: #15803d; transform: translateY(-1px); }
+.btn-no           { background: #f1f5f9; color: #374151; border: 1px solid #d1d5db; }
+.btn-no:hover     { background: #e2e8f0; transform: translateY(-1px); }
+
+/* ── Claim item rows ─────────────────────────────────────────────────────── */
+.claim-item-row {
+    background: #f9fafb;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    padding: 1rem;
+    margin-bottom: 0.9rem;
+}
+.item-row-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.75rem;
+    font-size: 0.88rem;
+    color: #374151;
+}
+.btn-remove         { background: #fee2e2; color: #b91c1c; border: none; border-radius: 5px; padding: 0.25rem 0.6rem; font-size: 0.76rem; cursor: pointer; font-weight: 600; }
+.btn-remove:hover   { background: #fecaca; }
+
+.btn-add-item {
+    width: 100%;
+    padding: 0.6rem;
+    background: #f0f9ff;
+    border: 1.5px dashed #7dd3fc;
+    border-radius: 7px;
+    color: #0369a1;
+    font-size: 0.86rem;
+    font-weight: 600;
+    cursor: pointer;
+    margin-bottom: 1rem;
+    transition: background 0.15s;
+}
+.btn-add-item:hover { background: #e0f2fe; }
+
+/* ── File upload list ────────────────────────────────────────────────────── */
+.upload-list      { list-style: none; margin: 0.5rem 0 0; padding: 0; font-size: 0.83rem; color: #16a34a; }
+.upload-list li   { margin-bottom: 3px; }
+
+/* ── Action row ──────────────────────────────────────────────────────────── */
+.action-row {
+    display: flex;
+    gap: 0.75rem;
+    align-items: center;
+    margin-top: 0.5rem;
+}
+.action-row .submit-btn { margin-top: 0; flex: 1; }
+
+/* ── Buttons ─────────────────────────────────────────────────────────────── */
+.submit-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    background: linear-gradient(135deg, #eb0a1e 0%, #c0001a 100%);
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 0.75rem 1.5rem;
+    font-size: 0.95rem;
+    font-weight: 700;
+    cursor: pointer;
+    width: 100%;
+    transition: opacity 0.15s, transform 0.1s;
+    letter-spacing: 0.02em;
+    margin-top: 0.75rem;
+}
+.submit-btn:hover:not(:disabled) { opacity: 0.9; transform: translateY(-1px); }
+.submit-btn:disabled              { opacity: 0.55; cursor: not-allowed; transform: none; }
+.submit-icon { font-size: 1rem; }
+
+.btn-skip {
+    background: #f1f5f9;
+    border: 1px solid #d1d5db;
+    color: #6b7280;
+    padding: 0.7rem 1rem;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    cursor: pointer;
+    font-weight: 500;
+    white-space: nowrap;
+}
+.btn-skip:hover { background: #e2e8f0; }
+
+/* ── Banners ─────────────────────────────────────────────────────────────── */
+.success-banner {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    background: #f0fdf4;
+    border: 1.5px solid #bbf7d0;
+    border-radius: 10px;
+    padding: 1.1rem 1.25rem;
+    margin-top: 1rem;
+    color: #15803d;
+}
+.success-icon   { font-size: 1.5rem; flex-shrink: 0; }
+.success-banner strong { font-size: 1rem; font-weight: 700; }
+.success-banner p      { margin: 0.25rem 0 0; font-size: 0.88rem; }
+.rsa-note       { color: #b91c1c !important; font-weight: 600; }
+
+.error-banner {
+    background: #fff1f2;
+    border: 1.5px solid #fca5a5;
+    border-radius: 8px;
+    padding: 0.7rem 1rem;
+    color: #b91c1c;
+    font-size: 0.875rem;
+    font-weight: 500;
+    margin-bottom: 0.75rem;
+}
+
+.disclaimer {
+    font-size: 0.73rem;
+    color: #9ca3af;
+    text-align: center;
+    margin-top: 0.75rem;
+    line-height: 1.5;
+}

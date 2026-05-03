@@ -1,0 +1,77 @@
+<template>
+    <div class="csp-card">
+
+        <!-- LOADING -->
+        <template if:true={isLoading}>
+            <div class="csp-loading">
+                <div class="csp-spinner"></div>
+                <span>Loading claim status…</span>
+            </div>
+        </template>
+
+        <!-- ERROR -->
+        <template if:true={hasLoadError}>
+            <div class="csp-load-error">
+                <span>⚠️</span>
+                <span>{loadError}</span>
+            </div>
+        </template>
+
+        <!-- CONTENT -->
+        <template if:true={isLoaded}>
+
+            <!-- Ambient glow orb -->
+            <div class="csp-orb"></div>
+
+            <!-- Header row -->
+            <div class="csp-header">
+                <div class="csp-header-left">
+                    <span class="csp-eyebrow">CLAIM PROGRESS</span>
+                    <span class={statusBadgeClass}>{status}</span>
+                </div>
+                <template if:true={isRejected}>
+                    <div class="csp-rejected-pill">🚫 Rejected</div>
+                </template>
+            </div>
+
+            <!-- Progress fill bar -->
+            <div class="csp-fill-track">
+                <div class={fillBarClass}></div>
+            </div>
+
+            <!-- Step track -->
+            <div class="csp-track">
+                <template for:each={stepsWithState} for:item="s">
+                    <div key={s.value} class={s.stepClass}>
+
+                        <!-- Connector (hidden for first step) -->
+                        <div class={s.lineClass}></div>
+
+                        <!-- Node -->
+                        <div class="csp-node-wrap">
+                            <template if:true={s.isCurrent}>
+                                <div class="csp-node-ring-outer"></div>
+                            </template>
+                            <div class={s.nodeClass}>
+                                <template if:true={s.showCheck}>
+                                    <span class="csp-icon">✓</span>
+                                </template>
+                                <template if:false={s.showCheck}>
+                                    <span class="csp-icon">{s.index}</span>
+                                </template>
+                            </div>
+                        </div>
+
+                        <!-- Label -->
+                        <span class="csp-label">{s.label}</span>
+                        <template if:true={s.isCurrent}>
+                            <span class="csp-current-tag">◀ Current</span>
+                        </template>
+
+                    </div>
+                </template>
+            </div>
+
+        </template>
+    </div>
+</template>

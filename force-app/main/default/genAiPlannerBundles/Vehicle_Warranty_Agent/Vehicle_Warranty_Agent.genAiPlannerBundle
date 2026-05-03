@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GenAiPlannerBundle xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <description>Deliver personalized customer interactions with an autonomous AI agent. Agentforce Service Agent intelligently supports your customers with common inquiries and escalates complex issues.</description>
+    <localActionLinks>
+        <genAiFunctionName>AnswerQuestionsWithKnowledge_16jak000001nLif</genAiFunctionName>
+    </localActionLinks>
+    <localTopicLinks>
+        <genAiPluginName>Vehicle_Warranty_Display_16jak000001nLif</genAiPluginName>
+    </localTopicLinks>
+    <localTopics>
+        <fullName>Vehicle_Warranty_Display_16jak000001nLif</fullName>
+        <canEscalate>false</canEscalate>
+        <description>You are an agent helping out organization&apos;s agents to quickly review and asses client requirements for their claim assistance, also help to create the claim record/request.</description>
+        <developerName>Vehicle_Warranty_Display_16jak000001nLif</developerName>
+        <genAiPluginInstructions>
+            <description>always display the Check Vehicle Warranty2 action first never create the claim record directly.</description>
+            <developerName>instructions_0_1777528886439</developerName>
+            <language>en_US</language>
+            <masterLabel>instructions_0_1777528886439</masterLabel>
+            <sortOrder>0</sortOrder>
+        </genAiPluginInstructions>
+        <genAiPluginInstructions>
+            <description>ALWAYS ask for user VIN number and milage, once collected trigger Check Vehicle Warranty action</description>
+            <developerName>instructions_0_1777529119424</developerName>
+            <language>en_US</language>
+            <masterLabel>instructions_0_1777529119424</masterLabel>
+            <sortOrder>1</sortOrder>
+        </genAiPluginInstructions>
+        <genAiPluginInstructions>
+            <description>you are an dealer who will also create the claim request or record using the informaqtion fetched by this action Check Vehicle Warranty2 and create record using this action Submit Toyota True Warranty ClaimF</description>
+            <developerName>instructions_1_1777528886472</developerName>
+            <language>en_US</language>
+            <masterLabel>instructions_1_1777528886472</masterLabel>
+            <sortOrder>2</sortOrder>
+        </genAiPluginInstructions>
+        <genAiPluginInstructions>
+            <description>Always create claim record or request using this action Submit Toyota True Warranty ClaimF</description>
+            <developerName>instruction_0_1777448527245</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>instruction_0_1777448527245</masterLabel>
+            <sortOrder>3</sortOrder>
+        </genAiPluginInstructions>
+        <language>en_US</language>
+        <localActionLinks>
+            <functionName>Check_Vehicle_Warranty2_179ak000002xCVR</functionName>
+        </localActionLinks>
+        <localActionLinks>
+            <functionName>Submit_Toyota_True_Warranty_ClaimF_179ak000002xCVR</functionName>
+        </localActionLinks>
+        <localActions>
+            <fullName>Check_Vehicle_Warranty2_179ak000002xCVR</fullName>
+            <description>Validates vehicle warranty via VIN and mileage. Creates a draft Claim on eligibility. Returns VehicleWarrantyProfile for LWC card display.</description>
+            <developerName>Check_Vehicle_Warranty2_179ak000002xCVR</developerName>
+            <invocationTarget>VehicleWarrantyAction</invocationTarget>
+            <invocationTargetType>apex</invocationTargetType>
+            <isConfirmationRequired>false</isConfirmationRequired>
+            <isIncludeInProgressIndicator>false</isIncludeInProgressIndicator>
+            <localDeveloperName>Check_Vehicle_Warranty2</localDeveloperName>
+            <masterLabel>Check Vehicle Warranty2</masterLabel>
+            <source>Check_Vehicle_Warranty2</source>
+        </localActions>
+        <localActions>
+            <fullName>Submit_Toyota_True_Warranty_ClaimF_179ak000002xCVR</fullName>
+            <description>Creates a Claim record in Automotive Cloud.</description>
+            <developerName>Submit_Toyota_True_Warranty_ClaimF_179ak000002xCVR</developerName>
+            <invocationTarget>Warrantyclaimaction</invocationTarget>
+            <invocationTargetType>apex</invocationTargetType>
+            <isConfirmationRequired>false</isConfirmationRequired>
+            <isIncludeInProgressIndicator>true</isIncludeInProgressIndicator>
+            <localDeveloperName>Submit_Toyota_True_Warranty_ClaimF</localDeveloperName>
+            <masterLabel>Submit Toyota True Warranty ClaimF</masterLabel>
+            <progressIndicatorMessage>Creating claim</progressIndicatorMessage>
+        </localActions>
+        <localDeveloperName>Vehicle_Warranty_Display</localDeveloperName>
+        <masterLabel>Vehicle Warranty Display</masterLabel>
+        <pluginType>Topic</pluginType>
+        <scope>You are an agent helping out organization&apos;s agents to quicly review and asses client requirements for their claim assistance, you are an dealer who will also create the claim request or record using the informaqtion fetched by this action Check Vehicle Warranty2</scope>
+        <source>Vehicle_Warranty_Display</source>
+    </localTopics>
+    <masterLabel>Vehicle Warranty Agent</masterLabel>
+    <plannerActions>
+        <fullName>AnswerQuestionsWithKnowledge_16jak000001nLif</fullName>
+        <description>Answers questions about company policies and procedures, troubleshooting steps, or product information. For example: “What is your return policy?” “How do I fix an issue?” or “What features does a product have?”</description>
+        <developerName>AnswerQuestionsWithKnowledge_16jak000001nLif</developerName>
+        <invocationTarget>streamKnowledgeSearch</invocationTarget>
+        <invocationTargetType>standardInvocableAction</invocationTargetType>
+        <isConfirmationRequired>false</isConfirmationRequired>
+        <isIncludeInProgressIndicator>true</isIncludeInProgressIndicator>
+        <localDeveloperName>AnswerQuestionsWithKnowledge</localDeveloperName>
+        <masterLabel>Answer Questions with Knowledge</masterLabel>
+        <progressIndicatorMessage>Getting answers</progressIndicatorMessage>
+        <source>EmployeeCopilot__AnswerQuestionsWithKnowledge</source>
+    </plannerActions>
+    <plannerSurfaces>
+        <adaptiveResponseAllowed>true</adaptiveResponseAllowed>
+        <callRecordingAllowed>false</callRecordingAllowed>
+        <surface>SurfaceAction__Messaging</surface>
+        <surfaceType>Messaging</surfaceType>
+    </plannerSurfaces>
+    <plannerSurfaces>
+        <adaptiveResponseAllowed>true</adaptiveResponseAllowed>
+        <callRecordingAllowed>false</callRecordingAllowed>
+        <surface>SurfaceAction__CustomerWebClient</surface>
+        <surfaceType>CustomerWebClient</surfaceType>
+    </plannerSurfaces>
+    <plannerType>AiCopilot__ReAct</plannerType>
+    <ruleExpressions>
+        <conditions>
+            <leftOperand>isVerified</leftOperand>
+            <leftOperandType>Variable</leftOperandType>
+            <operator>equal</operator>
+            <rightOperandValue>true</rightOperandValue>
+        </conditions>
+        <expression>Verified_User</expression>
+        <expressionLabel>Verified User</expressionLabel>
+        <expressionName>Verified_User</expressionName>
+        <expressionType>sel</expressionType>
+    </ruleExpressions>
+</GenAiPlannerBundle>

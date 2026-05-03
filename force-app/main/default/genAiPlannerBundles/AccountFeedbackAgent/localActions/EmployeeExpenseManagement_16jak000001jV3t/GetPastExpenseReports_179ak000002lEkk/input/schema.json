@@ -1,0 +1,15 @@
+{
+  "required" : [ "namedCredential" ],
+  "unevaluatedProperties" : false,
+  "properties" : {
+    "namedCredential" : {
+      "title" : "namedCredential",
+      "description" : "The named credentials of the MuleSoft application that’s used to get an employee’s past expense reports.",
+      "lightning:type" : "lightning__textType",
+      "lightning:isPII" : false,
+      "copilotAction:isUserInput" : false
+    }
+  },
+  "lightning:type" : "lightning__objectType",
+  "lightning:textIndexed" : true
+}

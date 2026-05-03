@@ -1,0 +1,27 @@
+{
+  "unevaluatedProperties" : false,
+  "properties" : {
+    "statusMessage" : {
+      "title" : "Status Message",
+      "description" : "The status message describing if the MuleSoft application retrieved an employee’s leave balances or not.",
+      "lightning:type" : "lightning__textType",
+      "lightning:isPII" : false,
+      "copilotAction:isDisplayable" : false,
+      "copilotAction:isUsedByPlanner" : true
+    },
+    "leaveBalance" : {
+      "title" : "Leave Balances",
+      "description" : "A list of Apex objects that contain the details of an employee’s leave balances.",
+      "maxItems" : 2000,
+      "items" : {
+        "lightning:type" : "@apexClassType/EmpSvcAgent__LeaveBalance"
+      },
+      "lightning:type" : "lightning__listType",
+      "lightning:isPII" : false,
+      "copilotAction:isDisplayable" : false,
+      "copilotAction:isUsedByPlanner" : true
+    }
+  },
+  "lightning:type" : "lightning__objectType",
+  "lightning:textIndexed" : true
+}

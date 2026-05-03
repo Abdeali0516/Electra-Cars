@@ -1,0 +1,33 @@
+{
+  "required" : [ "namedCredential" ],
+  "unevaluatedProperties" : false,
+  "properties" : {
+    "namedCredential" : {
+      "title" : "Named Credential",
+      "description" : "The named credentials of the MuleSoft application that’s used to get an employee’s leave balances.",
+      "lightning:type" : "lightning__textType",
+      "lightning:isPII" : false,
+      "copilotAction:isUserInput" : false
+    },
+    "asOfDate" : {
+      "title" : "As Of Date",
+      "description" : "The date from which an employee’s leave balances are retrieved.",
+      "lightning:type" : "lightning__dateType",
+      "lightning:isPII" : false,
+      "copilotAction:isUserInput" : true
+    },
+    "leaveTypes" : {
+      "title" : "Leave Types",
+      "description" : "A list of leave types.",
+      "maxItems" : 2000,
+      "items" : {
+        "lightning:type" : "lightning__textType"
+      },
+      "lightning:type" : "lightning__listType",
+      "lightning:isPII" : false,
+      "copilotAction:isUserInput" : false
+    }
+  },
+  "lightning:type" : "lightning__objectType",
+  "lightning:textIndexed" : true
+}

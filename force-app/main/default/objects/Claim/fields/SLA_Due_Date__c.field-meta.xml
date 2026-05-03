@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>SLA_Due_Date__c</fullName>
+    <description>4-hour SLA due date for human review. Set when claim is routed to Human Review (score 40–84).</description>
+    <label>SLA Due Date</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <type>DateTime</type>
+</CustomField>

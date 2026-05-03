@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GenAiFunction xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Use this action to fetch claims based on time filters like today, yesterday, this month, last month.</description>
+    <developerName>Get_Claims_by_Time_Filter</developerName>
+    <invocationTarget>ClaimAgentService</invocationTarget>
+    <invocationTargetType>apex</invocationTargetType>
+    <isConfirmationRequired>false</isConfirmationRequired>
+    <isIncludeInProgressIndicator>true</isIncludeInProgressIndicator>
+    <localDeveloperName>Get_Claims_by_Time_Filter</localDeveloperName>
+    <masterLabel>Get Claims by Time Filter</masterLabel>
+    <progressIndicatorMessage>Fetching claims</progressIndicatorMessage>
+</GenAiFunction>

@@ -1,0 +1,14 @@
+{
+  "required" : [ "claimData" ],
+  "unevaluatedProperties" : false,
+  "properties" : {
+    "claimData" : {
+      "title" : "Claim Data",
+      "description" : "For claim of Vehicle.",
+      "lightning:type" : "c__warrantyClaimInputCLT",
+      "lightning:isPII" : false,
+      "copilotAction:isUserInput" : false
+    }
+  },
+  "lightning:type" : "lightning__objectType"
+}

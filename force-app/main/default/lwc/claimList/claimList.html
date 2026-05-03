@@ -1,0 +1,153 @@
+<template>
+
+    <!-- ══════════════════════════════════════════════════════════════════════ -->
+    <!-- LIST VIEW                                                              -->
+    <!-- ══════════════════════════════════════════════════════════════════════ -->
+    <template if:true={showListView}>
+        <div class="list-container">
+
+            <!-- Header -->
+            <div class="list-header">
+                <div class="list-title-row">
+                    <h1 class="list-title">Claims</h1>
+                    <span class="record-count-badge">{recordCountLabel}</span>
+                </div>
+            </div>
+
+            <!-- Filter Row 1: Date + Search -->
+            <div class="filter-section">
+                <span class="filter-label">Created</span>
+                <div class="filter-group">
+                    <template for:each={dateFilterButtons} for:item="btn">
+                        <button key={btn.value}
+                                class={btn.btnClass}
+                                data-value={btn.value}
+                                onclick={handleDateFilterClick}>
+                            {btn.label}
+                        </button>
+                    </template>
+                </div>
+                <div class="search-wrapper">
+                    <lightning-icon icon-name="utility:search" size="x-small" class="search-icon" alternative-text="Search"></lightning-icon>
+                    <input
+                        type="text"
+                        class="search-input"
+                        placeholder="Search by claim number..."
+                        onchange={handleSearchChange}
+                    />
+                </div>
+            </div>
+
+            <!-- Filter Row 2: Status -->
+            <div class="filter-section">
+                <span class="filter-label">Status</span>
+                <div class="filter-group">
+                    <template for:each={statusFilterButtons} for:item="btn">
+                        <button key={btn.value}
+                                class={btn.btnClass}
+                                data-value={btn.value}
+                                onclick={handleStatusFilterClick}>
+                            {btn.label}
+                        </button>
+                    </template>
+                </div>
+            </div>
+
+            <!-- Loading Spinner -->
+            <template if:true={isLoading}>
+                <div class="loading-row">
+                    <lightning-spinner size="small" alternative-text="Loading records"></lightning-spinner>
+                </div>
+            </template>
+
+            <!-- Error Banner -->
+            <template if:true={loadError}>
+                <div class="error-banner">
+                    <lightning-icon icon-name="utility:error" size="x-small" variant="error" alternative-text="Error"></lightning-icon>
+                    <span>{loadError}</span>
+                </div>
+            </template>
+
+            <!-- Data Table -->
+            <template if:true={showTable}>
+                <div class="table-wrapper">
+                    <table class="claims-table">
+                        <thead>
+                            <tr>
+                                <th>Claim Number</th>
+                                <th>Account</th>
+                                <th>Status</th>
+                                <th>Claim Type</th>
+                                <th>Est. Amount</th>
+                                <th>Created Date</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <template for:each={pagedClaims} for:item="claim">
+                                <tr key={claim.Id} class="table-row">
+                                    <td class="td-name">{claim.Name}</td>
+                                    <td>{claim.accountName}</td>
+                                    <td>
+                                        <span class={claim.statusBadgeClass}>{claim.Status}</span>
+                                    </td>
+                                    <td>{claim.ClaimType}</td>
+                                    <td class="td-amount">{claim.formattedAmount}</td>
+                                    <td class="td-date">{claim.formattedDate}</td>
+                                    <td>
+                                        <button class="view-btn"
+                                                data-id={claim.Id}
+                                                onclick={handleViewClick}>
+                                            View
+                                        </button>
+                                    </td>
+                                </tr>
+                            </template>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Pagination -->
+                <div class="pagination-row">
+                    <span class="pagination-info">{paginationLabel}</span>
+                    <div class="pagination-controls">
+                        <button class="page-btn"
+                                disabled={isPrevDisabled}
+                                onclick={handlePrevPage}>
+                            <lightning-icon icon-name="utility:chevronleft" size="x-small" alternative-text="Previous"></lightning-icon>
+                        </button>
+                        <button class="page-btn"
+                                disabled={isNextDisabled}
+                                onclick={handleNextPage}>
+                            <lightning-icon icon-name="utility:chevronright" size="x-small" alternative-text="Next"></lightning-icon>
+                        </button>
+                    </div>
+                </div>
+            </template>
+
+            <!-- Empty State -->
+            <template if:true={showEmptyState}>
+                <div class="empty-state">
+                    <div class="empty-icon-wrap">
+                        <lightning-icon icon-name="utility:list" size="large" alternative-text="No records"></lightning-icon>
+                    </div>
+                    <p class="empty-title">No claims found</p>
+                    <p class="empty-subtitle">Try adjusting your date range, status filter, or search term</p>
+                </div>
+            </template>
+
+        </div>
+    </template>
+
+    <!-- ══════════════════════════════════════════════════════════════════════ -->
+    <!-- DETAIL VIEW                                                            -->
+    <!-- ══════════════════════════════════════════════════════════════════════ -->
+    <template if:true={showDetailView}>
+        <c-claim-detail
+            claim-id={selectedClaimId}
+            show-back-button
+            onback={handleBack}>
+        </c-claim-detail>
+    </template>
+
+</template>

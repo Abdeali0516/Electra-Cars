@@ -1,0 +1,331 @@
+/* ══════════════════════════════════════════════════════════════════════════════
+   Electra Dealer Portal — Claim Status Path  (redesigned)
+   Dark premium card with glow border, animated nodes, fill-bar progress.
+══════════════════════════════════════════════════════════════════════════════ */
+
+:host {
+    --cyan:     #00C8E8;
+    --cyan-dim: rgba(0,200,232,0.18);
+    --cyan-glow:rgba(0,200,232,0.35);
+    --navy:     #050F1E;
+    --deep:     #0A1628;
+    --card:     #0E1E35;
+    --white:    #F4F8FF;
+    --offwhite: #BDD6F0;
+    --gray:     #64788E;
+    --green:    #00E676;
+    --amber:    #FFD740;
+    --red:      #FF5252;
+    --border:   rgba(0,200,232,0.2);
+
+    --font-head: 'Syne', 'Segoe UI', sans-serif;
+    --font-body: 'DM Sans', 'Segoe UI', sans-serif;
+
+    display: block;
+    font-family: var(--font-body);
+}
+
+/* ── CARD ─────────────────────────────────────────────────────────────────── */
+.csp-card {
+    position: relative;
+    background: linear-gradient(145deg, #0E1E35 0%, #091426 60%, #0E1E35 100%);
+    border-radius: 20px;
+    padding: 28px 32px 32px;
+    overflow: hidden;
+    color: var(--white);
+
+    /* Glowing border */
+    box-shadow:
+        0 0 0 1px var(--border),
+        0 24px 64px rgba(0,0,0,0.5),
+        0 0 60px rgba(0,200,232,0.04) inset;
+}
+
+/* Top-left ambient orb */
+.csp-orb {
+    position: absolute;
+    width: 320px;
+    height: 320px;
+    top: -120px;
+    right: -80px;
+    background: radial-gradient(circle, rgba(0,200,232,0.09) 0%, transparent 65%);
+    border-radius: 50%;
+    pointer-events: none;
+    animation: cspFloat 8s ease-in-out infinite;
+}
+
+@keyframes cspFloat {
+    0%,100% { transform: translateY(0) scale(1);    }
+    50%      { transform: translateY(-16px) scale(1.05); }
+}
+
+/* ── LOADING / ERROR ──────────────────────────────────────────────────────── */
+.csp-loading {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: var(--gray);
+    font-size: 14px;
+}
+
+.csp-spinner {
+    width: 20px;
+    height: 20px;
+    border: 2px solid rgba(0,200,232,0.15);
+    border-top-color: var(--cyan);
+    border-radius: 50%;
+    animation: cspSpin 0.85s linear infinite;
+    flex-shrink: 0;
+}
+
+@keyframes cspSpin { to { transform: rotate(360deg); } }
+
+.csp-load-error {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--red);
+    font-size: 14px;
+}
+
+/* ── HEADER ───────────────────────────────────────────────────────────────── */
+.csp-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.csp-header-left {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.csp-eyebrow {
+    font-size: 10px;
+    letter-spacing: 3px;
+    font-weight: 600;
+    color: var(--gray);
+}
+
+/* Status badge */
+.csp-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 5px 14px;
+    border-radius: 100px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.4px;
+    text-transform: uppercase;
+}
+
+.csp-badge-open     { background: rgba(0,200,232,0.12);  color: var(--cyan);    border: 1px solid rgba(0,200,232,0.35);  }
+.csp-badge-progress { background: rgba(255,215,64,0.1);  color: var(--amber);   border: 1px solid rgba(255,215,64,0.3);  }
+.csp-badge-closed   { background: rgba(0,230,118,0.1);   color: var(--green);   border: 1px solid rgba(0,230,118,0.3);   }
+.csp-badge-rejected { background: rgba(255,82,82,0.1);   color: var(--red);     border: 1px solid rgba(255,82,82,0.3);   }
+.csp-badge-neutral  { background: rgba(100,120,142,0.15);color: var(--offwhite);border: 1px solid rgba(100,120,142,0.3); }
+
+/* Rejected pill */
+.csp-rejected-pill {
+    background: rgba(255,82,82,0.1);
+    border: 1px solid rgba(255,82,82,0.3);
+    color: var(--red);
+    padding: 5px 14px;
+    border-radius: 100px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+/* ── FILL BAR ─────────────────────────────────────────────────────────────── */
+.csp-fill-track {
+    height: 4px;
+    background: rgba(255,255,255,0.06);
+    border-radius: 100px;
+    margin-bottom: 28px;
+    overflow: hidden;
+}
+
+.csp-fill-bar {
+    height: 100%;
+    border-radius: 100px;
+    background: linear-gradient(90deg, #007EAB, var(--cyan));
+    box-shadow: 0 0 10px var(--cyan-glow);
+    transition: width 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.csp-fill-0   { width: 0%;   }
+.csp-fill-50  { width: 50%;  }
+.csp-fill-100 { width: 100%; }
+
+/* ── STEP TRACK ───────────────────────────────────────────────────────────── */
+.csp-track {
+    display: flex;
+    align-items: flex-start;
+}
+
+.csp-step {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    min-width: 72px;
+}
+
+/* ── CONNECTOR ────────────────────────────────────────────────────────────── */
+.csp-connector {
+    position: absolute;
+    top: 22px; /* half of 44px node */
+    right: 50%;
+    left: -50%;
+    height: 2px;
+    z-index: 0;
+    border-radius: 2px;
+}
+
+.csp-connector-hidden  { display: none; }
+
+.csp-connector-done {
+    background: linear-gradient(90deg, rgba(0,126,171,0.6), var(--cyan));
+    box-shadow: 0 0 6px rgba(0,200,232,0.4);
+}
+
+.csp-connector-future {
+    background: repeating-linear-gradient(
+        90deg,
+        rgba(100,120,142,0.25) 0px,
+        rgba(100,120,142,0.25) 5px,
+        transparent 5px,
+        transparent 12px
+    );
+}
+
+/* ── NODE ─────────────────────────────────────────────────────────────────── */
+.csp-node-wrap {
+    position: relative;
+    z-index: 2;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Outer pulsing ring for current step */
+.csp-node-ring-outer {
+    position: absolute;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    border: 1px solid rgba(0,200,232,0.25);
+    animation: cspRingPulse 2.2s ease-out infinite;
+    pointer-events: none;
+}
+
+@keyframes cspRingPulse {
+    0%   { transform: scale(0.75); opacity: 0.8; }
+    100% { transform: scale(1.4);  opacity: 0;   }
+}
+
+.csp-node {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+    position: relative;
+    z-index: 1;
+}
+
+/* Completed */
+.csp-node-done {
+    background: linear-gradient(135deg, #007EAB, var(--cyan));
+    box-shadow:
+        0 0 0 3px rgba(0,200,232,0.15),
+        0 8px 24px rgba(0,200,232,0.3);
+}
+
+.csp-node-done:hover { transform: scale(1.08); }
+
+/* Current — solid card background so connector line never bleeds through */
+.csp-node-current {
+    background: #0E1E35;
+    border: 2px solid var(--cyan);
+    box-shadow:
+        0 0 0 4px rgba(0,200,232,0.1),
+        0 0 28px rgba(0,200,232,0.35),
+        0 8px 24px rgba(0,0,0,0.3);
+    animation: cspNodeGlow 2.5s ease-in-out infinite;
+}
+
+@keyframes cspNodeGlow {
+    0%,100% { box-shadow: 0 0 0 4px rgba(0,200,232,0.1), 0 0 20px rgba(0,200,232,0.3), 0 8px 24px rgba(0,0,0,0.3); }
+    50%      { box-shadow: 0 0 0 6px rgba(0,200,232,0.15), 0 0 40px rgba(0,200,232,0.5), 0 8px 24px rgba(0,0,0,0.3); }
+}
+
+/* Error / Rejected — solid background */
+.csp-node-error {
+    background: #0E1E35;
+    border: 2px solid var(--red);
+    box-shadow:
+        0 0 0 4px rgba(255,82,82,0.1),
+        0 0 24px rgba(255,82,82,0.3);
+}
+
+/* Future — solid background so connector never shows through */
+.csp-node-future {
+    background: #0E1E35;
+    border: 1.5px solid rgba(100,120,142,0.3);
+}
+
+/* Icon inside node */
+.csp-icon {
+    font-size: 16px;
+    font-weight: 700;
+    font-family: var(--font-head);
+    line-height: 1;
+}
+
+.csp-node-done    .csp-icon { color: #050F1E; font-size: 18px; }
+.csp-node-current .csp-icon { color: var(--cyan); }
+.csp-node-error   .csp-icon { color: var(--red);  }
+.csp-node-future  .csp-icon { color: rgba(100,120,142,0.5); }
+
+/* ── LABELS ───────────────────────────────────────────────────────────────── */
+.csp-label {
+    font-size: 12px;
+    font-weight: 400;
+    color: var(--gray);
+    text-align: center;
+    white-space: nowrap;
+    letter-spacing: 0.3px;
+    transition: color 0.2s;
+}
+
+.csp-step-done    .csp-label { color: var(--offwhite); font-weight: 500; }
+.csp-step-current .csp-label { color: var(--cyan);     font-weight: 700; font-size: 13px; }
+
+.csp-current-tag {
+    font-size: 10px;
+    color: var(--cyan);
+    opacity: 0.65;
+    letter-spacing: 0.3px;
+    margin-top: 3px;
+    white-space: nowrap;
+}
+
+/* ── RESPONSIVE ───────────────────────────────────────────────────────────── */
+@media (max-width: 480px) {
+    .csp-card  { padding: 20px 16px 24px; }
+    .csp-node  { width: 36px; height: 36px; }
+    .csp-node-ring-outer { width: 50px; height: 50px; }
+    .csp-connector { top: 18px; }
+    .csp-icon  { font-size: 14px; }
+    .csp-label { font-size: 11px; }
+    .csp-step  { min-width: 56px; }
+}

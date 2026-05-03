@@ -1,0 +1,92 @@
+{
+  "required" : [ "serviceProcessDefinitionName" ],
+  "unevaluatedProperties" : false,
+  "properties" : {
+    "firstName" : {
+      "title" : "First Name",
+      "description" : "The first name an employee submits to update their records.",
+      "lightning:type" : "lightning__textType",
+      "lightning:isPII" : false,
+      "copilotAction:isUserInput" : true
+    },
+    "lastName" : {
+      "title" : "Last Name",
+      "description" : "The last name an employee submits to update their records.",
+      "lightning:type" : "lightning__textType",
+      "lightning:isPII" : false,
+      "copilotAction:isUserInput" : true
+    },
+    "mobileNumber" : {
+      "title" : "Mobile Number",
+      "description" : "The mobile number an employee submits to update their records.",
+      "lightning:type" : "lightning__textType",
+      "lightning:isPII" : false,
+      "copilotAction:isUserInput" : true
+    },
+    "address" : {
+      "title" : "Address",
+      "description" : "The address an employee submits to update their records.",
+      "lightning:type" : "lightning__textType",
+      "lightning:isPII" : false,
+      "copilotAction:isUserInput" : true
+    },
+    "city" : {
+      "title" : "City",
+      "description" : "The city name an employee submits to update their records.",
+      "lightning:type" : "lightning__textType",
+      "lightning:isPII" : false,
+      "copilotAction:isUserInput" : true
+    },
+    "country" : {
+      "title" : "Country",
+      "description" : "The country name an employee submits to update their records.",
+      "lightning:type" : "lightning__textType",
+      "lightning:isPII" : false,
+      "copilotAction:isUserInput" : true
+    },
+    "emailAddress" : {
+      "title" : "Email Address",
+      "description" : "The email address an employee submits to update their records.",
+      "lightning:type" : "lightning__textType",
+      "lightning:isPII" : false,
+      "copilotAction:isUserInput" : true
+    },
+    "state" : {
+      "title" : "Province or State",
+      "description" : "The province or state name an employee submits to update their records.",
+      "lightning:type" : "lightning__textType",
+      "lightning:isPII" : false,
+      "copilotAction:isUserInput" : true
+    },
+    "postalZipCode" : {
+      "title" : "Postal or Zip Code",
+      "description" : "The postal code or ZIP code an employee submits to update their records.",
+      "lightning:type" : "lightning__textType",
+      "lightning:isPII" : false,
+      "copilotAction:isUserInput" : true
+    },
+    "pronouns" : {
+      "title" : "Pronoun",
+      "description" : "The pronouns an employee submits to update their records.",
+      "lightning:type" : "lightning__textType",
+      "lightning:isPII" : false,
+      "copilotAction:isUserInput" : true
+    },
+    "serviceProcessDefinitionName" : {
+      "title" : "Service Process Name",
+      "description" : "The name of the service process that runs to update an employee’s profile.",
+      "lightning:type" : "lightning__textType",
+      "lightning:isPII" : false,
+      "copilotAction:isUserInput" : true
+    },
+    "countryCode" : {
+      "title" : "Country Code",
+      "description" : "Stores the country code of the employee to update.",
+      "lightning:type" : "lightning__textType",
+      "lightning:isPII" : false,
+      "copilotAction:isUserInput" : true
+    }
+  },
+  "lightning:type" : "lightning__objectType",
+  "lightning:textIndexed" : true
+}

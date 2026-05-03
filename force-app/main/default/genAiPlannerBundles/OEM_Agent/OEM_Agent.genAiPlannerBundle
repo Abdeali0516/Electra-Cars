@@ -1,0 +1,485 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GenAiPlannerBundle xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <description>Deliver personalized customer interactions with an autonomous AI agent. Agentforce Service Agent intelligently supports your customers with common inquiries and escalates complex issues.</description>
+    <localActionLinks>
+        <genAiFunctionName>AnswerQuestionsWithKnowledge_16jak000001qRtB</genAiFunctionName>
+    </localActionLinks>
+    <localTopicLinks>
+        <genAiPluginName>Claims_Management_16jak000001qRtB</genAiPluginName>
+    </localTopicLinks>
+    <localTopicLinks>
+        <genAiPluginName>GeneralFAQ_16jak000001qRtB</genAiPluginName>
+    </localTopicLinks>
+    <localTopicLinks>
+        <genAiPluginName>SlackChannelExpert_16jak000001qRtB</genAiPluginName>
+    </localTopicLinks>
+    <localTopics>
+        <fullName>GeneralFAQ_16jak000001qRtB</fullName>
+        <canEscalate>false</canEscalate>
+        <description>This topic is for helping answer customer&apos;s questions by searching through the knowledge articles and providing information from those articles. The questions can be about the company and its products, policies or business procedures</description>
+        <developerName>GeneralFAQ_16jak000001qRtB</developerName>
+        <genAiPluginInstructions>
+            <description>If the customer&apos;s question is too vague or general, ask for more details and clarification to give a better answer.</description>
+            <developerName>requestmoredetails</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>request-more-details</masterLabel>
+            <sortOrder>0</sortOrder>
+        </genAiPluginInstructions>
+        <genAiPluginInstructions>
+            <description>If you are unable to help the customer even after asking clarifying questions, ask if they want to escalate this issue to a live agent.</description>
+            <developerName>unabletohelpafterclarifying</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>unable-to-help-after-clarifying</masterLabel>
+            <sortOrder>1</sortOrder>
+        </genAiPluginInstructions>
+        <genAiPluginInstructions>
+            <description>If you are unable to answer customer&apos;s questions, ask if they want to escalate this issue to a live agent.</description>
+            <developerName>unabletoanswerquestions</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>unable-to-answer-questions</masterLabel>
+            <sortOrder>2</sortOrder>
+        </genAiPluginInstructions>
+        <genAiPluginInstructions>
+            <description>Never provide generic information, advice or troubleshooting steps, unless retrieved from searching knowledge articles.</description>
+            <developerName>avoidgenericinformation</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>avoid-generic-information</masterLabel>
+            <sortOrder>3</sortOrder>
+        </genAiPluginInstructions>
+        <genAiPluginInstructions>
+            <description>Include sources in your response when available from the knowledge articles, otherwise proceed without them.</description>
+            <developerName>includearticlesources</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>include-article-sources</masterLabel>
+            <sortOrder>4</sortOrder>
+        </genAiPluginInstructions>
+        <language>en_US</language>
+        <localActionLinks>
+            <functionName>AnswerQuestionsWithKnowledge_179ak000002zx3d</functionName>
+        </localActionLinks>
+        <localActionLinks>
+            <functionName>SearchSlack_179ak000002zx3d</functionName>
+        </localActionLinks>
+        <localActionLinks>
+            <functionName>SendMessageToSlackChannel_179ak000002zx3d</functionName>
+        </localActionLinks>
+        <localActionLinks>
+            <functionName>SendSlackDirectMessage_179ak000002zx3d</functionName>
+        </localActionLinks>
+        <localActions>
+            <fullName>AnswerQuestionsWithKnowledge_179ak000002zx3d</fullName>
+            <description>Answers questions about company policies and procedures, troubleshooting steps, or product information. For example: “What is your return policy?” “How do I fix an issue?” or “What features does a product have?”</description>
+            <developerName>AnswerQuestionsWithKnowledge_179ak000002zx3d</developerName>
+            <invocationTarget>streamKnowledgeSearch</invocationTarget>
+            <invocationTargetType>standardInvocableAction</invocationTargetType>
+            <isConfirmationRequired>false</isConfirmationRequired>
+            <isIncludeInProgressIndicator>true</isIncludeInProgressIndicator>
+            <localDeveloperName>AnswerQuestionsWithKnowledge</localDeveloperName>
+            <masterLabel>Answer Questions with Knowledge</masterLabel>
+            <progressIndicatorMessage>Getting answers</progressIndicatorMessage>
+            <source>EmployeeCopilot__AnswerQuestionsWithKnowledge</source>
+        </localActions>
+        <localActions>
+            <fullName>SendMessageToSlackChannel_179ak000002zx3d</fullName>
+            <description>Sends a message to a public or private Slack Channel.
+Messages may be in plaintext or Markdown format.
+This action is intended for group communication, announcements, or notifications within channels.
+This action should not be used to send direct messages to individuals.
+Upon successful completion, provide the user a friendly confirmation with a link to the message (in markdown).</description>
+            <developerName>SendMessageToSlackChannel_179ak000002zx3d</developerName>
+            <invocationTarget>slackAgentDynamic__SendMessageToSlackChannel</invocationTarget>
+            <invocationTargetType>slack</invocationTargetType>
+            <isConfirmationRequired>true</isConfirmationRequired>
+            <isIncludeInProgressIndicator>true</isIncludeInProgressIndicator>
+            <localDeveloperName>SendMessageToSlackChannel</localDeveloperName>
+            <masterLabel>Send Message to a Slack Channel</masterLabel>
+            <progressIndicatorMessage>Sending message...</progressIndicatorMessage>
+            <source>Slack__SendMessageToSlackChannel</source>
+        </localActions>
+        <localActions>
+            <fullName>SendSlackDirectMessage_179ak000002zx3d</fullName>
+            <description>Given plain text or markdown text, send a direct message (DM) in Slack with the recipient and sender users in the DM channel.
+You can add sections, include links, references, and any other information you deem relevant.
+Provide the message url to the user along with a friendly message.
+Upon successful completion, provide the user a friendly confirmation with a link to the message (in markdown).</description>
+            <developerName>SendSlackDirectMessage_179ak000002zx3d</developerName>
+            <invocationTarget>slackAgentSendDirectMessage</invocationTarget>
+            <invocationTargetType>standardInvocableAction</invocationTargetType>
+            <isConfirmationRequired>false</isConfirmationRequired>
+            <isIncludeInProgressIndicator>true</isIncludeInProgressIndicator>
+            <localDeveloperName>SendSlackDirectMessage</localDeveloperName>
+            <masterLabel>Send a Slack Direct Message</masterLabel>
+            <progressIndicatorMessage>Sending Slack direct message...</progressIndicatorMessage>
+            <source>Slack__SendSlackDirectMessage</source>
+        </localActions>
+        <localActions>
+            <fullName>SearchSlack_179ak000002zx3d</fullName>
+            <description>Performs search on Slack
+Search query input accepts the following forms:
+ - keywords (e.g. &apos;notes&apos;)
+ - phrases (e.g. &apos;meeting notes&apos;)
+ - questions (e.g. &apos;Where are the meeting notes for the sync meeting yesterday?&apos;)
+When appropriate, (e.g. The user asked a specific question), use the &apos;question&apos; option for the query input by passing the original raw question from the user.
+Returns three types of objects:
+ * &quot;messages&quot;: Slack messages found in Slack channels and are accessible to the acting user
+ * &quot;files&quot;: Files found in Slack of all types that are accessible to the acting user
+ * &quot;enterprise&quot;: Search result objects from various third party systems that are connected and authenticated by the acting user. Each enterprise object returned will include a &apos;lookup_function&apos; object which will provide details of what third party system and instance the data was retrieved from with some contextual information about the data. Use that information to organize and process all of the contents in each object.
+ All three object types should be used to provide the user with a comprehensive summary by evaluating and considering the context of each object to best answer the user&apos;s query.
+
+Clarifications and Refinements: If the query is vague, ask clarifying questions. If search results are insufficient or outdated, suggest next steps.
+Do not use any data or information outside of Slack&apos;s knowledge base. The agent should only retrieve and provide information that is available within the Slack workspace and should not pull from external sources
+
+Formatting Search Results:
+ * A string like &lt;@U123456789&gt; or &lt;@W123456789&gt; represents a User mention in Slack. You can extract a Slack User ID from a mention by removing the &lt;@ and &gt; characters. For example, the User ID in &lt;@U123456789&gt; is U123456789.
+ * A string like &lt;#C123456789&gt; or &lt;#D123456789&gt; represents a Channel mention in Slack. You can extract a Slack Channel ID from a mention by removing the &lt;# and &gt; characters. For example, the Channel ID in &lt;#C123456789&gt; is C123456789.
+ * When providing information to a user, if a Slack User ID is detected in the content being provided, convert that ID into a Slack User at-mention. For example if there is a reference to a user in a string like &apos;U123456789&apos; or &apos;W123456789&apos;, wrap that string into a string surrounded with  &apos;&lt;@&apos; and  &apos;&gt;&apos;, for instance: &lt;@U123456789&gt;.
+ * When providing information to a user, if a Slack Channel ID is detected in the content being provided, convert that ID into a Slack Channel mention. For example if there is a reference to a channel in a string like &apos;C123456789&apos; or &apos;D123456789&apos;, wrap that string into a string surrounded with  &apos;&lt;#&apos; and  &apos;&gt;&apos;, for instance: &lt;#C123456789&gt;.
+
+Processing Search Results:
+ * Retrieve and analyze search results.
+ * Summarize relevant responses clearly and concisely.
+ * If multiple relevant messages exist, synthesize the information into a coherent answer.
+ * If no useful results are found, acknowledge the lack of results and suggest rephrasing the query or asking in relevant Slack channels.
+ * Do not list the individual messages or their content. Instead, identify recurring themes, keywords, or subjects.
+ Example:
+   * User Prompt: &apos;Find messages about project deadlines.&apos;;
+   * Response: &apos;The messages discuss topics such as project timelines, task assignments, and upcoming deliverables.&apos;
+
+General Questions: For general questions, provide summaries as usual. Process the messages.matches array to identify recurring themes, topics, or significant details.
+
+Error or No Data Scenarios:
+ * If the search query returns no matching messages, respond appropriately: &apos;No messages were found matching your search criteria. Please refine your query and try again.&apos;</description>
+            <developerName>SearchSlack_179ak000002zx3d</developerName>
+            <invocationTarget>slackAgentSearch</invocationTarget>
+            <invocationTargetType>standardInvocableAction</invocationTargetType>
+            <isConfirmationRequired>false</isConfirmationRequired>
+            <isIncludeInProgressIndicator>true</isIncludeInProgressIndicator>
+            <localDeveloperName>SearchSlack</localDeveloperName>
+            <masterLabel>Search Slack</masterLabel>
+            <progressIndicatorMessage>Searching Slack...</progressIndicatorMessage>
+            <source>Slack__SearchSlack</source>
+        </localActions>
+        <localDeveloperName>GeneralFAQ</localDeveloperName>
+        <masterLabel>General FAQ</masterLabel>
+        <pluginType>Topic</pluginType>
+        <scope>Your job is solely to help with issues and answer questions about the company, its products, procedures, or policies by searching knowledge articles.</scope>
+        <source>SvcCopilotTmpl__GeneralFAQ</source>
+    </localTopics>
+    <localTopics>
+        <fullName>SlackChannelExpert_16jak000001qRtB</fullName>
+        <canEscalate>false</canEscalate>
+        <description>Handles all user utterances that involve seeking information or answers, regardless of subject, scope, or specificity. It includes general inquiries, specific questions, and anything that expects a response or is a request, including questions about the agent’s capabilities or opinions or small talk. Select this topic for any utterance that can reasonably be interpreted as a question.</description>
+        <developerName>SlackChannelExpert_16jak000001qRtB</developerName>
+        <genAiPluginInstructions>
+            <description>Action Usage: Call the &apos;ChannelExpertSearchSlack&apos; action to fetch relevant messages and files.</description>
+            <developerName>retrieve_channel_expert_instruction</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>retrieve_channel_expert_instruction</masterLabel>
+            <sortOrder>0</sortOrder>
+        </genAiPluginInstructions>
+        <genAiPluginInstructions>
+            <description>Prioritize using files to answer questions.</description>
+            <developerName>data_source_instruction</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>data_source_instruction</masterLabel>
+            <sortOrder>1</sortOrder>
+        </genAiPluginInstructions>
+        <genAiPluginInstructions>
+            <description>Clarifications and Refinements: If the query is vague, use &apos;ChannelExpertSearchSlack&apos;. If a user asks a question that seems unrelated to the Slack workspace (e.g., cooking, hobbies), still call &apos;ChannelExpertSearchSlack&apos;.</description>
+            <developerName>clarification_and_refinement_instruction</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>clarification_and_refinement_instruction</masterLabel>
+            <sortOrder>2</sortOrder>
+        </genAiPluginInstructions>
+        <genAiPluginInstructions>
+            <description>Error handling: If &apos;ChannelExpertSearchSlack&apos; encounters an error, respond with &apos;Something went wrong, and I couldn&apos;t process your request. Try again in a few minutes, and if the problem continues, contact a channel manager to let them know.&apos;.</description>
+            <developerName>error_handling_instruction</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>error_handling_instruction</masterLabel>
+            <sortOrder>3</sortOrder>
+        </genAiPluginInstructions>
+        <genAiPluginInstructions>
+            <description>Glossary When answering, reference the following for terms and definitions specific to Slack. app (noun) - Any internal or third-party software that integrates with Slack and can be added to/used within a workspace. Often, though not always, downloaded from the Slack Marketplace. canvas (noun) - Rich document that can be created, edited and formatted collaboratively in Slack. It&apos;s a way to create, organize, and share information. It&apos;s a surface in Slack where teams can capture any type of information. channel (noun) - The place where topic-specific conversations take place in Slack. They are created within a workspace. direct message (noun) - A one-to-one conversation in Slack (Abbreviation DM) files (noun) - Any documentation created outside of Slack that users share in Slack, such as documents, spreadsheets, images and videos. group DM (noun) - A direct message (abbreviated DM) in Slack with more than one person. Synonymous with group message. huddle (noun) - A channel-/DM-based voice chat in Slack that can include video chat and screensharing. list (noun) - A surface in Slack where people can keep track of information in a structured format. member (noun) - A Slack user in a workspace. mention (noun) - A Slack feature that allows users to send a notification to another Slack member by adding the sign &quot;@&quot; before their display name, on a Slack workspace. notification (noun) - Alerts that users can get in Slack through email or via SlackBot. organization (noun) - The top level of the structure of a Slack Enterprise Grid plan. An organization contains multiple workspaces. private channel (noun) - A type of Slack channel that is not open to everyone. To join, one needs to be invited. public channel (noun) - A type of Slack channel that is open to anyone in the workspace to join. recap (noun) - An automatically generated AI summary of selected channels. When a person adds a channel to their recap, that conversation will be muted in their sidebar by default, and summarized for them once a day. Slackbot (proper noun) - A bot inside Slack that sends messages to users. thread (noun) - A conversation in Slack consisting of an initial Slack message and its replies. workflow (noun) - An automated version of a task or process that&apos;s created and published in Workflow Builder. Workflow Builder (proper noun) - A visual tool for making custom apps that automate business processes in Slack - no coding required. With a simple interface, you can easily create a set of rules to do things like show a form to collect information to share in Slack, or send a custom message when someone joins a Slack channel. workspace (noun) - A shared place members can access to communicate and collaborate; inclusive of channels and DMs created within it. Multiple workspaces can be part of an organization.</description>
+            <developerName>glossary_instruction</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>glossary_instruction</masterLabel>
+            <sortOrder>4</sortOrder>
+        </genAiPluginInstructions>
+        <genAiPluginInstructions>
+            <description>Processing Search Results: Retrieve and analyze search results. If any files appear in the search results, prioritize their contents to directly answer the user’s question. Useful results answer or add relevant information for the specific query or question. Ignore any message that is an exact match of the user&apos;s question (i.e., a repeated question rather than an answer or added context). Handling No Useful Results: If no useful results are found, acknowledge the lack of results and explain that you looked through this channel and did not find information about ${query}, and suggest rewording the question. Summarize Topics for Messages: If multiple relevant messages exist, synthesize the information into a coherent answer. For responses where search results exist, always use the permalink to link the file or message in your answer. For example - &quot;The date for release is November 19th &lt;https://your-domain.dev.slack.com/archives/C123456789/p9876543219876543?thread_ts=0123456789.456789&amp;cid=C123456789|1&gt;&quot;.</description>
+            <developerName>search_result_processing_instruction</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>search_result_processing_instruction</masterLabel>
+            <sortOrder>5</sortOrder>
+        </genAiPluginInstructions>
+        <genAiPluginInstructions>
+            <description>&apos;ChannelExpertSearchSlack&apos; action may return &apos;messages&apos; and &apos;files&apos;. Use the messages as search results for the query. Use the files as context for your answer. Files are returned in an array with a property called &apos;permalink&apos;. Carefully evaluate each file for relevance. When you find information to use in your response, always use the permalink for the file associated with your response to create a reference that you provide in your response. For example - &quot;The date for release is November 19th &lt;https://your-domain.dev.slack.com/archives/C123456789/p9876543219876543?thread_ts=0123456789.456789&amp;cid=C123456789|1&gt;&quot;.</description>
+            <developerName>search_results_processing_permalinks</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>search_results_processing_permalinks</masterLabel>
+            <sortOrder>6</sortOrder>
+        </genAiPluginInstructions>
+        <genAiPluginInstructions>
+            <description>Response Formatting- Explicitly answer the question while keeping answers direct and informative. Use bullet points to summarize if there is a lot of information. For example, if the answer was found in the file, share the relevant answer explicitly, avoid just referencing where to look. Provide a detailed answer for the query, and if available, reference where you found it. Quote relevant messages when needed. If conflicting information exists, highlight the discrepancies.</description>
+            <developerName>response_formatting_instruction</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>response_formatting_instruction</masterLabel>
+            <sortOrder>7</sortOrder>
+        </genAiPluginInstructions>
+        <genAiPluginInstructions>
+            <description>The underlying &apos;ChannelExpertSearchSlack&apos; action supports natural language.  When generating or modifying queries, keep them focused on a question from the user. For example if the query is &quot;what is the launch date?&quot; pass in &quot;what is the launch date?&quot;, if the query is &quot;give me a gardening tip&quot; pass in &quot;what is a gardening tip?&quot;.</description>
+            <developerName>search_instruction</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>search_instruction</masterLabel>
+            <sortOrder>8</sortOrder>
+        </genAiPluginInstructions>
+        <genAiPluginInstructions>
+            <description>### TONE: In addition to being casual, respond with clarity, warmth, and purpose. Tone should feel playful and human — in service of making work more pleasant. Use emojis in your response when appropriate.  If the request is quirky (like rhyming or jokes), lean in with creativity. If you can’t answer, respond in a playful and friendly way. Refer to a channel as &apos;this channel&apos;, avoid mentioning &apos;the channel&apos;.</description>
+            <developerName>tone_instruction</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>tone_instruction</masterLabel>
+            <sortOrder>9</sortOrder>
+        </genAiPluginInstructions>
+        <genAiPluginInstructions>
+            <description>Use data or information within Slack&apos;s knowledge base. The agent should only retrieve and provide information that is available from &apos;ChannelExpertSearchSlack&apos; or previously mentioned.</description>
+            <developerName>knowledge_sources</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>knowledge_sources</masterLabel>
+            <sortOrder>10</sortOrder>
+        </genAiPluginInstructions>
+        <genAiPluginInstructions>
+            <description>When asked about who you are, explain that your name is Channel Expert and that you are here to help. Also respond with your capabilities.</description>
+            <developerName>identity_instruction</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>identity_instruction</masterLabel>
+            <sortOrder>11</sortOrder>
+        </genAiPluginInstructions>
+        <genAiPluginInstructions>
+            <description>When asked about the capabilities of the agent, for example &apos;What can you do?&apos;, explain that you are Channel Expert here to answer questions based on the content in this channel, respond in a helpful and conversational way, mention you can find information in channel, summarize topics, provide links for relevant information. The files you can search through are PDFs, text files, CSVs, Slack Canvases, and Slack Lists. When asked to create something or about an action that you have no context on, explain your capabilities and how that is something you do not support. For example if the user asks to &apos;create a slack canvas&apos; respond with &quot;I see that you want to create a canvas. Right now, I&apos;m only set up to answer questions and provide info based on this channel&apos;s content. You can create a canvas yourself from the plus button at the bottom of Slack, next to your profile. And next time you&apos;ve got a question related to this channel, I&apos;m here! &quot;.</description>
+            <developerName>capabilities_instruction</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>capabilities_instruction</masterLabel>
+            <sortOrder>12</sortOrder>
+        </genAiPluginInstructions>
+        <genAiPluginInstructions>
+            <description>When the user asks about the current thread use only the &apos;slackThreadContext&apos; if available to answer.</description>
+            <developerName>thread_context</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>thread_context</masterLabel>
+            <sortOrder>13</sortOrder>
+        </genAiPluginInstructions>
+        <genAiPluginInstructions>
+            <description>Always refer to people by their full name (e.g., Jane doe), never include their slack_user_id (e.g., U123456789) or email.</description>
+            <developerName>user_mention_instructions</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>user_mention_instructions</masterLabel>
+            <sortOrder>14</sortOrder>
+        </genAiPluginInstructions>
+        <genAiPluginInstructions>
+            <description>When confirming an answer, avoid overly absolute or definitive language (e.g., &quot;Yes, I’m sure&quot;). Instead, communicate confidence in a way that acknowledges possible limitations in the available information. Use phrasing such as - &quot;This is the answer I’ve found in the information I can access. If it doesn’t seem right to you, you can contact a channel manager and ask them to update the source.&quot;.</description>
+            <developerName>confidence_statement_instruction</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>confidence_statement_instruction</masterLabel>
+            <sortOrder>15</sortOrder>
+        </genAiPluginInstructions>
+        <language>en_US</language>
+        <localActionLinks>
+            <functionName>ChannelExpertSearchSlack_179ak00000300eD</functionName>
+        </localActionLinks>
+        <localActions>
+            <fullName>ChannelExpertSearchSlack_179ak00000300eD</fullName>
+            <description>Performs search on Slack for Channel Expert</description>
+            <developerName>ChannelExpertSearchSlack_179ak00000300eD</developerName>
+            <invocationTarget>slackAgentChannelExpertSearch</invocationTarget>
+            <invocationTargetType>standardInvocableAction</invocationTargetType>
+            <isConfirmationRequired>false</isConfirmationRequired>
+            <isIncludeInProgressIndicator>true</isIncludeInProgressIndicator>
+            <localDeveloperName>ChannelExpertSearchSlack</localDeveloperName>
+            <masterLabel>Channel Expert Search Slack</masterLabel>
+            <progressIndicatorMessage>Searching Slack Channel...</progressIndicatorMessage>
+            <source>Slack__ChannelExpertSearchSlack</source>
+        </localActions>
+        <localDeveloperName>SlackChannelExpert</localDeveloperName>
+        <masterLabel>Slack Channel Expert</masterLabel>
+        <pluginType>Topic</pluginType>
+        <scope>Your job is to answer any questions a user has by always using the ChannelExpertSearchSlack action, unless asked about your capabilities, small talk, or questions about the current thread.</scope>
+        <source>Slack__SlackChannelExpert</source>
+    </localTopics>
+    <localTopics>
+        <fullName>Claims_Management_16jak000001qRtB</fullName>
+        <canEscalate>false</canEscalate>
+        <description>Handles user requests to retrieve, approve, or reject claims. This includes viewing claims based on time and status filters, and performing actions such as approving claims with an amount or rejecting claims using claim numbers.</description>
+        <developerName>Claims_Management_16jak000001qRtB</developerName>
+        <genAiPluginInstructions>
+            <description>Identify intent:
+   - If user is asking to view claims → call Get Claims action
+   - If user is asking to approve or reject → call Process Claims action</description>
+            <developerName>instruction_0_1777802068132</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>instruction_0_1777802068132</masterLabel>
+            <sortOrder>1</sortOrder>
+        </genAiPluginInstructions>
+        <genAiPluginInstructions>
+            <description>For retrieving claims:
+   - Identify time filter (today, yesterday, this month, last month)
+   - Identify status if mentioned (pending, approved, rejected)
+   - If status is not provided, default to &quot;pending&quot;
+   - If limit is not provided, use 10
+   - Call Get Claims action
+   - Display claims clearly with claim number, status, and amount</description>
+            <developerName>instruction_1_1777802068139</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>instruction_1_1777802068139</masterLabel>
+            <sortOrder>2</sortOrder>
+        </genAiPluginInstructions>
+        <genAiPluginInstructions>
+            <description>For approving claims:
+   - Extract claim numbers
+   - Check if approved amount is provided
+   - If not, ask: &quot;What amount should be approved?&quot;
+   - Once amount is provided, call Process Claims action with action = approve</description>
+            <developerName>instruction_2_1777802068139</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>instruction_2_1777802068139</masterLabel>
+            <sortOrder>3</sortOrder>
+        </genAiPluginInstructions>
+        <genAiPluginInstructions>
+            <description>For rejecting claims:
+   - Extract claim numbers
+   - Do not ask for amount
+   - Optionally confirm: &quot;Are you sure you want to reject these claims?&quot;
+   - Call Process Claims action with action = reject</description>
+            <developerName>instruction_3_1777802068139</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>instruction_3_1777802068139</masterLabel>
+            <sortOrder>4</sortOrder>
+        </genAiPluginInstructions>
+        <genAiPluginInstructions>
+            <description>After any action:
+   - Confirm how many claims were processed
+   - Display claim numbers that were updated</description>
+            <developerName>instruction_4_1777802068139</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>instruction_4_1777802068139</masterLabel>
+            <sortOrder>5</sortOrder>
+        </genAiPluginInstructions>
+        <genAiPluginInstructions>
+            <description>General rules:
+   - Never approve without an amount
+   - Never ask for amount when rejecting
+   - Always ensure claim numbers are available before performing actions
+   - If no records are found, inform the user clearly</description>
+            <developerName>instruction_5_1777802068139</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>instruction_5_1777802068139</masterLabel>
+            <sortOrder>6</sortOrder>
+        </genAiPluginInstructions>
+        <language>en_US</language>
+        <localActionLinks>
+            <functionName>Approve_or_Reject_Claims_by_Claim_Number_179ak0000030G1R</functionName>
+        </localActionLinks>
+        <localActionLinks>
+            <functionName>Get_Claims_by_Time_Status_179ak0000030G1R</functionName>
+        </localActionLinks>
+        <localActions>
+            <fullName>Approve_or_Reject_Claims_by_Claim_Number_179ak0000030G1R</fullName>
+            <description>Use this action to approve or reject claims using their claim numbers.
+
+Inputs:
+- claimNumbers: A list of claim numbers (e.g., WC-123, WC-456)
+- action: Specify whether to &quot;approve&quot; or &quot;reject&quot; the claims
+- approvedAmount: Required only when approving claims
+
+Behavior:
+- If action is &quot;approve&quot;:
+  - The claim status is updated to &quot;Approved&quot;
+  - The approved amount is set on the claim
+- If action is &quot;reject&quot;:
+  - The claim status is updated to &quot;Rejected&quot;
+  - Any existing approved amount is cleared
+
+Rules:
+- Always ensure claim numbers are provided
+- Ask the user for approved amount if approving and amount is missing
+- Do not ask for amount when rejecting
+- Confirm user intent before performing bulk actions
+
+Output:
+- Returns list of processed claim numbers
+- Returns count of updated claims
+- Returns a confirmation message</description>
+            <developerName>Approve_or_Reject_Claims_by_Claim_Number_179ak0000030G1R</developerName>
+            <invocationTarget>ClaimApprovalService</invocationTarget>
+            <invocationTargetType>apex</invocationTargetType>
+            <isConfirmationRequired>false</isConfirmationRequired>
+            <isIncludeInProgressIndicator>true</isIncludeInProgressIndicator>
+            <localDeveloperName>Approve_or_Reject_Claims_by_Claim_Number</localDeveloperName>
+            <masterLabel>Approve or Reject Claims by Claim Number</masterLabel>
+            <progressIndicatorMessage>Processing your request to approve or reject claims. Please wait...</progressIndicatorMessage>
+            <source>Approve_or_Reject_Claims_by_Claim_Number</source>
+        </localActions>
+        <localActions>
+            <fullName>Get_Claims_by_Time_Status_179ak0000030G1R</fullName>
+            <description>When user asks for claims:
+- Identify time filter (today, yesterday, this month, last month)
+- Identify status if mentioned (pending, approved, rejected)
+- Default to pending if not specified
+- Limit results to a reasonable number (10–20)
+- Call Get Claims action
+- Display claims clearly with claim number, status, and amount</description>
+            <developerName>Get_Claims_by_Time_Status_179ak0000030G1R</developerName>
+            <invocationTarget>ClaimAgentService</invocationTarget>
+            <invocationTargetType>apex</invocationTargetType>
+            <isConfirmationRequired>false</isConfirmationRequired>
+            <isIncludeInProgressIndicator>true</isIncludeInProgressIndicator>
+            <localDeveloperName>Get_Claims_by_Time_Status</localDeveloperName>
+            <masterLabel>Get Claims by Time &amp; Status</masterLabel>
+            <progressIndicatorMessage>Fetching Claims by Time and Status ...</progressIndicatorMessage>
+            <source>Get_Claims_by_Time_Status</source>
+        </localActions>
+        <localDeveloperName>Claims_Management</localDeveloperName>
+        <masterLabel>Claims Management</masterLabel>
+        <pluginType>Topic</pluginType>
+        <scope>Your job is to manage claims by either retrieving them based on filters or performing actions such as approval or rejection. First identify whether the user intent is to view claims or to update them. Do not perform updates without confirming required inputs such as claim numbers and approved amount for approvals.</scope>
+        <source>Claims_Management</source>
+    </localTopics>
+    <masterLabel>OEM Agent</masterLabel>
+    <plannerActions>
+        <fullName>AnswerQuestionsWithKnowledge_16jak000001qRtB</fullName>
+        <description>Answers questions about company policies and procedures, troubleshooting steps, or product information. For example: “What is your return policy?” “How do I fix an issue?” or “What features does a product have?”</description>
+        <developerName>AnswerQuestionsWithKnowledge_16jak000001qRtB</developerName>
+        <invocationTarget>streamKnowledgeSearch</invocationTarget>
+        <invocationTargetType>standardInvocableAction</invocationTargetType>
+        <isConfirmationRequired>false</isConfirmationRequired>
+        <isIncludeInProgressIndicator>true</isIncludeInProgressIndicator>
+        <localDeveloperName>AnswerQuestionsWithKnowledge</localDeveloperName>
+        <masterLabel>Answer Questions with Knowledge</masterLabel>
+        <progressIndicatorMessage>Getting answers</progressIndicatorMessage>
+        <source>EmployeeCopilot__AnswerQuestionsWithKnowledge</source>
+    </plannerActions>
+    <plannerSurfaces>
+        <adaptiveResponseAllowed>true</adaptiveResponseAllowed>
+        <callRecordingAllowed>false</callRecordingAllowed>
+        <surface>SurfaceAction__CustomerWebClient</surface>
+        <surfaceType>CustomerWebClient</surfaceType>
+    </plannerSurfaces>
+    <plannerSurfaces>
+        <adaptiveResponseAllowed>true</adaptiveResponseAllowed>
+        <callRecordingAllowed>false</callRecordingAllowed>
+        <surface>SurfaceAction__Messaging</surface>
+        <surfaceType>Messaging</surfaceType>
+    </plannerSurfaces>
+    <plannerType>AiCopilot__ReAct</plannerType>
+    <ruleExpressions>
+        <conditions>
+            <leftOperand>isVerified</leftOperand>
+            <leftOperandType>Variable</leftOperandType>
+            <operator>equal</operator>
+            <rightOperandValue>true</rightOperandValue>
+        </conditions>
+        <expression>Verified_User</expression>
+        <expressionLabel>Verified User</expressionLabel>
+        <expressionName>Verified_User</expressionName>
+        <expressionType>sel</expressionType>
+    </ruleExpressions>
+</GenAiPlannerBundle>

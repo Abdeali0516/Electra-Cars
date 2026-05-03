@@ -1,0 +1,16 @@
+{
+  "required" : [ "searchQuery" ],
+  "unevaluatedProperties" : false,
+  "properties" : {
+    "searchQuery" : {
+      "title" : "Query",
+      "description" : "Query to search Slack content.",
+      "lightning:type" : "lightning__textType",
+      "einstein:description" : "The user's search query",
+      "lightning:isPII" : false,
+      "copilotAction:isUserInput" : true
+    }
+  },
+  "lightning:type" : "lightning__objectType",
+  "lightning:textIndexed" : true
+}

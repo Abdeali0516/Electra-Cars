@@ -1,0 +1,117 @@
+.hatt-container {
+    font-family: 'Salesforce Sans', sans-serif;
+    font-size: 13px;
+    background: #ffffff;
+    border: 1px solid #dddbda;
+    border-radius: 6px;
+    overflow: hidden;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.10);
+    min-width: 320px;
+}
+
+.hatt-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 14px;
+    background: #f4f6f9;
+    border-bottom: 1px solid #dddbda;
+}
+
+.hatt-title {
+    font-weight: 700;
+    font-size: 14px;
+    color: #16325c;
+}
+
+.hatt-body {
+    padding: 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.hatt-hint {
+    margin: 0;
+    color: #54698d;
+    font-size: 12px;
+}
+
+.field-label {
+    font-weight: 600;
+    font-size: 12px;
+    color: #54698d;
+    display: block;
+    margin-bottom: 6px;
+}
+
+/* Mood buttons */
+.mood-row {}
+
+.mood-options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+.mood-btn {
+    background: #f4f6f9;
+    border: 1px solid #dddbda;
+    border-radius: 20px;
+    padding: 5px 12px;
+    font-size: 13px;
+    cursor: pointer;
+    color: #16325c;
+    transition: all 0.15s;
+}
+
+.mood-btn:hover   { background: #e8f4fd; border-color: #0070d2; }
+.mood-selected    { background: #0070d2 !important; color: #fff !important; border-color: #0070d2 !important; }
+
+/* Textarea */
+.text-row {}
+
+.hatt-textarea {
+    width: 100%;
+    border: 1px solid #dddbda;
+    border-radius: 4px;
+    padding: 8px;
+    font-size: 13px;
+    font-family: inherit;
+    color: #16325c;
+    line-height: 1.5;
+    resize: vertical;
+    box-sizing: border-box;
+    background: #fff;
+    outline: none;
+}
+
+.hatt-textarea:focus { border-color: #0070d2; box-shadow: 0 0 0 2px rgba(0,112,210,0.15); }
+
+/* Footer */
+.hatt-footer {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 14px;
+    background: #f4f6f9;
+    border-top: 1px solid #dddbda;
+}
+
+.error-msg {
+    font-size: 12px;
+    color: #c23934;
+}
+
+/* Success */
+.success-bar {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 14px;
+    background: #ecf9f0;
+    color: #04844b;
+    font-weight: 600;
+    font-size: 13px;
+    border-top: 1px solid #d4edda;
+}

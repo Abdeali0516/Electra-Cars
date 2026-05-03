@@ -1,0 +1,162 @@
+<template>
+    <!-- ========================= -->
+    <!-- FORM SCREEN -->
+    <!-- ========================= -->
+    <template if:false={showSuccessScreen}>
+        <div class="form-wrapper">
+            <div class="form-container">
+
+                <!-- Header Section -->
+                <div class="form-header">
+                    <div class="form-icon-wrapper">
+                        <lightning-icon icon-name="standard:case" size="medium"
+                            alternative-text="Case"></lightning-icon>
+                    </div>
+                    <h1 class="form-title">Create a case</h1>
+                    <p class="form-subtitle" style="padding-bottom: 10px;">Please use this form to create a new case,
+                        and someone from our support team will reach out soon.</p>
+                </div>
+
+                <!-- Form Content -->
+                <div class="form-content">
+
+                    <!-- Error Alert -->
+                    <template if:true={showError}>
+                        <div class="error-alert">
+                            <lightning-icon icon-name="utility:warning" size="x-small"
+                                variant="warning"></lightning-icon>
+                            <span>{errorMessage}</span>
+                        </div>
+                    </template>
+
+                    <!-- Title -->
+                    <div class="input-group">
+                        <label class="input-label">Title <span class="required">*</span></label>
+                        <lightning-input type="text" value={title} onchange={handleTitleChange}
+                            placeholder="Enter case title" variant="label-hidden" class="custom-input">
+                        </lightning-input>
+                    </div>
+
+                    <!-- Description -->
+                    <div class="input-group">
+                        <label class="input-label">Description</label>
+                        <lightning-textarea value={description} onchange={handleDescriptionChange}
+                            placeholder="Describe your issue..." class="custom-textarea" rows="4">
+                        </lightning-textarea>
+                    </div>
+
+                    <!-- Phone Number -->
+                    <div class="input-group">
+                        <label class="input-label">Phone number</label>
+                        <lightning-input type="tel" value={suppliedPhone} onchange={handlePhoneChange} placeholder="+1"
+                            variant="label-hidden" class="custom-input">
+                        </lightning-input>
+                    </div>
+
+                    <!-- Priority -->
+                    <div class="input-group">
+                        <label class="input-label">Priority <span class="required">*</span></label>
+                        <div class="priority-group">
+                            <template for:each={priorityOptionsWithStyle} for:item="option">
+                                <button key={option.value} type="button" class={option.buttonClass}
+                                    data-value={option.value} onclick={handlePriorityChange}>
+                                    <span class="priority-dot"></span>
+                                    <span class="priority-label">{option.label}</span>
+                                </button>
+                            </template>
+                        </div>
+                    </div>
+
+                    <!-- Attachments -->
+                    <div class="input-group">
+                        <label class="input-label">Attachment(s)</label>
+                        <div class="upload-section">
+                            <lightning-file-upload label=""
+                                accept=".pdf,.png,.jpg,.jpeg,.docx,.xlsx,.pptx,.txt,.doc,.xls" multiple
+                                onuploadfinished={handleUploadFinished} class="custom-file-upload">
+                            </lightning-file-upload>
+                        </div>
+                    </div>
+
+                    <!-- Uploaded Files List -->
+                    <template if:true={uploadedFiles.length}>
+                        <div class="uploaded-files">
+                            <div class="files-header">
+                                <lightning-icon icon-name="utility:attached" size="x-small"></lightning-icon>
+                                <span class="files-count">{uploadedFiles.length} file(s) attached</span>
+                            </div>
+                            <ul class="files-list">
+                                <template for:each={uploadedFiles} for:item="file">
+                                    <li key={file.documentId} class="file-item">
+                                        <lightning-icon icon-name="doctype:attachment" size="x-small"
+                                            class="file-icon"></lightning-icon>
+                                        <span class="file-name">{file.name}</span>
+                                        <button type="button" class="remove-file-btn" data-id={file.documentId}
+                                            onclick={handleRemoveFile}>
+                                            <lightning-icon icon-name="utility:close" size="xx-small"
+                                                alternative-text="Remove"></lightning-icon>
+                                        </button>
+                                    </li>
+                                </template>
+                            </ul>
+                        </div>
+                    </template>
+
+                    <!-- Submit Button -->
+                    <div class="button-container">
+                        <lightning-button label="Submit Case" variant="brand" onclick={handleSubmit}
+                            disabled={isSubmitting} class="submit-btn">
+                        </lightning-button>
+                    </div>
+
+                    <!-- Loading Overlay -->
+                    <template if:true={isSubmitting}>
+                        <div class="loading-overlay">
+                            <div class="loading-content">
+                                <lightning-spinner size="medium" alternative-text="Processing"></lightning-spinner>
+                                <p class="loading-text">Creating your case...</p>
+                            </div>
+                        </div>
+                    </template>
+
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <!-- ========================= -->
+    <!-- SUCCESS SCREEN -->
+    <!-- ========================= -->
+    <template if:true={showSuccessScreen}>
+        <div class="success-overlay">
+            <div class="success-container">
+
+                <!-- Success Icon -->
+                <div class="success-icon-wrapper">
+                    <div class="success-checkmark">
+                        <lightning-icon icon-name="utility:success" size="large"
+                            alternative-text="Success"></lightning-icon>
+                    </div>
+                    <div class="success-ring"></div>
+                </div>
+
+                <!-- Success Message -->
+                <h2 class="success-title">Case Created Successfully!</h2>
+
+                <p class="success-message">
+                    Your case <strong>#{createdCaseNumber}</strong> has been created. Our support team will reach out to
+                    you soon.
+                </p>
+
+                <!-- New Case Button -->
+                <div class="success-actions">
+                    <button type="button" class="new-case-btn" onclick={handleNewCase}>
+                        Create Another Case
+                    </button>
+                </div>
+
+            </div>
+        </div>
+    </template>
+
+</template>

@@ -1,0 +1,221 @@
+:host {
+    --toyota-red: #EB0A1E;
+    --covered: #10B981;
+    --partial: #F59E0B;
+    --rejected: #EF4444;
+    --pending: #6366F1;
+    --radius: 12px;
+    display: block;
+    font-family: 'Segoe UI', -apple-system, sans-serif;
+}
+
+.claim-result-container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 12px;
+}
+
+.status-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    border-radius: var(--radius);
+    padding: 20px 24px;
+    margin-bottom: 12px;
+    color: white;
+}
+
+.status-covered { background: linear-gradient(135deg, #065F46, #10B981); }
+.status-partial { background: linear-gradient(135deg, #92400E, #F59E0B); }
+.status-rejected { background: linear-gradient(135deg, #7F1D1D, #EF4444); }
+.status-pending { background: linear-gradient(135deg, #312E81, #6366F1); }
+
+.status-icon-wrap {
+    font-size: 36px;
+    line-height: 1;
+}
+
+.status-label {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: rgba(255,255,255,0.7);
+    margin: 0 0 4px;
+}
+
+.claim-ref {
+    font-size: 20px;
+    font-weight: 700;
+    margin: 0 0 8px;
+    font-family: monospace;
+    letter-spacing: 1px;
+}
+
+.coverage-badge {
+    font-size: 11px;
+    font-weight: 700;
+    padding: 3px 10px;
+    border-radius: 20px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.badge-covered { background: rgba(255,255,255,0.25); color: white; }
+.badge-partial { background: rgba(255,255,255,0.25); color: white; }
+.badge-rejected { background: rgba(255,255,255,0.25); color: white; }
+.badge-pending { background: rgba(255,255,255,0.25); color: white; }
+
+.coverage-note {
+    display: flex;
+    gap: 10px;
+    background: #FFFBEB;
+    border: 1px solid #FDE68A;
+    border-radius: 8px;
+    padding: 12px 16px;
+    margin-bottom: 12px;
+    font-size: 13px;
+    color: #92400E;
+    line-height: 1.5;
+}
+
+.note-icon { font-size: 18px; flex-shrink: 0; }
+.note-text { margin: 0; }
+
+.result-card {
+    background: white;
+    border: 1.5px solid #E5E7EB;
+    border-radius: var(--radius);
+    padding: 16px 20px;
+    margin-bottom: 10px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+}
+
+.result-card-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    font-weight: 700;
+    color: #374151;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+    margin-bottom: 12px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #F3F4F6;
+}
+
+.dealer-name {
+    font-size: 15px;
+    font-weight: 700;
+    color: #111827;
+    margin: 0 0 4px;
+}
+
+.dealer-detail {
+    font-size: 12px;
+    color: #6B7280;
+    margin: 0 0 10px;
+}
+
+.dealer-phone {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--toyota-red);
+}
+
+.timeline-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.timeline-item {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.tl-label {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+    color: #9CA3AF;
+    font-weight: 600;
+}
+
+.tl-value {
+    font-size: 13px;
+    font-weight: 600;
+    color: #374151;
+}
+
+.tl-value.est { color: var(--covered); }
+
+.timeline-arrow {
+    font-size: 18px;
+    color: #D1D5DB;
+    flex-shrink: 0;
+}
+
+.rsa-card { border-color: #FDE68A; background: #FFFBF0; }
+
+.rsa-header { color: #B45309; }
+
+.rsa-eligible-badge {
+    margin-left: auto;
+    font-size: 10px;
+    font-weight: 700;
+    background: #10B981;
+    color: white;
+    padding: 2px 8px;
+    border-radius: 20px;
+}
+
+.rsa-desc {
+    font-size: 12px;
+    color: #92400E;
+    margin: 0 0 10px;
+    line-height: 1.5;
+}
+
+.rsa-number {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+}
+
+.rsa-num-label {
+    font-size: 10px;
+    color: #9CA3AF;
+    text-transform: uppercase;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
+
+.rsa-num-val {
+    font-size: 16px;
+    font-weight: 800;
+    color: var(--toyota-red);
+    font-family: monospace;
+    letter-spacing: 1px;
+}
+
+.next-steps-text {
+    font-size: 13px;
+    color: #374151;
+    line-height: 1.7;
+    margin: 0;
+    white-space: pre-line;
+}
+
+.result-footer {
+    font-size: 10px;
+    color: #9CA3AF;
+    text-align: center;
+    line-height: 1.6;
+    margin: 8px 0 0;
+}

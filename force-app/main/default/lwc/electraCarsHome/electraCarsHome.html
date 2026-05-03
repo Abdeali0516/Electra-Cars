@@ -1,0 +1,248 @@
+<template>
+    <!-- NAV -->
+    <nav class="ec-nav">
+        <a href="#" class="ec-logo">
+            <img src={logo} class="ec-logo-img" />
+            <span class="ec-logo-text">
+                Electra<span class="ec-cyan">AI</span>
+            </span>
+        </a>
+        <ul class="ec-nav-links">
+            <li><a href="#about" onclick={handleNavClick}>About</a></li>
+            <li><a href="#vehicles" onclick={handleNavClick}>Vehicles</a></li>
+            <li><a href="#services" onclick={handleNavClick}>Services</a></li>
+            <li><a href="#dealers" onclick={handleNavClick}>Dealers</a></li>
+            <li><a href="#contact" onclick={handleNavClick}>Contact</a></li>
+        </ul>
+        <a href="#contact" class="ec-nav-cta" onclick={handleNavClick}>Get in Touch</a>
+    </nav>
+
+    <!-- HERO -->
+    <section class="ec-hero" id="home">
+        <div class="ec-orb ec-orb-1"></div>
+        <div class="ec-orb ec-orb-2"></div>
+        <div class="ec-hero-content">
+            <div class="ec-hero-badge">
+                <span class="ec-badge-dot"></span>
+                Official Automotive Electra — Verified OEM
+            </div>
+            <h1 class="ec-hero-title">
+                Drive Electric.
+                <em>Drive Tomorrow.</em>
+            </h1>
+            <p class="ec-hero-sub">
+                India's trusted electric vehicle manufacturer, delivering next-generation EVs and comprehensive
+                after-sales support to 300,000+ customers and our nationwide dealer network.
+            </p>
+            <div class="ec-hero-actions">
+                <a href="#vehicles" class="ec-btn-primary" onclick={handleNavClick}>Explore Vehicles</a>
+                <a href="#services" class="ec-btn-ghost" onclick={handleNavClick}>Warranty &amp; Services</a>
+            </div>
+        </div>
+        <div class="ec-stats-strip">
+            <template for:each={stats} for:item="s">
+                <div key={s.label} class="ec-stat">
+                    <span class="ec-stat-num">{s.value}</span>
+                    <span class="ec-stat-label">{s.label}</span>
+                </div>
+            </template>
+        </div>
+    </section>
+
+    <!-- TRUST BAR -->
+    <div class="ec-trust-bar">
+        <template for:each={trustItems} for:item="t">
+            <div key={t.text} class="ec-trust-item">
+                <span>{t.icon}</span>
+                <span>{t.text}</span>
+            </div>
+        </template>
+    </div>
+
+    <!-- ABOUT -->
+    <section class="ec-section ec-about" id="about">
+        <div class="ec-about-grid">
+            <div>
+                <span class="ec-section-label">Who We Are</span>
+                <h2 class="ec-section-title">Built for India's Electric Future</h2>
+                <p class="ec-section-sub">Automotive Electra is an original equipment manufacturer (OEM) dedicated to accelerating India's transition to clean, zero-emission mobility.</p>
+                <ul class="ec-value-list">
+                    <template for:each={values} for:item="v">
+                        <li key={v.text} class="ec-value-item">
+                            <div class="ec-value-icon">{v.icon}</div>
+                            <div>{v.text}</div>
+                        </li>
+                    </template>
+                </ul>
+            </div>
+            <div class="ec-about-cards-stack">
+                <template for:each={aboutCards} for:item="c">
+                    <div key={c.title} class="ec-about-card">
+                        <span class="ec-about-card-icon">{c.icon}</span>
+                        <h3>{c.title}</h3>
+                        <p>{c.desc}</p>
+                    </div>
+                </template>
+            </div>
+        </div>
+    </section>
+
+    <!-- VEHICLES -->
+    <section class="ec-section ec-vehicles" id="vehicles">
+        <span class="ec-section-label">Our Lineup</span>
+        <h2 class="ec-section-title">Electric Vehicles for Every Journey</h2>
+        <p class="ec-section-sub">From city commuters to long-range cruisers — every Electra model is engineered for Indian roads with world-class EV technology.</p>
+        <div class="ec-vehicles-grid">
+            <template for:each={vehicles} for:item="v">
+                <div key={v.model} class="ec-vehicle-card">
+                    <span class="ec-vehicle-emoji">{v.emoji}</span>
+                    <div class="ec-vehicle-model">{v.model}</div>
+                    <div class="ec-vehicle-type">{v.type}</div>
+                    <p class="ec-vehicle-desc">{v.desc}</p>
+                    <div class="ec-vehicle-specs">
+                        <template for:each={v.specs} for:item="sp">
+                            <div key={sp.key} class="ec-spec">
+                                <span class="ec-spec-val">{sp.val}</span>
+                                <span class="ec-spec-key">{sp.key}</span>
+                            </div>
+                        </template>
+                    </div>
+                </div>
+            </template>
+        </div>
+    </section>
+
+    <!-- SERVICES / WARRANTY -->
+    <section class="ec-section ec-services" id="services">
+        <span class="ec-section-label">After-Sales &amp; Support</span>
+        <h2 class="ec-section-title">Warranty &amp; Customer Services</h2>
+        <p class="ec-section-sub">Every Electra vehicle comes backed by industry-leading warranty coverage and a nationwide service infrastructure.</p>
+        <div class="ec-services-grid">
+            <template for:each={services} for:item="s">
+                <div key={s.title} class="ec-service-card">
+                    <div class="ec-service-icon-wrap">{s.icon}</div>
+                    <div>
+                        <h3>{s.title}</h3>
+                        <p>{s.desc}</p>
+                    </div>
+                </div>
+            </template>
+        </div>
+    </section>
+
+    <!-- DEALERS -->
+    <section class="ec-section ec-dealers" id="dealers">
+        <span class="ec-section-label">Our Network</span>
+        <h2 class="ec-section-title">Nationwide Dealer Partners</h2>
+        <div class="ec-dealer-highlight">
+            <div class="ec-dealer-stats">
+                <template for:each={dealerStats} for:item="d">
+                    <div key={d.label} class="ec-dealer-stat-card">
+                        <span class="ec-dealer-stat-num">{d.value}</span>
+                        <span class="ec-dealer-stat-label">{d.label}</span>
+                    </div>
+                </template>
+            </div>
+            <div class="ec-dealer-right">
+                <h3>Empowering Dealers with AI-Powered Tools</h3>
+                <p>Automotive Electra partners with authorised dealers across India to deliver outstanding EV ownership experiences. Our dealer portal — built on Salesforce Automotive Cloud — gives service teams real-time access to vehicle warranty status, parts inventory, and claim processing.</p>
+                <p>Dealers can submit warranty prior-authorisation requests via WhatsApp or our web portal. Our AI-assisted approval system — powered by Agentforce — ensures decisions are made in under 4 hours, dramatically reducing vehicle downtime for customers.</p>
+                <a href="#contact" class="ec-btn-primary ec-btn-mt" onclick={handleNavClick}>Become a Partner Dealer</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section class="ec-section ec-contact" id="contact">
+        <span class="ec-section-label">Reach Us</span>
+        <h2 class="ec-section-title">Get in Touch</h2>
+        <p class="ec-section-sub">Whether you're a customer, dealer partner, or investor — we'd love to hear from you.</p>
+        <div class="ec-contact-grid">
+            <div class="ec-contact-info">
+                <template for:each={contactItems} for:item="c">
+                    <div key={c.label} class="ec-contact-item">
+                        <div class="ec-contact-icon">{c.icon}</div>
+                        <div>
+                            <div class="ec-contact-item-label">{c.label}</div>
+                            <div class="ec-contact-item-value">
+                                <lightning-formatted-rich-text value={c.html}></lightning-formatted-rich-text>
+                            </div>
+                        </div>
+                    </div>
+                </template>
+            </div>
+            <div class="ec-contact-form">
+                <h3>Send Us a Message</h3>
+                <div class="ec-form-row">
+                    <div class="ec-form-group">
+                        <label>First Name</label>
+                        <input type="text" placeholder="Arjun" value={form.firstName} onchange={handleFormChange} data-field="firstName" />
+                    </div>
+                    <div class="ec-form-group">
+                        <label>Last Name</label>
+                        <input type="text" placeholder="Sharma" value={form.lastName} onchange={handleFormChange} data-field="lastName" />
+                    </div>
+                </div>
+                <div class="ec-form-group">
+                    <label>Email Address</label>
+                    <input type="email" placeholder="arjun@example.com" value={form.email} onchange={handleFormChange} data-field="email" />
+                </div>
+                <div class="ec-form-group">
+                    <label>Phone Number</label>
+                    <input type="tel" placeholder="+91 98765 43210" value={form.phone} onchange={handleFormChange} data-field="phone" />
+                </div>
+                <div class="ec-form-group">
+                    <label>Enquiry Type</label>
+                    <select value={form.enquiry} onchange={handleFormChange} data-field="enquiry">
+                        <option value="Customer Support">Customer Support</option>
+                        <option value="Warranty Claim">Warranty Claim</option>
+                        <option value="Dealer Partnership">Dealer Partnership</option>
+                        <option value="Vehicle Purchase">Vehicle Purchase</option>
+                        <option value="Media &amp; Press">Media &amp; Press</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+                <div class="ec-form-group">
+                    <label>Message</label>
+                    <textarea placeholder="Tell us how we can help…" value={form.message} onchange={handleFormChange} data-field="message"></textarea>
+                </div>
+                <template if:true={formSuccess}>
+                    <div class="ec-form-success">✅ Message sent! We'll get back to you shortly.</div>
+                </template>
+                <button class="ec-form-submit" type="button" onclick={handleSubmit}>Send Message →</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="ec-footer">
+        <div class="ec-footer-grid">
+            <div class="ec-footer-brand">
+                <div class="ec-logo">
+                    <div class="ec-logo-icon">⚡</div>
+                    <span class="ec-logo-text">Electra<span class="ec-cyan">Cars</span></span>
+                </div>
+                <p>Automotive Electra India Pvt. Ltd. is a registered electric vehicle manufacturer committed to sustainable mobility across India. All vehicles are manufactured and warranted as per AIS and BIS standards.</p>
+            </div>
+            <template for:each={footerCols} for:item="col">
+                <div key={col.heading} class="ec-footer-col">
+                    <h4>{col.heading}</h4>
+                    <ul>
+                        <template for:each={col.links} for:item="lnk">
+                            <li key={lnk.label}><a href={lnk.href}>{lnk.label}</a></li>
+                        </template>
+                    </ul>
+                </div>
+            </template>
+        </div>
+        <div class="ec-footer-bottom">
+            <p>© 2025 Automotive Electra India Pvt. Ltd. | CIN: U34300KA2016PTC089421 | All Rights Reserved</p>
+            <div class="ec-footer-badges">
+                <span class="ec-footer-badge">ISO 9001:2015</span>
+                <span class="ec-footer-badge">FAME-II</span>
+                <span class="ec-footer-badge">BEE 5★</span>
+                <span class="ec-footer-badge">AIS-156 Certified</span>
+            </div>
+        </div>
+    </footer>
+</template>

@@ -1,0 +1,40 @@
+{
+  "required" : [ "productId", "paymentElections", "countryCode", "currencyCode" ],
+  "unevaluatedProperties" : false,
+  "properties" : {
+    "productId" : {
+      "title" : "Product ID",
+      "description" : "The product ID for the request to submit direct deposit details.",
+      "lightning:type" : "lightning__textType",
+      "lightning:isPII" : false,
+      "copilotAction:isUserInput" : false
+    },
+    "countryCode" : {
+      "title" : "Country Code",
+      "description" : "The primary country code for the  direct deposit  (For example, US). This should be in ISO format-2",
+      "lightning:type" : "lightning__textType",
+      "lightning:isPII" : false,
+      "copilotAction:isUserInput" : false
+    },
+    "currencyCode" : {
+      "title" : "Currency Code",
+      "description" : "The primary currency code for the direct deposit (For example, USD)",
+      "lightning:type" : "lightning__textType",
+      "lightning:isPII" : false,
+      "copilotAction:isUserInput" : false
+    },
+    "paymentElections" : {
+      "title" : "Payment Elections",
+      "description" : "List of Payment Elections. Always take the full list of elections, not just the modified ones.",
+      "maxItems" : 100,
+      "items" : {
+        "lightning:type" : "@apexClassType/EmpSvcProcess__PaymentElection"
+      },
+      "lightning:type" : "lightning__listType",
+      "lightning:isPII" : true,
+      "copilotAction:isUserInput" : true
+    }
+  },
+  "lightning:type" : "lightning__objectType",
+  "lightning:textIndexed" : true
+}

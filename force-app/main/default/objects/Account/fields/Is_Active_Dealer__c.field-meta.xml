@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Is_Active_Dealer__c</fullName>
+    <defaultValue>true</defaultValue>
+    <description>Indicates whether the dealer is currently active and authorized to submit claims.</description>
+    <label>Is Active Dealer</label>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Checkbox</type>
+</CustomField>

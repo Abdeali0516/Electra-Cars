@@ -1,0 +1,282 @@
+<template>
+    <div class="detail-container">
+
+        <!-- Back button — only shown when embedded inside claimList -->
+        <template if:true={showBackButton}>
+            <div class="back-row">
+                <button class="back-btn" onclick={handleBack}>
+                    <lightning-icon icon-name="utility:back" size="x-small" class="back-icon" alternative-text="Back"></lightning-icon>
+                    Back to Claims
+                </button>
+            </div>
+        </template>
+
+        <!-- ── Highlight Panel ────────────────────────────────────────────── -->
+        <template if:true={showContent}>
+            <div class="highlight-panel">
+                <template for:each={highlightTiles} for:item="tile">
+                    <div key={tile.key} class="hp-tile">
+                        <span class="hp-label">{tile.label}</span>
+                        <span class={tile.valueClass}>{tile.value}</span>
+                    </div>
+                </template>
+            </div>
+        </template>
+
+        <!-- ── Status Path ────────────────────────────────────────────────── -->
+        <template if:true={showContent}>
+            <c-claim-status-path status-value={claimStatus}></c-claim-status-path>
+        </template>
+
+        <!-- Loading Spinner -->
+        <template if:true={isLoading}>
+            <div class="loading-center">
+                <lightning-spinner size="medium" alternative-text="Loading claim details"></lightning-spinner>
+            </div>
+        </template>
+
+        <!-- Load Error -->
+        <template if:true={hasLoadError}>
+            <div class="error-banner">
+                <lightning-icon icon-name="utility:error" size="x-small" variant="error" alternative-text="Error"></lightning-icon>
+                <span>{loadError}</span>
+            </div>
+        </template>
+
+        <template if:true={showContent}>
+
+            <!-- ── Information ────────────────────────────────────────────── -->
+            <div class="detail-card">
+                <div class="card-header card-header-clickable" onclick={toggleInfo}>
+                    <div class="card-header-left">
+                        <lightning-icon icon-name="standard:case" size="small" class="card-header-icon" alternative-text="Claim"></lightning-icon>
+                        <h2 class="card-title">Information</h2>
+                    </div>
+                    <div class="card-header-right">
+                        <div class={infoChevronClass}>
+                            <lightning-icon icon-name="utility:chevrondown" size="x-small" alternative-text="Toggle"></lightning-icon>
+                        </div>
+                    </div>
+                </div>
+                <template if:true={isInfoExpanded}>
+                    <div class="fields-grid">
+                        <template for:each={fieldsLeft} for:item="field">
+                            <div key={field.key} class="field-block">
+                                <span class="field-label">{field.label}</span>
+                                <span class="field-value">{field.value}</span>
+                            </div>
+                        </template>
+                        <template for:each={fieldsRight} for:item="field">
+                            <div key={field.key} class="field-block">
+                                <span class="field-label">{field.label}</span>
+                                <span class="field-value">{field.value}</span>
+                            </div>
+                        </template>
+                    </div>
+                </template>
+            </div>
+
+            <!-- ── AI Summary ─────────────────────────────────────────────── -->
+            <div class="detail-card">
+                <div class="card-header card-header-clickable" onclick={toggleAiSummary}>
+                    <div class="card-header-left">
+                        <lightning-icon icon-name="utility:einstein" size="small" class="card-header-icon" alternative-text="AI Summary"></lightning-icon>
+                        <h2 class="card-title">AI Summary</h2>
+                    </div>
+                    <div class="card-header-right">
+                        <div class={aiSummaryChevronClass}>
+                            <lightning-icon icon-name="utility:chevrondown" size="x-small" alternative-text="Toggle"></lightning-icon>
+                        </div>
+                    </div>
+                </div>
+                <template if:true={isAiSummaryExpanded}>
+                    <div class="fields-grid fields-grid-single">
+                        <div class="field-block">
+                            <span class="field-label">AI Summary</span>
+                            <span class="field-value field-value-multiline">{aiSummary}</span>
+                        </div>
+                    </div>
+                </template>
+            </div>
+
+            <!-- ── Claim Items ────────────────────────────────────────────── -->
+            <div class="detail-card">
+                <div class="card-header card-header-clickable" onclick={toggleItems}>
+                    <div class="card-header-left">
+                        <lightning-icon icon-name="standard:product_item" size="small" class="card-header-icon" alternative-text="Claim Items"></lightning-icon>
+                        <h2 class="card-title">Claim Items</h2>
+                    </div>
+                    <div class="card-header-right">
+                        <div class={itemsChevronClass}>
+                            <lightning-icon icon-name="utility:chevrondown" size="x-small" alternative-text="Toggle"></lightning-icon>
+                        </div>
+                    </div>
+                </div>
+
+                <template if:true={isItemsExpanded}>
+
+                    <!-- Error -->
+                    <template if:true={showItemsError}>
+                        <div class="rl-error-banner">
+                            <lightning-icon icon-name="utility:error" size="x-small" variant="error" alternative-text="Error"></lightning-icon>
+                            <span>{claimItemsErrorMsg}</span>
+                        </div>
+                    </template>
+
+                    <!-- Empty state -->
+                    <template if:true={showItemsEmptyState}>
+                        <div class="rl-empty-state">
+                            <div class="rl-empty-icon">
+                                <lightning-icon icon-name="utility:list" size="medium" alternative-text="No items"></lightning-icon>
+                            </div>
+                            <p class="rl-empty-title">No claim items</p>
+                            <p class="rl-empty-sub">No items have been linked to this claim.</p>
+                        </div>
+                    </template>
+
+                    <!-- List view -->
+                    <template if:true={showItemList}>
+                        <template if:true={hasClaimItems}>
+                            <div class="rl-table-wrapper">
+                                <table class="rl-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Asset</th>
+                                            <th>Product</th>
+                                            <th>Fault Date</th>
+                                            <th>Description</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <template for:each={claimItemRows} for:item="row">
+                                            <tr key={row.Id} class="rl-table-row">
+                                                <td class="rl-td-name">{row.Name}</td>
+                                                <td>{row.assetName}</td>
+                                                <td>{row.productName}</td>
+                                                <td class="rl-td-date">{row.faultDate}</td>
+                                                <td class="rl-td-desc">{row.description}</td>
+                                                <td>
+                                                    <button class="rl-view-btn"
+                                                            data-id={row.Id}
+                                                            onclick={handleViewItem}>
+                                                        View
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                        </template>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </template>
+                    </template>
+
+                    <!-- Detail drill-down -->
+                    <template if:true={showItemDetail}>
+                        <div class="rl-detail-back-row">
+                            <button class="back-btn" onclick={handleItemBack}>
+                                <lightning-icon icon-name="utility:back" size="x-small" class="back-icon" alternative-text="Back"></lightning-icon>
+                                Back to Claim Items
+                            </button>
+                        </div>
+                        <div class="fields-grid">
+                            <template for:each={selectedItemFieldsLeft} for:item="field">
+                                <div key={field.key} class="field-block">
+                                    <span class="field-label">{field.label}</span>
+                                    <span class="field-value">{field.value}</span>
+                                </div>
+                            </template>
+                            <template for:each={selectedItemFieldsRight} for:item="field">
+                                <div key={field.key} class="field-block">
+                                    <span class="field-label">{field.label}</span>
+                                    <span class="field-value">{field.value}</span>
+                                </div>
+                            </template>
+                        </div>
+                    </template>
+
+                </template>
+            </div>
+
+            <!-- ── Notes &amp; Attachments ───────────────────────────────── -->
+            <div class="detail-card">
+                <div class="card-header card-header-clickable" onclick={toggleFiles}>
+                    <div class="card-header-left">
+                        <lightning-icon icon-name="standard:file" size="small" class="card-header-icon" alternative-text="Files"></lightning-icon>
+                        <h2 class="card-title">Notes &amp; Attachments</h2>
+                    </div>
+                    <div class="card-header-right">
+                        <div class={filesChevronClass}>
+                            <lightning-icon icon-name="utility:chevrondown" size="x-small" alternative-text="Toggle"></lightning-icon>
+                        </div>
+                    </div>
+                </div>
+
+                <template if:true={isFilesExpanded}>
+
+                    <!-- Error -->
+                    <template if:true={showFilesError}>
+                        <div class="rl-error-banner">
+                            <lightning-icon icon-name="utility:error" size="x-small" variant="error" alternative-text="Error"></lightning-icon>
+                            <span>{claimFilesErrorMsg}</span>
+                        </div>
+                    </template>
+
+                    <!-- Empty state -->
+                    <template if:true={showFilesEmptyState}>
+                        <div class="rl-empty-state">
+                            <div class="rl-empty-icon">
+                                <lightning-icon icon-name="utility:attach" size="medium" alternative-text="No files"></lightning-icon>
+                            </div>
+                            <p class="rl-empty-title">No files or notes</p>
+                            <p class="rl-empty-sub">No documents have been attached to this claim.</p>
+                        </div>
+                    </template>
+
+                    <!-- File table -->
+                    <template if:true={hasClaimFiles}>
+                        <div class="rl-table-wrapper">
+                            <table class="rl-table">
+                                <thead>
+                                    <tr>
+                                        <th>Title</th>
+                                        <th>Type</th>
+                                        <th>Size</th>
+                                        <th>Date</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <template for:each={claimFileRows} for:item="row">
+                                        <tr key={row.contentDocumentId} class="rl-table-row">
+                                            <td>
+                                                <div class="rl-td-file-title">
+                                                    <lightning-icon icon-name={row.iconName} size="x-small" class="rl-file-icon" alternative-text={row.fileType}></lightning-icon>
+                                                    {row.title}
+                                                </div>
+                                            </td>
+                                            <td class="rl-td-type">{row.fileType}</td>
+                                            <td class="rl-td-size">{row.fileSize}</td>
+                                            <td class="rl-td-date">{row.createdDate}</td>
+                                            <td>
+                                                <a class="rl-view-btn"
+                                                   href={row.viewUrl}
+                                                   target="_blank"
+                                                   rel="noopener noreferrer">
+                                                    View
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    </template>
+                                </tbody>
+                            </table>
+                        </div>
+                    </template>
+
+                </template>
+            </div>
+
+        </template>
+    </div>
+</template>

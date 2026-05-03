@@ -1,0 +1,146 @@
+<template>
+    <div class="vwc-shell">
+
+        <template if:true={hasProfile}>
+
+            <!-- Header: vehicle name + color + status pill -->
+            <div class={bannerClass}>
+                <span class="vwc-vehicle-name">{colorAndModel}</span>
+                <span class={pillClass}>{statusLabel}</span>
+            </div>
+
+            <!-- Owner Info -->
+            <div class="vwc-body">
+                <div class="vwc-info-row">
+                    <span class="vwc-icon">&#128100;</span>
+                    <span>{ownerName}</span>
+                </div>
+                <div class="vwc-info-row">
+                    <span class="vwc-icon">&#128231;</span>
+                    <span>{ownerEmail}</span>
+                </div>
+                <div class="vwc-info-row">
+                    <span class="vwc-icon">&#128222;</span>
+                    <span>{ownerPhone}</span>
+                </div>
+                <div class="vwc-info-row">
+                    <span class="vwc-icon">&#127968;</span>
+                    <span>{ownerCity}, {ownerState}</span>
+                </div>
+                <div class="vwc-info-row">
+                    <span class="vwc-icon">&#128205;</span>
+                    <span>Sold via: {dealerName}</span>
+                </div>
+                <div class="vwc-info-row">
+                    <span class="vwc-icon">&#128290;</span>
+                    <span>Current odometer: {mileageDisplay}</span>
+                </div>
+            </div>
+            <!-- Vehicle Details -->
+            <div class="vwc-section">
+                <p class="vwc-section-label">Vehicle Details</p>
+                <div class="vwc-detail-row">
+                    <span class="vwc-detail-key">VIN</span>
+                    <span class="vwc-detail-val">{vin}</span>
+                </div>
+                <div class="vwc-detail-row">
+                    <span class="vwc-detail-key">Chassis No.</span>
+                    <span class="vwc-detail-val">{chassisNumber}</span>
+                </div>
+                <div class="vwc-detail-row">
+                    <span class="vwc-detail-key">Engine No.</span>
+                    <span class="vwc-detail-val">{engineNumber}</span>
+                </div>
+                <div class="vwc-detail-row">
+                    <span class="vwc-detail-key">Stock Code</span>
+                    <span class="vwc-detail-val">{stockCode}</span>
+                </div>
+                <div class="vwc-detail-row">
+                    <span class="vwc-detail-key">Status</span>
+                    <span class="vwc-detail-val">{vehicleStatus}</span>
+                </div>
+                <div class="vwc-detail-row">
+                    <span class="vwc-detail-key">Exterior Color</span>
+                    <span class="vwc-detail-val">{exteriorColor}</span>
+                </div>
+                <div class="vwc-detail-row">
+                    <span class="vwc-detail-key">Interior Color</span>
+                    <span class="vwc-detail-val">{interiorColor}</span>
+                </div>
+                <div class="vwc-detail-row">
+                    <span class="vwc-detail-key">Gearbox</span>
+                    <span class="vwc-detail-val">{gearBoxType}</span>
+                </div>
+                <div class="vwc-detail-row">
+                    <span class="vwc-detail-key">Manufactured</span>
+                    <span class="vwc-detail-val">{manufacturedDate}</span>
+                </div>
+                <div class="vwc-detail-row">
+                    <span class="vwc-detail-key">Last Service</span>
+                    <span class="vwc-detail-val">{lastServiceDate}</span>
+                </div>
+            </div>
+
+            <!-- Warranty Summary -->
+            <div class="vwc-section">
+                <p class="vwc-section-label">Warranty Summary</p>
+                <div class="vwc-detail-row">
+                    <span class="vwc-detail-key">Eligibility</span>
+                    <span class={eligibilityTextClass}>{statusLabel}</span>
+                </div>
+                <div class="vwc-detail-row">
+                    <span class="vwc-detail-key">Warranty Start</span>
+                    <span class="vwc-detail-val">{warrantyStart}</span>
+                </div>
+                <div class="vwc-detail-row">
+                    <span class="vwc-detail-key">Warranty End</span>
+                    <span class="vwc-detail-val">{warrantyEnd}</span>
+                </div>
+                <div class="vwc-detail-row">
+                    <span class="vwc-detail-key">Active Contracts</span>
+                    <span class="vwc-detail-val">{activeContracts}</span>
+                </div>
+                <div class="vwc-detail-row">
+                    <span class="vwc-detail-key">Active Warranty</span>
+                    <span class="vwc-detail-val">{activeWarranty}</span>
+                </div>
+                <div class="vwc-detail-row">
+                    <span class="vwc-detail-key">Total Claims</span>
+                    <span class="vwc-detail-val">{claimCount}</span>
+                </div>
+            </div>
+            
+            <!-- Active warranty type list -->
+            <template if:true={hasWarranties}>
+                <div class="vwc-warranties">
+                    <p class="vwc-warranties-label">Active Warranties:</p>
+                    <template for:each={warranties} for:item="w">
+                        <div key={w.key} class="vwc-warranty-row">
+                            <span class="vwc-check">&#9989;</span>
+                            <span class="vwc-warranty-detail">
+                                <strong>{w.warrantyType}</strong>
+                                &mdash; valid till {w.endDateFormatted}
+                                <template if:true={w.mileageDisplay}>
+                                    <span class="vwc-mileage">({w.mileageDisplay})</span>
+                                </template>
+                            </span>
+                        </div>
+                    </template>
+                </div>
+            </template>
+
+            <!-- Draft claim link -->
+            <template if:true={hasClaimId}>
+                <div class="vwc-claim-row">
+                    <span class="vwc-claim-link" onclick={openClaim}>View Draft Claim &#8599;</span>
+                </div>
+            </template>
+
+        </template>
+
+        <template if:false={hasProfile}>
+            <div class="vwc-empty">No vehicle profile available.</div>
+        </template>
+
+    </div>
+</template>

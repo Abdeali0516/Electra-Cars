@@ -1,0 +1,34 @@
+{
+  "required" : [ "action", "approvedAmount", "claimNumbers" ],
+  "unevaluatedProperties" : false,
+  "properties" : {
+    "action" : {
+      "title" : "action",
+      "description" : "Action to perform on the claims. Supported values:\n- approve\n- reject\n\nIf approving, an approved amount must be provided.",
+      "lightning:type" : "lightning__textType",
+      "lightning:isPII" : false,
+      "copilotAction:isUserInput" : true
+    },
+    "approvedAmount" : {
+      "title" : "approvedAmount",
+      "description" : "Amount to be approved for the selected claims. This is required only when the action is \"approve\". Do not provide this for rejection.",
+      "multipleOf" : 1.0E-34,
+      "lightning:type" : "lightning__numberType",
+      "lightning:isPII" : false,
+      "copilotAction:isUserInput" : true
+    },
+    "claimNumbers" : {
+      "title" : "claimNumbers",
+      "description" : "List of claim numbers to process (e.g., WC-123, WC-456). These should match the claim number (Name) in the system.",
+      "maxItems" : 2000,
+      "items" : {
+        "lightning:type" : "lightning__textType"
+      },
+      "lightning:type" : "lightning__listType",
+      "lightning:isPII" : false,
+      "copilotAction:isUserInput" : true
+    }
+  },
+  "lightning:type" : "lightning__objectType",
+  "lightning:textIndexed" : true
+}

@@ -1,0 +1,37 @@
+{
+  "required" : [ "filter" ],
+  "unevaluatedProperties" : false,
+  "properties" : {
+    "filter" : {
+      "title" : "Filters",
+      "description" : "A list of strings that contains use case-specific filters based on the employee’s utterance.",
+      "maxItems" : 2000,
+      "items" : {
+        "lightning:type" : "lightning__textType"
+      },
+      "lightning:type" : "lightning__listType",
+      "lightning:isPII" : false,
+      "copilotAction:isUserInput" : true
+    },
+    "userIds" : {
+      "title" : "User IDs",
+      "description" : "A list of strings that contains the user IDs for which the logged-in employee is requesting program or task details.",
+      "maxItems" : 2000,
+      "items" : {
+        "lightning:type" : "lightning__textType"
+      },
+      "lightning:type" : "lightning__listType",
+      "lightning:isPII" : false,
+      "copilotAction:isUserInput" : true
+    },
+    "programName" : {
+      "title" : "Program Name",
+      "description" : "A string that contains the name of the program for which the logged-in user is requesting details.",
+      "lightning:type" : "lightning__textType",
+      "lightning:isPII" : false,
+      "copilotAction:isUserInput" : true
+    }
+  },
+  "lightning:type" : "lightning__objectType",
+  "lightning:textIndexed" : true
+}

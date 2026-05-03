@@ -1,0 +1,19 @@
+{
+  "unevaluatedProperties" : false,
+  "properties" : {
+    "programSummary" : {
+      "title" : "Program Summary",
+      "description" : "A list of Apex objects that contain the details of enablement programs.",
+      "maxItems" : 2000,
+      "items" : {
+        "lightning:type" : "@apexClassType/EmpSvcAgent__ProgramSummary"
+      },
+      "lightning:type" : "lightning__listType",
+      "lightning:isPII" : false,
+      "copilotAction:isDisplayable" : false,
+      "copilotAction:isUsedByPlanner" : true
+    }
+  },
+  "lightning:type" : "lightning__objectType",
+  "lightning:textIndexed" : true
+}

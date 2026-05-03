@@ -1,0 +1,62 @@
+{
+  "required" : [ "leaveStartDate", "leaveType", "dailyQuantity", "serviceDefinitionId", "leaveEndDate", "leaveTypeBalances" ],
+  "unevaluatedProperties" : false,
+  "properties" : {
+    "leaveStartDate" : {
+      "title" : "Start Date",
+      "description" : "The start date an employee provides when submitting their leave request.",
+      "lightning:type" : "lightning__textType",
+      "lightning:isPII" : false,
+      "copilotAction:isUserInput" : true
+    },
+    "leaveType" : {
+      "title" : "Leave Type",
+      "description" : "The leave type an employee provides when submitting their leave request. It should be in yyyy-mm-dd format",
+      "lightning:type" : "lightning__textType",
+      "lightning:isPII" : false,
+      "copilotAction:isUserInput" : true
+    },
+    "leaveReason" : {
+      "title" : "Comment",
+      "description" : "The reason an employee provides when submitting their leave request.",
+      "lightning:type" : "lightning__textType",
+      "lightning:isPII" : false,
+      "copilotAction:isUserInput" : true
+    },
+    "leaveEndDate" : {
+      "title" : "End Date",
+      "description" : "The end date an employee provides when submitting their leave request. It should be in yyyy-mm-dd format",
+      "lightning:type" : "lightning__textType",
+      "lightning:isPII" : false,
+      "copilotAction:isUserInput" : true
+    },
+    "dailyQuantity" : {
+      "title" : "Daily Quantity",
+      "description" : "Specifies the daily portion of leave in hours or fraction of a day (e.g., 4 h, 0.5 day, 1 day)",
+      "multipleOf" : 1.0E-34,
+      "lightning:type" : "lightning__numberType",
+      "lightning:isPII" : false,
+      "copilotAction:isUserInput" : true
+    },
+    "serviceDefinitionId" : {
+      "title" : "Service Process Name",
+      "description" : "The id of the service process that runs to submit the leave request.",
+      "lightning:type" : "lightning__textType",
+      "lightning:isPII" : false,
+      "copilotAction:isUserInput" : false
+    },
+    "leaveTypeBalances" : {
+      "title" : "Leave Balance",
+      "description" : "The number of leaves available to apply for, including the leave types and their count.",
+      "maxItems" : 2000,
+      "items" : {
+        "lightning:type" : "@apexClassType/EmpSvcAgent__LeaveBalance"
+      },
+      "lightning:type" : "lightning__listType",
+      "lightning:isPII" : false,
+      "copilotAction:isUserInput" : false
+    }
+  },
+  "lightning:type" : "lightning__objectType",
+  "lightning:textIndexed" : true
+}

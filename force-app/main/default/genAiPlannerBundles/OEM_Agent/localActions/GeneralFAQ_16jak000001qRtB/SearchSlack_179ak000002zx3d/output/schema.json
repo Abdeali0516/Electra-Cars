@@ -1,0 +1,16 @@
+{
+  "unevaluatedProperties" : false,
+  "properties" : {
+    "results" : {
+      "title" : "Slack Search Results",
+      "description" : "The Slack search results, formatted as a JSON string.",
+      "lightning:type" : "lightning__textType",
+      "einstein:description" : "The Slack search results, formatted as a JSON string. There are 3 possible sections: Slack messages, files, and enterprise results. Slack messages are messages found in Slack channels. Files include Canvases, Lists, and other files shared and available to the user in Slack. Enterprise includes results from third party systems that are connected to the Slack workspace.",
+      "lightning:isPII" : true,
+      "copilotAction:isDisplayable" : false,
+      "copilotAction:isUsedByPlanner" : true
+    }
+  },
+  "lightning:type" : "lightning__objectType",
+  "lightning:textIndexed" : true
+}

@@ -1,0 +1,34 @@
+{
+  "unevaluatedProperties" : false,
+  "properties" : {
+    "channelId" : {
+      "title" : "Slack Channel Id",
+      "description" : "The Slack direct message channel ID for the sent message.",
+      "lightning:type" : "lightning__textType",
+      "einstein:description" : "The Slack direct message channel ID for the sent message.",
+      "lightning:isPII" : false,
+      "copilotAction:isDisplayable" : false,
+      "copilotAction:isUsedByPlanner" : true
+    },
+    "messageUrl" : {
+      "title" : "Slack Message URL",
+      "description" : "The Slack direct message URL for the sent message; opens in Slack.",
+      "lightning:type" : "lightning__textType",
+      "einstein:description" : "The Slack direct message URL for the sent message; opens in Slack.",
+      "lightning:isPII" : false,
+      "copilotAction:isDisplayable" : false,
+      "copilotAction:isUsedByPlanner" : true
+    },
+    "messageTs" : {
+      "title" : "Slack Message Timestamp",
+      "description" : "The timestamp for when the direct message was sent in Slack.",
+      "lightning:type" : "lightning__textType",
+      "einstein:description" : "The timestamp for when the direct message was sent in Slack.",
+      "lightning:isPII" : false,
+      "copilotAction:isDisplayable" : false,
+      "copilotAction:isUsedByPlanner" : true
+    }
+  },
+  "lightning:type" : "lightning__objectType",
+  "lightning:textIndexed" : true
+}

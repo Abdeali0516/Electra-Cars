@@ -1,0 +1,14 @@
+{
+  "required" : [ "timeFilter" ],
+  "unevaluatedProperties" : false,
+  "properties" : {
+    "timeFilter" : {
+      "title" : "timeFilter",
+      "description" : "Filter time as per claims created.",
+      "lightning:type" : "lightning__textType",
+      "lightning:isPII" : false,
+      "copilotAction:isUserInput" : true
+    }
+  },
+  "lightning:type" : "lightning__objectType"
+}

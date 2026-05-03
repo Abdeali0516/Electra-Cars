@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GenAiPlugin xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <canEscalate>false</canEscalate>
+    <description>Handles user requests to retrieve, approve, or reject claims. This includes viewing claims based on time and status filters, and performing actions such as approving claims with an amount or rejecting claims using claim numbers.</description>
+    <developerName>Claims_Management</developerName>
+    <genAiFunctions>
+        <functionName>Approve_or_Reject_Claims_by_Claim_Number</functionName>
+    </genAiFunctions>
+    <genAiFunctions>
+        <functionName>Get_Claims_by_Time_Status</functionName>
+    </genAiFunctions>
+    <genAiPluginInstructions>
+        <description>Identify intent:
+   - If user is asking to view claims → call Get Claims action
+   - If user is asking to approve or reject → call Process Claims action</description>
+        <developerName>instruction_0_1777802068132</developerName>
+        <language xsi:nil="true"/>
+        <masterLabel>instruction_0_1777802068132</masterLabel>
+        <sortOrder>0</sortOrder>
+    </genAiPluginInstructions>
+    <genAiPluginInstructions>
+        <description>For retrieving claims:
+   - Identify time filter (today, yesterday, this month, last month)
+   - Identify status if mentioned (pending, approved, rejected)
+   - If status is not provided, default to &quot;pending&quot;
+   - If limit is not provided, use 10
+   - Call Get Claims action
+   - Display claims clearly with claim number, status, and amount</description>
+        <developerName>instruction_1_1777802068139</developerName>
+        <language xsi:nil="true"/>
+        <masterLabel>instruction_1_1777802068139</masterLabel>
+        <sortOrder>0</sortOrder>
+    </genAiPluginInstructions>
+    <genAiPluginInstructions>
+        <description>For approving claims:
+   - Extract claim numbers
+   - Check if approved amount is provided
+   - If not, ask: &quot;What amount should be approved?&quot;
+   - Once amount is provided, call Process Claims action with action = approve</description>
+        <developerName>instruction_2_1777802068139</developerName>
+        <language xsi:nil="true"/>
+        <masterLabel>instruction_2_1777802068139</masterLabel>
+        <sortOrder>0</sortOrder>
+    </genAiPluginInstructions>
+    <genAiPluginInstructions>
+        <description>For rejecting claims:
+   - Extract claim numbers
+   - Do not ask for amount
+   - Optionally confirm: &quot;Are you sure you want to reject these claims?&quot;
+   - Call Process Claims action with action = reject</description>
+        <developerName>instruction_3_1777802068139</developerName>
+        <language xsi:nil="true"/>
+        <masterLabel>instruction_3_1777802068139</masterLabel>
+        <sortOrder>0</sortOrder>
+    </genAiPluginInstructions>
+    <genAiPluginInstructions>
+        <description>After any action:
+   - Confirm how many claims were processed
+   - Display claim numbers that were updated</description>
+        <developerName>instruction_4_1777802068139</developerName>
+        <language xsi:nil="true"/>
+        <masterLabel>instruction_4_1777802068139</masterLabel>
+        <sortOrder>0</sortOrder>
+    </genAiPluginInstructions>
+    <genAiPluginInstructions>
+        <description>General rules:
+   - Never approve without an amount
+   - Never ask for amount when rejecting
+   - Always ensure claim numbers are available before performing actions
+   - If no records are found, inform the user clearly</description>
+        <developerName>instruction_5_1777802068139</developerName>
+        <language xsi:nil="true"/>
+        <masterLabel>instruction_5_1777802068139</masterLabel>
+        <sortOrder>0</sortOrder>
+    </genAiPluginInstructions>
+    <language>en_US</language>
+    <localDeveloperName>Claims_Management</localDeveloperName>
+    <masterLabel>Claims Management</masterLabel>
+    <pluginType>Topic</pluginType>
+    <scope>Your job is to manage claims by either retrieving them based on filters or performing actions such as approval or rejection. First identify whether the user intent is to view claims or to update them. Do not perform updates without confirming required inputs such as claim numbers and approved amount for approvals.</scope>
+</GenAiPlugin>

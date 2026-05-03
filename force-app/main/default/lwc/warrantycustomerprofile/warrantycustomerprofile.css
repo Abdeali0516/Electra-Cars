@@ -1,0 +1,110 @@
+.wcp-shell {
+    font-family: 'Salesforce Sans', Arial, sans-serif;
+    font-size: 13px;
+    color: #1a1a1a;
+    background: #fff;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid #e0e0e0;
+    min-width: 280px;
+}
+
+.wcp-banner {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    padding: 12px 14px;
+    gap: 10px;
+}
+
+.wcp-banner--success { background: #f0fff4; border-bottom: 2px solid #22c55e; }
+.wcp-banner--error   { background: #fff5f5; border-bottom: 2px solid #ef4444; }
+
+.wcp-vehicle-name {
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 1.3;
+}
+
+.wcp-pill {
+    font-size: 11px;
+    font-weight: 600;
+    padding: 3px 10px;
+    border-radius: 99px;
+    white-space: nowrap;
+    flex-shrink: 0;
+    margin-top: 2px;
+}
+.wcp-pill--green { background: #dcfce7; color: #166534; }
+.wcp-pill--red   { background: #fee2e2; color: #991b1b; }
+.wcp-pill--gray  { background: #f3f4f6; color: #374151; }
+
+.wcp-body {
+    padding: 10px 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.wcp-info-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    color: #333;
+}
+
+.wcp-icon { flex-shrink: 0; }
+
+.wcp-warranties {
+    padding: 10px 14px;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.wcp-warranties-label {
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #888;
+    margin: 0 0 8px 0;
+}
+
+.wcp-warranty-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    padding: 4px 0;
+    font-size: 13px;
+    line-height: 1.4;
+}
+
+.wcp-check { flex-shrink: 0; }
+
+.wcp-warranty-detail { color: #1a1a1a; }
+
+.wcp-mileage {
+    color: #555;
+    font-size: 12px;
+    margin-left: 2px;
+}
+
+.wcp-claim-row {
+    padding: 8px 14px;
+}
+
+.wcp-claim-link {
+    color: #0070d2;
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: 600;
+    text-decoration: underline;
+}
+
+.wcp-empty {
+    padding: 20px 14px;
+    color: #888;
+    text-align: center;
+    font-style: italic;
+}

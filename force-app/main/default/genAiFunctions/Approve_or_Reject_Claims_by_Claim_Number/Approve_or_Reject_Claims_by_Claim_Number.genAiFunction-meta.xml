@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GenAiFunction xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Use this action to approve or reject claims using their claim numbers.
+
+Inputs:
+- claimNumbers: A list of claim numbers (e.g., WC-123, WC-456)
+- action: Specify whether to &quot;approve&quot; or &quot;reject&quot; the claims
+- approvedAmount: Required only when approving claims
+
+Behavior:
+- If action is &quot;approve&quot;:
+  - The claim status is updated to &quot;Approved&quot;
+  - The approved amount is set on the claim
+- If action is &quot;reject&quot;:
+  - The claim status is updated to &quot;Rejected&quot;
+  - Any existing approved amount is cleared
+
+Rules:
+- Always ensure claim numbers are provided
+- Ask the user for approved amount if approving and amount is missing
+- Do not ask for amount when rejecting
+- Confirm user intent before performing bulk actions
+
+Output:
+- Returns list of processed claim numbers
+- Returns count of updated claims
+- Returns a confirmation message</description>
+    <developerName>Approve_or_Reject_Claims_by_Claim_Number</developerName>
+    <invocationTarget>ClaimApprovalService</invocationTarget>
+    <invocationTargetType>apex</invocationTargetType>
+    <isConfirmationRequired>false</isConfirmationRequired>
+    <isIncludeInProgressIndicator>true</isIncludeInProgressIndicator>
+    <localDeveloperName>Approve_or_Reject_Claims_by_Claim_Number</localDeveloperName>
+    <masterLabel>Approve or Reject Claims by Claim Number</masterLabel>
+    <progressIndicatorMessage>Processing your request to approve or reject claims. Please wait...</progressIndicatorMessage>
+</GenAiFunction>

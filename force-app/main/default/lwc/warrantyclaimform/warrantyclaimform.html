@@ -1,0 +1,361 @@
+<template>
+    <div class="warranty-form-container">
+
+        <!-- HEADER + STEP INDICATOR -->
+        <div class="form-header">
+            <div class="toyota-badge">
+                <span class="badge-icon">&#x1F6E1;</span>
+                <div>
+                    <h2 class="form-title">Toyota True Warranty</h2>
+                    <p class="form-subtitle">
+                        <template if:true={serviceCertificateNumber}>
+                            Certificate: {serviceCertificateNumber}
+                        </template>
+                        <template if:false={serviceCertificateNumber}>
+                            New Claim
+                        </template>
+                    </p>
+                </div>
+            </div>
+            <div class="step-indicator">
+                <template for:each={steps} for:item="step">
+                    <div key={step.id} class={step.cssClass} title={step.label}>
+                        <span class="step-dot">{step.number}</span>
+                        <span class="step-label">{step.label}</span>
+                    </div>
+                </template>
+            </div>
+        </div>
+
+        <!-- AUTO-FILLED CONTEXT CARDS -->
+        <template if:false={isComplete}>
+
+            <!-- <template if:true={hasVehicleData}>
+                <div class="info-card context-card">
+                    <div class="card-header">
+                        <span class="card-icon">&#x1F697;</span>
+                        <span class="card-title">Vehicle Information</span>
+                        <span class="badge-pill">{warrantyType}</span>
+                    </div>
+                    <div class="context-grid">
+                        <div class="ctx-item"><span class="ctx-label">Make / Model</span><span class="ctx-value">{vehicleMakeModel}</span></div>
+                        <div class="ctx-item"><span class="ctx-label">Year</span><span class="ctx-value">{modelYear}</span></div>
+                        <div class="ctx-item"><span class="ctx-label">VIN</span><span class="ctx-value ctx-mono">{vinNumber}</span></div>
+                        <div class="ctx-item"><span class="ctx-label">Registration</span><span class="ctx-value">{registrationNumber}</span></div>
+                        <div class="ctx-item"><span class="ctx-label">Colour</span><span class="ctx-value">{vehicleColour}</span></div>
+                        <div class="ctx-item"><span class="ctx-label">Fuel Type</span><span class="ctx-value">{fuelType}</span></div>
+                        <div class="ctx-item"><span class="ctx-label">Transmission</span><span class="ctx-value">{transmissionType}</span></div>
+                        <div class="ctx-item"><span class="ctx-label">Purchase Date</span><span class="ctx-value">{vehiclePurchaseDateFormatted}</span></div>
+                    </div>
+                </div>
+            </template> -->
+
+            <template if:true={hasWarrantyData}>
+                <div class="info-card context-card">
+                    <div class="card-header">
+                        <span class="card-icon">&#x1F4C4;</span>
+                        <span class="card-title">Warranty Details</span>
+                        <span class={warrantyStatusBadgeClass}>{warrantyStatusLabel}</span>
+                    </div>
+                    <div class="context-grid">
+                        <div class="ctx-item"><span class="ctx-label">Warranty Term</span><span class="ctx-value">{warrantyTermName}</span></div>
+                        <div class="ctx-item"><span class="ctx-label">Duration</span><span class="ctx-value">{warrantyDurationMonths} months</span></div>
+                        <div class="ctx-item"><span class="ctx-label">Warranty Period</span><span class="ctx-value">{warrantyPeriodFormatted}</span></div>
+                        <div class="ctx-item"><span class="ctx-label">Km Limit</span><span class="ctx-value">{warrantyMileageLimitFormatted}</span></div>
+                        <div class="ctx-item"><span class="ctx-label">Transferable</span><span class="ctx-value">{isWarrantyTransferableLabel}</span></div>
+                    </div>
+                </div>
+            </template>
+
+        </template>
+
+        <!-- SUCCESS STATE -->
+        <template if:true={isComplete}>
+            <div class="success-banner">
+                <span class="success-icon">&#x2705;</span>
+                <div>
+                    <strong>Claim Submitted Successfully</strong>
+                    <p>Claim Number: <strong>{claimNumber}</strong></p>
+                    <template if:true={hasClaimItems}><p>&#x2714; Claim items recorded.</p></template>
+                    <template if:true={hasNoteOrAttachment}><p>&#x2714; Notes and attachments saved.</p></template>
+                    <template if:true={showRSAAlert}><p class="rsa-note">&#x1F6A8; Vehicle is not drivable - RSA has been flagged.</p></template>
+                </div>
+            </div>
+        </template>
+
+        <!-- STEP 1 - CLAIM DETAILS -->
+        <template if:true={isStepClaimDetails}>
+            <div class="info-card user-card">
+                <div class="card-header">
+                    <span class="card-icon">&#x1F4CB;</span>
+                    <span class="card-title">Claim Details</span>
+                </div>
+
+                <!-- Customer Account
+                     customerName is read from Agentforce value prop.
+                     Displayed as a read-only auto-filled field. No dropdown. -->
+                <div class="form-group">
+                    <label class="field-label">Customer Account</label>
+                    <div class="account-autofill-box">
+                        <div class="account-autofill-left">
+                            <span class="account-autofill-icon">&#x1F3E2; {customerName}</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Affected Component -->
+                <div class="form-group">
+                    <label class="field-label">
+                        Affected Component / System <span class="required-star">*</span>
+                    </label>
+                    <select class="form-input form-select" onchange={handleComponentChange}>
+                        <option value="">-- Select Component --</option>
+                        <option value="Engine">Engine</option>
+                        <option value="Transmission">Transmission / Gearbox</option>
+                        <option value="Electrical / Electronics">Electrical / Electronics</option>
+                        <option value="Suspension / Steering">Suspension / Steering</option>
+                        <option value="Braking System">Braking System</option>
+                        <option value="Fuel System">Fuel System</option>
+                        <option value="Cooling System">Cooling System</option>
+                        <option value="Air Conditioning">Air Conditioning</option>
+                        <option value="Drivetrain / Axle">Drivetrain / Axle</option>
+                        <option value="Infotainment / Display">Infotainment / Display</option>
+                        <option value="Body / Structural">Body / Structural</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+
+                <!-- Fault Description -->
+                <div class="form-group">
+                    <label class="field-label">
+                        Fault Description <span class="required-star">*</span>
+                    </label>
+                    <textarea class="form-input form-textarea"
+                        placeholder="Describe the issue in detail - sounds, warning lights, behaviour observed..."
+                        value={claimData.faultDescription}
+                        onchange={handleFaultDescriptionChange}
+                        rows="4">
+                    </textarea>
+                    <span class="char-count">{faultDescriptionLength}/500</span>
+                </div>
+
+                <!-- Breakdown Location -->
+                <div class="form-group">
+                    <label class="field-label">Breakdown Location - optional</label>
+                    <input type="text" class="form-input"
+                        placeholder="e.g. N1 Highway, Johannesburg"
+                        value={claimData.breakdownLocation}
+                        onchange={handleBreakdownLocationChange} />
+                </div>
+
+                <!-- Odometer -->
+                <div class="form-group">
+                    <label class="field-label">
+                        Current Odometer Reading (km) <span class="required-star">*</span>
+                    </label>
+                    <input type="number" class="form-input" min="0"
+                        placeholder="e.g. 48500"
+                        value={claimData.currentOdometerReading}
+                        onchange={handleOdometerChange} />
+                    <template if:true={showMileageWarning}>
+                        <p class="field-warning">
+                            &#x26A0; Odometer reading exceeds warranty limit of
+                            {warrantyMileageLimitFormatted}. Coverage may be partial.
+                        </p>
+                    </template>
+                </div>
+
+                <!-- Repair Type -->
+                <div class="form-group">
+                    <label class="field-label">
+                        Repair Type Requested <span class="required-star">*</span>
+                    </label>
+                    <select class="form-input form-select" onchange={handleRepairTypeChange}>
+                        <option value="">-- Select --</option>
+                        <option value="Repair">Repair</option>
+                        <option value="Replace">Replace</option>
+                        <option value="Diagnose Only">Diagnose Only</option>
+                    </select>
+                </div>
+
+                <!-- Is Vehicle Drivable -->
+                <div class="form-group">
+                    <label class="field-label">
+                        Is the vehicle currently drivable? <span class="required-star">*</span>
+                    </label>
+                    <div class="radio-group">
+                        <label class="radio-option">
+                            <input type="radio" name="drivable" value="true" onchange={handleDrivableChange} />
+                            <span class="radio-label">Yes</span>
+                        </label>
+                        <label class="radio-option">
+                            <input type="radio" name="drivable" value="false" onchange={handleDrivableChange} />
+                            <span class="radio-label">No - request RSA</span>
+                        </label>
+                    </div>
+                    <template if:true={showRSAAlert}>
+                        <p class="field-alert">
+                            &#x1F6A8; RSA will be flagged. Claim severity will be set to HIGH.
+                        </p>
+                    </template>
+                </div>
+
+            </div>
+
+            <template if:true={showError}>
+                <div class="error-banner"><span>&#x26A0; {errorMessage}</span></div>
+            </template>
+
+            <button class="submit-btn" onclick={handleClaimDetailsSubmit}
+                    type="button" disabled={isSubmitting}>
+                <template if:true={isSubmitting}>
+                    <span class="submit-icon">&#x23F3;</span> Creating Claim...
+                </template>
+                <template if:false={isSubmitting}>
+                    <span class="submit-icon">&#x1F4CB;</span> Submit Warranty Claim
+                </template>
+            </button>
+            <p class="disclaimer">
+                By submitting you confirm the details above are accurate.
+                Benefits are subject to Toyota True Warranty Terms & Conditions.
+            </p>
+        </template>
+
+        <!-- STEP 2 - ASK CLAIM ITEMS -->
+        <template if:true={isStepAskClaimItems}>
+            <div class="info-card confirm-card">
+                <div class="card-header">
+                    <span class="card-icon">&#x1F527;</span>
+                    <span class="card-title">Claim Items</span>
+                </div>
+                <p class="confirm-question">Do you want to add additional claim item details?</p>
+                <p class="confirm-hint">Claim items specify individual parts, components or labour lines related to this repair.</p>
+                <div class="confirm-actions">
+                    <button class="btn-yes" onclick={handleAddClaimItemsYes} type="button">&#x2705; Yes, Add Items</button>
+                    <button class="btn-no"  onclick={handleAddClaimItemsNo}  type="button">&#x23ED; No, Skip</button>
+                </div>
+            </div>
+        </template>
+
+        <!-- STEP 3 - CLAIM ITEM FORM -->
+        <template if:true={isStepClaimItemForm}>
+            <div class="info-card user-card">
+                <div class="card-header">
+                    <span class="card-icon">&#x1F527;</span>
+                    <span class="card-title">Add Claim Items</span>
+                </div>
+                <template for:each={claimItems} for:item="item">
+                    <div key={item.id} class="claim-item-row">
+                        <div class="item-row-header">
+                            <strong>Item {item.displayNumber}</strong>
+                            <template if:true={canRemoveItem}>
+                                <button class="btn-remove" type="button"
+                                    data-id={item.id} onclick={handleRemoveClaimItem}>x Remove</button>
+                            </template>
+                        </div>
+                        <div class="form-group">
+                            <label class="field-label">Item Name <span class="required-star">*</span></label>
+                            <input type="text" class="form-input" placeholder="e.g. Timing Belt, Brake Caliper"
+                                value={item.itemName} data-id={item.id} data-field="itemName"
+                                onchange={handleClaimItemFieldChange} />
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group form-group-half">
+                                <label class="field-label">Part Number</label>
+                                <input type="text" class="form-input" placeholder="OEM / supplier part no."
+                                    value={item.partNumber} data-id={item.id} data-field="partNumber"
+                                    onchange={handleClaimItemFieldChange} />
+                            </div>
+                            <div class="form-group form-group-half">
+                                <label class="field-label">Quantity</label>
+                                <input type="number" class="form-input" min="1"
+                                    value={item.quantity} data-id={item.id} data-field="quantity"
+                                    onchange={handleClaimItemFieldChange} />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="field-label">Fault Date for this Item</label>
+                            <input type="date" class="form-input" max={todayIso}
+                                value={item.faultDate} data-id={item.id} data-field="faultDate"
+                                onchange={handleClaimItemFieldChange} />
+                        </div>
+                        <div class="form-group">
+                            <label class="field-label">Description</label>
+                            <textarea class="form-input form-textarea" rows="2" placeholder="Additional details..."
+                                value={item.itemDescription} data-id={item.id} data-field="itemDescription"
+                                onchange={handleClaimItemFieldChange}></textarea>
+                        </div>
+                    </div>
+                </template>
+                <button class="btn-add-item" type="button" onclick={handleAddAnotherItem}>+ Add Another Item</button>
+                <template if:true={showError}><div class="error-banner"><span>&#x26A0; {errorMessage}</span></div></template>
+                <div class="action-row">
+                    <button class="submit-btn" type="button" onclick={handleClaimItemsSubmit} disabled={isSubmitting}>
+                        <template if:true={isSubmitting}><span class="submit-icon">&#x23F3;</span> Saving...</template>
+                        <template if:false={isSubmitting}><span class="submit-icon">&#x1F4BE;</span> Save Items & Continue</template>
+                    </button>
+                </div>
+            </div>
+        </template>
+
+        <!-- STEP 4 - ASK NOTES -->
+        <template if:true={isStepAskNotes}>
+            <div class="info-card confirm-card">
+                <div class="card-header">
+                    <span class="card-icon">&#x1F4CE;</span>
+                    <span class="card-title">Evidence</span>
+                </div>
+                <p class="confirm-question">Do you want to add notes or attachments to this claim?</p>
+                <p class="confirm-hint">You can add photos, videos, diagnostic reports, or written notes for the service advisor.</p>
+                <div class="confirm-actions">
+                    <button class="btn-yes" onclick={handleAddNotesYes} type="button">&#x2705; Yes, Add Notes</button>
+                    <button class="btn-no"  onclick={handleAddNotesNo}  type="button">&#x23ED; No, Finish</button>
+                </div>
+            </div>
+        </template>
+
+        <!-- STEP 5 - NOTES & ATTACHMENTS -->
+        <template if:true={isStepNotesForm}>
+            <div class="info-card user-card">
+                <div class="card-header">
+                    <span class="card-icon">&#x1F4CE;</span>
+                    <span class="card-title">Notes & Attachments</span>
+                </div>
+                <div class="form-group">
+                    <label class="field-label">Note Title</label>
+                    <input type="text" class="form-input" placeholder="e.g. Customer description, inspection notes..."
+                        value={noteData.title} onchange={handleNoteTitleChange} />
+                </div>
+                <div class="form-group">
+                    <label class="field-label">Note Body</label>
+                    <textarea class="form-input form-textarea" rows="5" placeholder="Enter detailed notes here..."
+                        value={noteData.body} onchange={handleNoteBodyChange}></textarea>
+                </div>
+                <div class="form-group">
+                    <label class="field-label">Attachments (images, videos, documents)</label>
+                    <lightning-file-upload label="" name="claimAttachments" accept={acceptedFormats}
+                        record-id={claimId} onuploadfinished={handleUploadFinished} multiple>
+                    </lightning-file-upload>
+                    <template if:true={hasUploadedFiles}>
+                        <ul class="upload-list">
+                            <template for:each={uploadedFiles} for:item="file">
+                                <li key={file.documentId}>&#x2705; {file.name}</li>
+                            </template>
+                        </ul>
+                    </template>
+                </div>
+                <template if:true={showError}><div class="error-banner"><span>&#x26A0; {errorMessage}</span></div></template>
+                <div class="action-row">
+                    <button class="submit-btn" type="button" onclick={handleNotesSubmit} disabled={isSubmitting}>
+                        <template if:true={isSubmitting}><span class="submit-icon">&#x23F3;</span> Saving...</template>
+                        <template if:false={isSubmitting}><span class="submit-icon">&#x2714;</span> Save & Finish</template>
+                    </button>
+                    <button class="btn-skip" type="button" onclick={handleSkipNotes} disabled={isSubmitting}>
+                        Skip Notes
+                    </button>
+                </div>
+            </div>
+        </template>
+
+    </div>
+</template>

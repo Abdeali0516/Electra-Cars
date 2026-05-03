@@ -1,0 +1,56 @@
+{
+  "required" : [ "query" ],
+  "unevaluatedProperties" : false,
+  "properties" : {
+    "query" : {
+      "title" : "Query",
+      "description" : "Query to search Slack content.",
+      "lightning:type" : "lightning__textType",
+      "einstein:description" : "This is the Slack search query string which accepts any of the following forms:\n  - keywords (e.g. 'notes')\n  - phrases (e.g. 'meeting notes')\n  - questions (e.g. 'Where are the meeting notes for the sync meeting yesterday?')\nOptionally include the following modifiers to refine the search:\n    - User Modifiers:Query to search Slack content.\n        - from:<@user-id> – Messages sent by a specific user specified by user ID (e.g., from:<@U1234567890>).\n        - from:@username – Messages sent by a specific user (e.g., from:@john).\n        - to:<@user-id> – Messages directed to a specific user in direct messages specified by user ID (e.g., to:<@U1234567890>).\n        - to:@username – Messages directed to a specific user in direct messages (e.g., to:@alice).\n        - with:<@user-id> – Messages in a direct message conversation with a specific user specified by user ID (e.g., with:<@U1234567890>).\n        - with:@username – Messages in a direct message conversation with a specific user (e.g., with:@john).\n    - Channel Modifiers:\n        - in:<#channel-id> – Messages within a specific channel specified by channel Id (e.g., in:<#C1234567890>).\n        - in:#channel-name – Messages within a specific channel (e.g., in:#general).\n        - If the channel provided comes in the format of '<#C1234567890|>' where the channel Id is wrapped in '<# |>', remove the '|' to alter the channel Id reference. For example, <#C1234567890|>' should be converted to <#C1234567890>'.\n    - Date Modifiers:\n        - before:yyyy-mm-dd – Messages sent before a specific date (e.g., before:2025-01-01).\n        - after:yyyy-mm-dd – Messages sent after a specific date (e.g., after:2024-12-31).\n        - on:yyyy-mm-dd – Messages sent on a specific date (e.g., on:2025-01-01).\n        - If the query involves a range, convert it to after:yyyy-mm-dd and before:yyyy-mm-dd format and always consider that the modifiers 'before' and 'after' are non-inclusive, so always adjust the boundaries accordingly. For example: 'In February of 2024' should build a modifier like after:2024-01-31 and before:2024-03-01\n    - Message Modifiers:\n        - has:action – Messages with an action (e.g., has:action).\n        - has:link – Messages with a link (e.g., has:link).\n        - has:star – Messages that are starred (e.g., has:star).\n        - has:pin – Messages that are pinned (e.g., has:pin).\n        - has:reaction – Messages with a reaction (e.g., has:reaction).\n        - has:file – Messages with a file (e.g., has:file).\n        - is:dm – Messages in a direct message conversation (e.g., is:dm).\n        - is:thread – Messages in a thread (e.g., is:thread).\n        - is:saved – Messages that are saved (e.g., is:saved).\n    - File Type Modifiers:\n        - type:canvas – Slack canvases (e.g., type:canvas).\n        - type:list – Slack lists (e.g., type:list).\n        - type:filetype – user-specified file type (e.g., type:pdf).\nChannel and User IDs, names and mentions provided in these instructions are only examples and should never be actually used during the execution of the action.",
+      "lightning:isPII" : false,
+      "copilotAction:isUserInput" : true
+    },
+    "contentTypes" : {
+      "title" : "Content Types",
+      "description" : "Content types to include in the results of the search. A comma-separated list of any combination of: 'messages', 'files', 'enterprise'.",
+      "lightning:type" : "lightning__textType",
+      "einstein:description" : "Content types to include in the results of the search. A string containing a comma separated list that will accept any combination of: 'messages', 'files', 'enterprise'. Any other options will be ignored. Since this is optional, the default will be: 'messages, files'. \n The 'messages' option represents the inclusion of Slack channel messages.\n The 'files' option represents the inclusion of any files shared in Slack channels.\n The 'enterprise' option represents the inclusion of search results from configured and approved third party systems.",
+      "lightning:isPII" : false,
+      "copilotAction:isUserInput" : true
+    },
+    "channelTypes" : {
+      "title" : "Channel Types",
+      "description" : "Channel types to include in the results of the search. A comma-separated list of any combination of: 'public', 'private', 'dm', 'mpdm'.",
+      "lightning:type" : "lightning__textType",
+      "einstein:description" : "Channel types to include in the results of the search. A string containing a comma separated list that will accept any combination of: 'public', 'private', 'dm', 'mpdm', any other options will be ignored. Since this is optional, the default will include all options. \n The 'public' option represents the inclusion of any content from all public Slack channels that the user has access to in Slack. \n The 'private' option represents inclusion of any content from any private channels that the user has access to in Slack. \n The 'messages' option represents the inclusion of Slack channel messages.\n The 'dm' option represents the inclusion of any content from direct messages (DM) that the user has access to in Slack.\n The 'mpdm' option represents the inclusion of any content from multi-person direct messages (MPDM) that the user has access to in Slack.",
+      "lightning:isPII" : false,
+      "copilotAction:isUserInput" : true
+    },
+    "contextChannelId" : {
+      "title" : "Context channel ID",
+      "description" : "Context channel ID to support scoping the search when applicable. If the session context contains a slack_channel variable, that should be passed to this input.",
+      "lightning:type" : "lightning__textType",
+      "einstein:description" : "Deprecated. Don't use this field",
+      "lightning:isPII" : false,
+      "copilotAction:isUserInput" : false
+    },
+    "includeChannels" : {
+      "title" : "Include channels",
+      "description" : "Include channels",
+      "lightning:type" : "lightning__textType",
+      "einstein:description" : "Comma separated list of channel IDs to specifically include in the search results. When provided, the search will only return results from these specified channels. Channel IDs should be in the format 'C1234567890'. This parameter works in conjunction with other search filters.",
+      "lightning:isPII" : false,
+      "copilotAction:isUserInput" : true
+    },
+    "excludeChannels" : {
+      "title" : "Exclude channels",
+      "description" : "Exclude channels",
+      "lightning:type" : "lightning__textType",
+      "einstein:description" : "Comma separated list of channel IDs to exclude from the search results. When provided, the search will filter out any results from these specified channels. Channel IDs should be in the format 'C1234567890'. This parameter works in conjunction with other search filters.",
+      "lightning:isPII" : false,
+      "copilotAction:isUserInput" : true
+    }
+  },
+  "lightning:type" : "lightning__objectType",
+  "lightning:textIndexed" : true
+}

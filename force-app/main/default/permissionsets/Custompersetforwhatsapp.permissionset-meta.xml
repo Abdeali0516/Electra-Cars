@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>built for omni channel communication with whatsapp.</description>
+    <hasActivationRequired>false</hasActivationRequired>
+    <label>Custompersetforwhatsapp</label>
+    <userPermissions>
+        <enabled>true</enabled>
+        <name>CanInitiateMessagingSessions</name>
+    </userPermissions>
+    <userPermissions>
+        <enabled>true</enabled>
+        <name>LMOutboundMessagingUserPerm</name>
+    </userPermissions>
+</PermissionSet>

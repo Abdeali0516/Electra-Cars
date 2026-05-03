@@ -1,0 +1,226 @@
+<template>
+
+    <!-- ═══════════════════════════════ LOADING ═══════════════════════════════ -->
+    <template if:true={isLoading}>
+        <div class="dd-loading">
+            <div class="dd-spinner-ring"></div>
+            <p class="dd-loading-text">Loading your dashboard…</p>
+        </div>
+    </template>
+
+    <!-- ════════════════════════════════ ERROR ════════════════════════════════ -->
+    <template if:true={hasError}>
+        <div class="dd-error-state">
+            <span class="dd-error-icon">⚠️</span>
+            <h3 class="dd-error-title">Unable to load dashboard</h3>
+            <p class="dd-error-msg">{errorMessage}</p>
+        </div>
+    </template>
+
+    <!-- ══════════════════════════════ DASHBOARD ══════════════════════════════ -->
+    <template if:true={hasData}>
+
+        <!-- ── HEADER ─────────────────────────────────────────────────────── -->
+        <header class="dd-header">
+            <div class="dd-header-brand">
+                <span class="dd-logo-icon">⚡</span>
+                <span class="dd-logo-text">Electra<span class="dd-cyan">AI</span></span>
+                <span class="dd-header-sep">|</span>
+                <span class="dd-header-sub">Dealer Portal</span>
+            </div>
+            <div class="dd-header-right">
+                <div class="dd-dealer-pill">
+                    <span class="dd-dealer-dot"></span>
+                    {data.dealerName}
+                </div>
+                <span class="dd-header-date">{todayLabel}</span>
+            </div>
+        </header>
+
+        <!-- ── WELCOME HERO ───────────────────────────────────────────────── -->
+        <section class="dd-hero">
+            <div class="dd-orb dd-orb-1"></div>
+            <div class="dd-orb dd-orb-2"></div>
+            <div class="dd-hero-content">
+                <span class="dd-eyebrow">Dealer Dashboard</span>
+                <h1 class="dd-hero-title">
+                    Welcome, <em>{data.dealerName}</em>
+                </h1>
+                <p class="dd-hero-sub">
+                    Real-time overview of your fleet, warranty status, claims and claim line items.
+                </p>
+                <div class="dd-hero-meta">
+                    <template if:true={data.dealerCity}>
+                        <span class="dd-hero-chip">📍 {data.dealerCity}, {data.dealerState}</span>
+                    </template>
+                    <template if:true={data.dealerPhone}>
+                        <span class="dd-hero-chip">📞 {data.dealerPhone}</span>
+                    </template>
+                </div>
+            </div>
+        </section>
+
+        <!-- ── KPI STRIP ──────────────────────────────────────────────────── -->
+        <div class="dd-kpi-strip">
+            <template for:each={kpiCards} for:item="k">
+                <div key={k.label} class="dd-kpi-card">
+                    <span class="dd-kpi-icon">{k.icon}</span>
+                    <span class="dd-kpi-value">{k.value}</span>
+                    <span class="dd-kpi-label">{k.label}</span>
+                </div>
+            </template>
+        </div>
+
+        <!-- ── CLAIMS ─────────────────────────────────────────────────────── -->
+        <section class="dd-section">
+            <div class="dd-section-header">
+                <div>
+                    <span class="dd-section-eyebrow">Warranty Claims</span>
+                    <h2 class="dd-section-title">Recent Claims</h2>
+                </div>
+                <span class="dd-record-count">{data.totalClaims} records</span>
+            </div>
+
+            <template if:true={hasClaims}>
+                <div class="dd-table-wrap">
+                    <table class="dd-table">
+                        <thead>
+                            <tr>
+                                <th>Claim #</th>
+                                <th>Status</th>
+                                <th>Type</th>
+                                <th>Reason</th>
+                                <th>Date</th>
+                                <th>Drivable</th>
+                                <th>Summary</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <template for:each={data.claims} for:item="c">
+                                <tr key={c.claimId}>
+                                    <td class="dd-mono">{c.name}</td>
+                                    <td><span class={c.statusBadgeClass}>{c.status}</span></td>
+                                    <td>{c.claimType}</td>
+                                    <td>{c.reason}</td>
+                                    <td class="dd-date">{c.initiationDate}</td>
+                                    <td class="dd-center">
+                                        <template if:true={c.isDrivable}>✅</template>
+                                        <template if:false={c.isDrivable}>🚫</template>
+                                    </td>
+                                    <td class="dd-summary-cell">{c.summary}</td>
+                                </tr>
+                            </template>
+                        </tbody>
+                    </table>
+                </div>
+            </template>
+
+            <template if:false={hasClaims}>
+                <div class="dd-empty">
+                    <span class="dd-empty-icon">📋</span>
+                    <p>No warranty claims found for your dealership.</p>
+                </div>
+            </template>
+        </section>
+
+        <!-- ── CLAIM ITEMS ────────────────────────────────────────────────── -->
+        <section class="dd-section">
+            <div class="dd-section-header">
+                <div>
+                    <span class="dd-section-eyebrow">Claim Line Items</span>
+                    <h2 class="dd-section-title">Claim Items</h2>
+                </div>
+                <span class="dd-record-count">{data.totalClaimItems} records</span>
+            </div>
+
+            <template if:true={hasClaimItems}>
+                <div class="dd-table-wrap">
+                    <table class="dd-table">
+                        <thead>
+                            <tr>
+                                <th>Item #</th>
+                                <th>Claim ID</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <template for:each={data.claimItems} for:item="ci">
+                                <tr key={ci.itemId}>
+                                    <td class="dd-mono">{ci.name}</td>
+                                    <td class="dd-mono dd-muted">{ci.claimId}</td>
+                                </tr>
+                            </template>
+                        </tbody>
+                    </table>
+                </div>
+            </template>
+
+            <template if:false={hasClaimItems}>
+                <div class="dd-empty">
+                    <span class="dd-empty-icon">🔩</span>
+                    <p>No claim items found.</p>
+                </div>
+            </template>
+        </section>
+
+        <!-- ── VEHICLES ───────────────────────────────────────────────────── -->
+        <section class="dd-section dd-section-last">
+            <div class="dd-section-header">
+                <div>
+                    <span class="dd-section-eyebrow">Fleet Management</span>
+                    <h2 class="dd-section-title">Vehicles</h2>
+                </div>
+                <span class="dd-record-count">{data.totalVehicles} vehicles</span>
+            </div>
+
+            <template if:true={hasVehicles}>
+                <div class="dd-table-wrap">
+                    <table class="dd-table">
+                        <thead>
+                            <tr>
+                                <th>Vehicle</th>
+                                <th>VIN</th>
+                                <th>Color</th>
+                                <th>Status</th>
+                                <th>Warranty</th>
+                                <th>Warranty End</th>
+                                <th>Last Service</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <template for:each={data.vehicles} for:item="v">
+                                <tr key={v.vehicleId}>
+                                    <td class="dd-bold">{v.name}</td>
+                                    <td class="dd-mono dd-vin">{v.vin}</td>
+                                    <td>{v.color}</td>
+                                    <td>{v.status}</td>
+                                    <td><span class={v.warrantyBadgeClass}>{v.warrantyStatus}</span></td>
+                                    <td class="dd-date">{v.warrantyEnd}</td>
+                                    <td class="dd-date">{v.lastServiceDate}</td>
+                                </tr>
+                            </template>
+                        </tbody>
+                    </table>
+                </div>
+            </template>
+
+            <template if:false={hasVehicles}>
+                <div class="dd-empty">
+                    <span class="dd-empty-icon">🚗</span>
+                    <p>No vehicles found for your dealership.</p>
+                </div>
+            </template>
+        </section>
+
+        <!-- ── FOOTER ─────────────────────────────────────────────────────── -->
+        <footer class="dd-footer">
+            <span>© 2025 Automotive Electra India Pvt. Ltd.</span>
+            <div class="dd-footer-badges">
+                <span class="dd-footer-badge">ISO 9001:2015</span>
+                <span class="dd-footer-badge">FAME-II</span>
+                <span class="dd-footer-badge">AIS-156</span>
+                <span class="dd-footer-badge">Powered by Agentforce</span>
+            </div>
+        </footer>
+
+    </template>
+</template>
